@@ -40,10 +40,10 @@
             android:layout_marginLeft="10dp"
             />
         <TextView
+            android:id="@+id/tv_birthday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="1995-01-21"
             android:layout_marginRight="10dp"
             />
     </RelativeLayout>
@@ -110,7 +110,7 @@
         android:text="即将过生日"
         android:layout_marginLeft="10dp"
         />
-<android.support.v7.widget.RecyclerView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+<!--<android.support.v7.widget.RecyclerView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>-->
 </LinearLayout>

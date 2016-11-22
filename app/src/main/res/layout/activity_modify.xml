@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RelativeLayout
+        android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
@@ -10,6 +11,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="请输入你的生日"
+            android:textSize="20dp"
+            android:layout_centerHorizontal="true"
             />
         <EditText
             android:layout_below="@id/tv_your_birth"
@@ -17,13 +20,31 @@
             android:layout_height="wrap_content"
             android:id="@+id/edt_show"
             android:cursorVisible="false"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
             />
-        <Button
-            android:layout_below="@id/edt_show"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="继续使用"/>
+            android:layout_below="@id/edt_show"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            >
+            <Button
+                android:id="@+id/btn_modify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="修改"
+                />
+            <Button
+                android:id="@+id/btn_choose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="确定"
+                />
+        </LinearLayout>
+
 
     </RelativeLayout>
 
-</LinearLayout>
+</RelativeLayout>

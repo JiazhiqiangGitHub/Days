@@ -66,7 +66,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 transaction.replace(R.id.lb_main, new SettingFragment());
                 break;
         }
-
+        transaction.commit();
 
     }
 }
