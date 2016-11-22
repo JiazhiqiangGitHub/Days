@@ -26,8 +26,10 @@
            android:button="@null"
            android:gravity="center"
            android:id="@+id/btn_main_write"
-           android:text=""
-           android:drawableTop=""
+           android:text="笔记"
+           android:textSize="12sp"
+           android:textColor="@drawable/writetext_selector"
+           android:drawableTop="@drawable/write_selector"
            />
        <RadioButton
            android:layout_width="0dp"
@@ -36,8 +38,10 @@
            android:button="@null"
            android:gravity="center"
            android:id="@+id/btn_main_note"
-           android:text=""
-           android:drawableTop=""
+           android:text="个人文件"
+           android:textSize="12sp"
+           android:textColor="@drawable/notetext_selector"
+           android:drawableTop="@drawable/note_selector"
            />
        <RadioButton
            android:layout_width="0dp"
@@ -46,8 +50,10 @@
            android:button="@null"
            android:gravity="center"
            android:id="@+id/btn_main_birth"
-           android:text=""
-           android:drawableTop=""
+           android:text="生日本"
+           android:textSize="12sp"
+           android:textColor="@drawable/birthtext_selector"
+           android:drawableTop="@drawable/birth_selector"
            />
        <RadioButton
            android:layout_width="0dp"
@@ -56,8 +62,10 @@
            android:button="@null"
            android:gravity="center"
            android:id="@+id/btn_main_setting"
-           android:text=""
-           android:drawableTop=""
+           android:text="设置"
+           android:textSize="12sp"
+           android:textColor="@drawable/settingtext_selector"
+           android:drawableTop="@drawable/setting_selector"
            />
    </RadioGroup>
 </LinearLayout>
