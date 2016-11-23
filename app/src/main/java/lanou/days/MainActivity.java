@@ -15,12 +15,13 @@ import android.widget.RadioButton;
 
 import lanou.days.base.BaseActivity;
 import lanou.days.birth.BirthFragment;
+import lanou.days.news.NewsFragment;
 import lanou.days.note.NoteFragment;
 import lanou.days.setting.SettingFragment;
 import lanou.days.write.WriteFragment;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
-    private RadioButton btnWrite,btnNote,btnBirth,btnSetting;
+    private RadioButton btnWrite,btnNote,btnBirth,btnSetting,btnNews;
     private FragmentManager manager;
     private FragmentTransaction transaction;
     @Override
@@ -35,6 +36,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         btnNote = bindView(R.id.btn_main_note);
         btnBirth = bindView(R.id.btn_main_birth);
         btnSetting = bindView(R.id.btn_main_setting);
+        btnNews = bindView(R.id.btn_main_news);
     }
 
     @Override
@@ -52,7 +54,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         btnNote.setOnClickListener(this);
         btnBirth.setOnClickListener(this);
         btnSetting.setOnClickListener(this);
-
+        btnNews.setOnClickListener(this);
 
 
     }
@@ -84,6 +86,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             case R.id.btn_main_birth:
                 transaction.replace(R.id.lb_main, new BirthFragment());
                 break;
+            case R.id.btn_main_news:
+                transaction.replace(R.id.lb_main, new NewsFragment());
+                break;
             case R.id.btn_main_setting:
                 transaction.replace(R.id.lb_main, new SettingFragment());
                 break;
@@ -95,7 +100,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     //侧滑中item的点击
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.nav_mine){
 
+        }else if(id == R.id.nav_night){
+
+        }
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.dl);
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

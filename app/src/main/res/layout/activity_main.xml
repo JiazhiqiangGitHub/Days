@@ -61,11 +61,24 @@
            android:layout_weight="1"
            android:button="@null"
            android:gravity="center"
+           android:id="@+id/btn_main_news"
+           android:text="每日快讯"
+           android:textSize="12sp"
+           android:textColor="@drawable/newstext_selector"
+           android:drawableTop="@drawable/news_selector"
+           />
+       <RadioButton
+           android:layout_width="0dp"
+           android:layout_height="match_parent"
+           android:layout_weight="1"
+           android:button="@null"
+           android:gravity="center"
            android:id="@+id/btn_main_setting"
            android:text="设置"
            android:textSize="12sp"
            android:textColor="@drawable/settingtext_selector"
            android:drawableTop="@drawable/setting_selector"
            />
+
    </RadioGroup>
 </LinearLayout>
