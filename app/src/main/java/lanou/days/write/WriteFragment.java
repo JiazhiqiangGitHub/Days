@@ -1,5 +1,6 @@
 package lanou.days.write;
 
+import lanou.days.R;
 import lanou.days.base.BaseFragment;
 
 /**
@@ -18,6 +19,6 @@ public class WriteFragment extends BaseFragment {
 
     @Override
     protected int getLayout() {
-        return 0;
+        return R.layout.fragment_write;
     }
 }
