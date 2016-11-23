@@ -1,12 +1,22 @@
 package lanou.days.birth;
 
+
 import android.content.Intent;
+
 
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import lanou.days.R;
 import lanou.days.base.BaseFragment;
@@ -15,20 +25,28 @@ import lanou.days.base.BaseFragment;
  * Created by machuang on 16/11/22.
  */
 public class BirthFragment extends BaseFragment implements View.OnClickListener {
-
-    private Button birthModify;
-    private TextView birthdayTv;
     public static int REQUEST = 1;
+    private ImageView birthModify;
+    private TextView birthdayTv;
+    private TextView birthdayTime;
+    long days = 0;
+    private TextView haveBornTv;
+    private RelativeLayout rlFriends;
 
     @Override
     protected void initDate() {
-        setItemOnClick(this,birthModify);
+        setItemOnClick(this,birthModify,rlFriends);
+
     }
 
     @Override
     protected void initView() {
-        birthModify = bindView(R.id.btn_birth_modify);
+        birthModify = bindView(R.id.iv_birth_modify);
         birthdayTv = bindView(R.id.tv_birthday);
+        birthdayTime = bindView(R.id.tv_birthday_time);
+        haveBornTv = bindView(R.id.tv_days);
+        rlFriends = bindView(R.id.rl_friends);
+
     }
 
     @Override
@@ -39,9 +57,13 @@ public class BirthFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.btn_birth_modify:
+            case R.id.iv_birth_modify:
                 Intent intent = new Intent(getContext(),ModifyBirthDayActivity.class);
                 startActivityForResult(intent,REQUEST);
+                break;
+            case R.id.rl_friends:
+                Intent intent1 = new Intent(getContext(),FriendsActivity.class);
+                startActivityForResult(intent1,REQUEST);
                 break;
         }
     }
@@ -52,6 +74,56 @@ public class BirthFragment extends BaseFragment implements View.OnClickListener 
         if (requestCode == REQUEST && ModifyBirthDayActivity.RESULT == resultCode) {
             Log.d("BirthFragment", data.getStringExtra("birthday"));
             birthdayTv.setText(data.getStringExtra("birthday"));
+            getBirthday();
+            birthdayTime.setText((int) days + "天");
+            getHaveBorn();
         }
     }
+
+
+
+        public void getBirthday(){
+            String birthday =  birthdayTv.getText().toString();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar calendar = Calendar.getInstance();
+            int yearNow = calendar.get(Calendar.YEAR);//获取当前年份
+            try {
+                calendar.setTime(format.parse(birthday));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        int birthyear = calendar.get(Calendar.YEAR);
+        while (birthyear<yearNow){
+            calendar.set(Calendar.YEAR,calendar.get(Calendar.YEAR)+1);
+            birthyear = calendar.get(Calendar.YEAR);
+        }
+        Date ed = new Date();
+        Date sd = calendar.getTime();
+
+        if ((ed.getTime() - sd.getTime())/(3600*24*1000)<0){
+            days = -((ed.getTime()- sd.getTime())/(3600*24*1000))+1;
+            Log.d("BirthFragment", "days:" + days);
+            Log.d("BirthFragment", "ed.getTime():" + ed.getTime());
+        }else{
+            calendar.set(Calendar.YEAR,calendar.get(Calendar.YEAR) + 1 );
+            sd = calendar.getTime();
+            days = -((ed.getTime() - sd.getTime())/(3600*24*1000))+1;
+            Log.d("BirthFragment", "days:" + days);
+        }
+
+    }
+    public void getHaveBorn(){
+      SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date dateBorn = format.parse(birthdayTv.getText().toString());
+            Date dateNow = new Date(System.currentTimeMillis());
+//            long days = (int) (dateNow.getTime() - dateBorn.getTime());
+            int haveBorn = (int) ((dateNow.getTime()-dateBorn.getTime())/(1000*3600*24));
+            Log.d("BirthFragment", "haveBorn:" + haveBorn);
+            haveBornTv.setText(haveBorn +"");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

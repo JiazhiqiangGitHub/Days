@@ -65,7 +65,7 @@ public class ModifyBirthDayActivity extends BaseActivity implements View.OnClick
                 new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        show.setText(year + "年" +(monthOfYear + 1)+ "月" + dayOfMonth + "日");
+                        show.setText(year + "-" +(monthOfYear + 1)+ "-" + dayOfMonth );
 
                     }
                 }, year, month, day).show();
