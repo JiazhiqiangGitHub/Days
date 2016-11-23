@@ -1,5 +1,6 @@
 package lanou.days;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +16,7 @@ import android.widget.RadioButton;
 
 import lanou.days.base.BaseActivity;
 import lanou.days.birth.BirthFragment;
+import lanou.days.enter.LoginActivity;
 import lanou.days.news.NewsFragment;
 import lanou.days.note.NoteFragment;
 import lanou.days.setting.SettingFragment;
@@ -94,6 +96,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 transaction.replace(R.id.lb_main, new SettingFragment());
                 break;
         }
+        transaction.commit();
 
 
     }
@@ -103,7 +106,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.nav_mine){
-
+            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+            startActivity(intent);
         }else if(id == R.id.nav_night){
 
         }
