@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/dl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+  <!--拉开抽屉openDrawer-->
+  <!--侧滑菜单DrawerLayout-->
+
+
+  <!--嵌套的是带头标的布局-->
+  <include
+      layout="@layout/activity_drawer_two"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      />
+<!--NavigationView创建抽屉-->
+  <android.support.design.widget.NavigationView
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:id="@+id/main_nv"
+      android:layout_gravity="start"
+      android:fitsSystemWindows="true"
+      app:headerLayout = "@layout/main_left_head"
+      app:menu="@menu/main_left_body">
+
+  </android.support.design.widget.NavigationView>
+
+
+
+
+</android.support.v4.widget.DrawerLayout>

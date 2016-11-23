@@ -1,15 +1,14 @@
-package lanou.days.write;
+package lanou.days.news;
 
-import lanou.days.R;
 import lanou.days.base.BaseFragment;
 
 /**
- * Created by dllo on 16/11/22.
+ * Created by dllo on 16/11/23.
  */
-public class WriteFragment extends BaseFragment{
+public class NewsFragment extends BaseFragment {
     @Override
     protected void initDate() {
-
+        
     }
 
     @Override
@@ -19,6 +18,6 @@ public class WriteFragment extends BaseFragment{
 
     @Override
     protected int getLayout() {
-        return R.layout.fragment_write;
+        return 0;
     }
 }
