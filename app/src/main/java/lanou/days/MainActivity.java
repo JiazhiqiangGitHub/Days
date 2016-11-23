@@ -58,6 +58,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
 
     }
+
     //创建侧滑
     private void initDrawerLayout() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
