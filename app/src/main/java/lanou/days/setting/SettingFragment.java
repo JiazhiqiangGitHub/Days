@@ -1,5 +1,6 @@
 package lanou.days.setting;
 
+import lanou.days.R;
 import lanou.days.base.BaseFragment;
 
 /**
@@ -18,6 +19,10 @@ public class SettingFragment extends BaseFragment{
 
     @Override
     protected int getLayout() {
-        return 0;
+
+      return R.layout.fragment_setting;
+
+//        return R.layout.mine_fragment;
+
     }
 }

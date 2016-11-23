@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorTextUnChecked">#2C2C2C</color>
     <color name="colorTextChecked">#1296DB</color>
+    <color name="colorOpeningBG">#65CEFE</color>
+    <color name="colorOpeningTV">#FFFFFF</color>
 </resources>
