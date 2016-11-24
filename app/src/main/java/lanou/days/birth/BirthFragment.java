@@ -63,7 +63,7 @@ public class BirthFragment extends BaseFragment implements View.OnClickListener 
                 break;
             case R.id.rl_friends:
                 Intent intent1 = new Intent(getContext(),FriendsActivity.class);
-                startActivityForResult(intent1,REQUEST);
+                startActivity(intent1);
                 break;
         }
     }
@@ -102,13 +102,12 @@ public class BirthFragment extends BaseFragment implements View.OnClickListener 
 
         if ((ed.getTime() - sd.getTime())/(3600*24*1000)<0){
             days = -((ed.getTime()- sd.getTime())/(3600*24*1000))+1;
-            Log.d("BirthFragment", "days:" + days);
-            Log.d("BirthFragment", "ed.getTime():" + ed.getTime());
+
         }else{
             calendar.set(Calendar.YEAR,calendar.get(Calendar.YEAR) + 1 );
             sd = calendar.getTime();
             days = -((ed.getTime() - sd.getTime())/(3600*24*1000))+1;
-            Log.d("BirthFragment", "days:" + days);
+
         }
 
     }
