@@ -84,10 +84,10 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
             // 允许用户使用应用
             // 继续上传
             WriteBean writeBean = new WriteBean();
-            String str = title.getText().toString();
-            writeBean.setTitle(str);
-            String str1 = content.getText().toString();
-            writeBean.setContent(str1);
+            String titleStr = title.getText().toString();
+            writeBean.setTitle(titleStr);
+            String contentStr = content.getText().toString();
+            writeBean.setContent(contentStr);
             writeBean.setAuthor(bmobUser);
             writeBean.save(new SaveListener<String>() {
                 @Override
@@ -109,11 +109,12 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
+     
         SharedPreferences sp = getActivity().getSharedPreferences("write", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putString("文章标题",title.getText().toString());
         editor.putString("文章内容",content.getText().toString());
         editor.apply();
+           super.onDestroyView();
     }
 }
