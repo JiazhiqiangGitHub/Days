@@ -9,9 +9,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
@@ -115,7 +112,6 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     public void onDestroyView() {
-     
         SharedPreferences sp = getActivity().getSharedPreferences("write", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putString("文章标题",title.getText().toString());

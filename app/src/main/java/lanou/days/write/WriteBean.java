@@ -1,5 +1,7 @@
 package lanou.days.write;
 
+import java.util.Date;
+
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobUser;
 
@@ -14,10 +16,6 @@ public class WriteBean extends BmobObject{
      * 关联用
      */
     private BmobUser author;
-
-    public WriteBean(){
-        this.setTableName("Note_for_user");
-    }
 
     public String getTitle() {
         return title;
@@ -41,5 +39,6 @@ public class WriteBean extends BmobObject{
     public void setAuthor(BmobUser author) {
         this.author = author;
     }
+
 
 }
