@@ -5,6 +5,7 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import cn.bmob.v3.Bmob;
 import lanou.days.MainActivity;
 import lanou.days.R;
 import lanou.days.base.BaseActivity;
@@ -26,6 +27,8 @@ public class OpeningActivity extends BaseActivity implements View.OnClickListene
     protected void initViews() {
         ll = bindView(R.id.ll_opening);
         ll.setOnClickListener(this);
+        //初始化bomb
+        Bmob.initialize(this,"a4d0333e35368b5bdefc464a14d9ac90");
     }
 
     @Override
