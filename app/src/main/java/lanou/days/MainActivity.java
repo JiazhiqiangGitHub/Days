@@ -122,7 +122,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.nav_mine){
-            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+            Intent intent = new Intent(this,LoginActivity.class);
             startActivity(intent);
         }else if(id == R.id.nav_night){
 
