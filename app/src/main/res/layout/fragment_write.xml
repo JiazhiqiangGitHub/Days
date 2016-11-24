@@ -18,18 +18,40 @@
         android:singleLine="true"
         android:textSize="15dp"
         android:textCursorDrawable="@null"/>
-    <RelativeLayout
-        android:layout_marginTop="10dp"
+    <LinearLayout
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
         android:background="@color/colorOpeningBG">
         <TextView
-            android:text="下面是正文"
-            android:textColor="@color/colorOpeningTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"/>
-    </RelativeLayout>
+            android:text="请记得上传喵"
+            android:textSize="15sp"
+            android:textColor="@color/colorOpeningTV"
+            android:layout_gravity="center"/>
+        <LinearLayout
+            android:id="@+id/ll_write_updata"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            android:layout_marginLeft="210dp">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/updata"
+                android:layout_gravity="center"/>
+            <TextView
+                android:text="上传"
+                android:textSize="15sp"
+                android:textColor="@color/colorOpeningTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+    </LinearLayout>
     <EditText
         android:id="@+id/et_write_content"
         android:layout_marginTop="10dp"
@@ -37,5 +59,6 @@
         android:layout_height="wrap_content"
         android:background="@null"
         android:textCursorDrawable="@null"/>
+
 </LinearLayout>
 </ScrollView>

@@ -34,8 +34,8 @@ public class BirthFragment extends BaseFragment implements View.OnClickListener 
     private RelativeLayout rlFriends;
 
     @Override
-    protected void initDate() {
-        setItemOnClick(this,birthModify,rlFriends);
+    protected void initData() {
+        setItemOnClick(this, birthModify, rlFriends);
 
     }
 

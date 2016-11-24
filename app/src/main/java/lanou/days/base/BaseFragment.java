@@ -40,7 +40,7 @@ public abstract class BaseFragment extends Fragment{
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initDate();
+        initData();
     }
     protected <T extends View> T bindView(int id){
         return (T) getView().findViewById(id);
@@ -49,7 +49,7 @@ public abstract class BaseFragment extends Fragment{
     protected <T extends View> T bindView(View view,int id){
         return (T) view.findViewById(id);
     }
-    protected abstract void initDate();
+    protected abstract void initData();
 
     protected abstract void initView();
 

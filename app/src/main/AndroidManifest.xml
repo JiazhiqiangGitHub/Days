@@ -27,12 +27,18 @@
             </intent-filter>
         </activity>
 
+
         <activity android:name=".birth.ModifyBirthDayActivity" />
         <activity android:name=".birth.FriendsActivity" />
         <activity android:name=".MainActivity" />
         <activity
             android:name=".birth.AddFriendsActivity"
             android:theme="@style/JK.SwipeBack.Transparent.Theme" />
+
+
+        <activity android:name=".enter.LoginActivity"/>
+        <activity android:name=".enter.NewLoginActivity"/>
+
     </application>
 
 </manifest>

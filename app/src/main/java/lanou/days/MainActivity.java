@@ -1,5 +1,6 @@
 package lanou.days;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -8,13 +9,18 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.RadioButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import cn.bmob.v3.BmobUser;
 import lanou.days.base.BaseActivity;
 import lanou.days.birth.BirthFragment;
+import lanou.days.enter.LoginActivity;
 import lanou.days.news.NewsFragment;
 import lanou.days.note.NoteFragment;
 import lanou.days.setting.SettingFragment;
@@ -24,6 +30,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private RadioButton btnWrite,btnNote,btnBirth,btnSetting,btnNews;
     private FragmentManager manager;
     private FragmentTransaction transaction;
+    private TextView tvName;
     @Override
     protected int getLayout() {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -37,6 +44,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         btnBirth = bindView(R.id.btn_main_birth);
         btnSetting = bindView(R.id.btn_main_setting);
         btnNews = bindView(R.id.btn_main_news);
+        
+        NavigationView v = bindView(R.id.main_nv);
+        View headerView = v.getHeaderView(0);
+        tvName = bindView(headerView,R.id.tv_main_user_name);
     }
 
     @Override
@@ -56,8 +67,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         btnSetting.setOnClickListener(this);
         btnNews.setOnClickListener(this);
 
-
+        BmobUser bmobUser = BmobUser.getCurrentUser();
+        Log.d("aaMainActivity", "bmobUser:" + bmobUser);
+        Log.d("aaMainActivity", "tvName:" + tvName);
+            if (bmobUser != null) {
+                //// TODO: 16/11/24
+                Log.d("Sysout", bmobUser.getUsername());
+                tvName.setText(bmobUser.getUsername());
+            }
     }
+
     //创建侧滑
     private void initDrawerLayout() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -103,9 +122,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.nav_mine){
-
+            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+            startActivity(intent);
         }else if(id == R.id.nav_night){
 
+        }else if(id == R.id.nav_close){
+           BmobUser.logOut();
+            Toast.makeText(this, "已退出", Toast.LENGTH_SHORT).show();
         }
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.dl);
         drawerLayout.closeDrawer(GravityCompat.START);
