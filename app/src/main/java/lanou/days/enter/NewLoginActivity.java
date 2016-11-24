@@ -43,10 +43,10 @@ public class NewLoginActivity extends BaseActivity implements View.OnClickListen
     protected void initData() {
         btnBack.setOnClickListener(this);
         btnOk.setOnClickListener(this);
-        EditTextChangeColor();
+        editTextChangeColor();
     }
 
-    private void EditTextChangeColor() {
+    private void editTextChangeColor() {
         etNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -84,30 +84,34 @@ public class NewLoginActivity extends BaseActivity implements View.OnClickListen
                 finish();
                 break;
             case R.id.btn_enter_new_login:
-               tel = etNumber.getText().toString();
-                world = etPassword.getText().toString();
-                Log.d("aaaaaNewLoginActivity", tel);
-                Log.d("aaaaaNewLoginActivity", world);
-                if ((!tel.isEmpty())&&(!world.isEmpty())){
-                    Log.d("aaaaaNewLoginActivity", "Fdsfdsfdsf");
-                    BmobUser bmobUser = new BmobUser();
-                    bmobUser.setUsername(tel);
-                    bmobUser.setPassword(world);
-                    bmobUser.signUp(new SaveListener<BmobUser>() {
-                        @Override
-                        public void done(BmobUser bmobUser, BmobException e) {
-                            if (e == null) {
-                                Toast.makeText(NewLoginActivity.this, "注册成功喵", Toast.LENGTH_SHORT).show();
-                                finish();
-                            }else{
-                                Toast.makeText(NewLoginActivity.this, "主人,用户名貌似被占用了喵", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                }else{
-                    Toast.makeText(this, "主人,请补全密码喵", Toast.LENGTH_SHORT).show();
-                }
+                Login();
                 break;
+        }
+    }
+
+    private void Login() {
+        tel = etNumber.getText().toString();
+        world = etPassword.getText().toString();
+        Log.d("aaaaaNewLoginActivity", tel);
+        Log.d("aaaaaNewLoginActivity", world);
+        if ((!tel.isEmpty())&&(!world.isEmpty())){
+            Log.d("aaaaaNewLoginActivity", "Fdsfdsfdsf");
+            BmobUser bmobUser = new BmobUser();
+            bmobUser.setUsername(tel);
+            bmobUser.setPassword(world);
+            bmobUser.signUp(new SaveListener<BmobUser>() {
+                @Override
+                public void done(BmobUser bmobUser, BmobException e) {
+                    if (e == null) {
+                        Toast.makeText(NewLoginActivity.this, "注册成功喵", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }else{
+                        Toast.makeText(NewLoginActivity.this, "主人,用户名貌似被占用了喵", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }else{
+            Toast.makeText(this, "主人,请补全密码喵", Toast.LENGTH_SHORT).show();
         }
     }
 }

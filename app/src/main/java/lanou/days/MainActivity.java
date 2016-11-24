@@ -29,7 +29,7 @@ import lanou.days.write.WriteFragment;
 public class MainActivity extends BaseActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
     private RadioButton btnWrite,btnNote,btnBirth,btnSetting,btnNews;
     private FragmentManager manager;
-    private FragmentTransaction transaction;
+
     private TextView tvName;
     @Override
     protected int getLayout() {
@@ -48,6 +48,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         NavigationView v = bindView(R.id.main_nv);
         View headerView = v.getHeaderView(0);
         tvName = bindView(headerView,R.id.tv_main_user_name);
+
     }
 
     @Override
@@ -57,7 +58,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         btnWrite.setChecked(true);
         manager = getSupportFragmentManager();
-        transaction = manager.beginTransaction();
+        FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.lb_main, new WriteFragment());
         transaction.commit();
 
@@ -71,7 +72,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         Log.d("aaMainActivity", "bmobUser:" + bmobUser);
         Log.d("aaMainActivity", "tvName:" + tvName);
             if (bmobUser != null) {
-                //// TODO: 16/11/24
                 Log.d("Sysout", bmobUser.getUsername());
                 tvName.setText(bmobUser.getUsername());
             }
@@ -93,8 +93,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void onClick(View view) {
-        manager = getSupportFragmentManager();
-        transaction = manager.beginTransaction();
+
+        FragmentTransaction transaction = manager.beginTransaction();
         switch (view.getId()){
             case R.id.btn_main_write:
                 transaction.replace(R.id.lb_main, new WriteFragment());
