@@ -18,8 +18,7 @@ public class NewsFragment extends BaseFragment {
     private ViewPager vp;
     private ArrayList<Fragment> fragment;
     @Override
-    protected void initDate() {
-
+    protected void initData() {
         adapter = new TabAdapter(getChildFragmentManager());
         fragment = new ArrayList<>();
         fragment.add(new ReadFragment());
