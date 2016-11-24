@@ -26,6 +26,7 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
     private LinearLayout updata;
     @Override
     protected void initData() {
+        //TODO 封装
         SharedPreferences getSp = getActivity().getSharedPreferences("write",Context.MODE_PRIVATE);
         title.setText(getSp.getString("文章标题",""));
         content.setText(getSp.getString("文章内容",""));
@@ -49,32 +50,37 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.ll_write_updata:
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
-                        .setTitle("确定发送喵?")
-                        .setIcon(R.mipmap.days_icon)
-                        .setMessage("您已经确定写完了喵?\n上传后可就会清空了喵");
-                        builder.setPositiveButton("上传", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                if (title.getText().toString().equals("")){
-                                    Toast.makeText(getContext(), "至少得写一个标题喵", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    upData();
-                                }
-                            }
-                        });
-                        builder.setNegativeButton("先等等", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                               // 什么也不做,\(^o^)/~
-                            }
-                        });
-                        builder.show();
+                writeDialog();
                 break;
             default:
                 break;
         }
     }
+
+    private void writeDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
+                .setTitle("确定发送喵?")
+                .setIcon(R.mipmap.days_icon)
+                .setMessage("您已经确定写完了喵?\n上传后可就会清空了喵");
+        builder.setPositiveButton("上传", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (title.getText().toString().equals("")){
+                    Toast.makeText(getContext(), "至少得写一个标题喵", Toast.LENGTH_SHORT).show();
+                } else {
+                    upData();
+                }
+            }
+        });
+        builder.setNegativeButton("先等等", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+               // 什么也不做,\(^o^)/~
+            }
+        });
+        builder.show();
+    }
+
     /**
      * 用于上传的方法,先判断用户是否登录
      */
