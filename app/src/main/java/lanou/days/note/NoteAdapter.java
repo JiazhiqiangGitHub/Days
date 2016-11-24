@@ -46,7 +46,5 @@ public class NoteAdapter extends BaseAdapter {
                 .setText(R.id.tv_note_item_content,"这是正文,我很严肃的说这是正文,到时候肯定会很长");
         return viewHolder.getItemView();
 
-
-
     }
 }
