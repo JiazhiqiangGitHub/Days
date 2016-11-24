@@ -95,7 +95,10 @@ public class CommonViewHolder extends RecyclerView.ViewHolder{
         itemView.setOnClickListener(listener);
         return this;
     }
-
+    public CommonViewHolder setViewClick(int id, View.OnClickListener listener){
+        getView(id).setOnClickListener(listener);
+        return this;
+    }
 
 
 }

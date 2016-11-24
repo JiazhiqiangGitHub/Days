@@ -22,16 +22,23 @@ public class AddFriendsActivity extends BaseSwipeActivity implements View.OnClic
     private int month;
     private int day;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_friends);
-        contactBirthday = (TextView) findViewById(R.id.tv_contact_birthday);
+    protected int getLayout() {
+        return R.layout.activity_add_friends;
+    }
+
+    @Override
+    protected void initViews() {
+        contactBirthday = bindView(R.id.tv_contact_birthday);
+    }
+
+    @Override
+    protected void initData() {
         Calendar calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
         contactBirthday.setText(year + "-" + month + "-" + day);
-        contactBirthday.setOnClickListener(this);
+        setClick(this,contactBirthday);
     }
 
     @Override

@@ -9,13 +9,10 @@ import android.view.ViewGroup;
 import java.lang.reflect.Field;
 
 import lanou.days.R;
-
-/**
- * Created by hailonghan on 15/6/9.
- */
-public abstract class BaseSwipeActivity extends AppCompatActivity implements SlidingPaneLayout.PanelSlideListener {
+import lanou.days.base.BaseActivity;
 
 
+public abstract class BaseSwipeActivity extends BaseActivity implements SlidingPaneLayout.PanelSlideListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +20,6 @@ public abstract class BaseSwipeActivity extends AppCompatActivity implements Sli
         super.onCreate(savedInstanceState);
 
     }
-
     /**
      * 初始化滑动返回
      */
@@ -34,9 +30,9 @@ public abstract class BaseSwipeActivity extends AppCompatActivity implements Sli
             //是32dp，现在给它改成0
             try {
                 //属性
-                Field f_overHang = SlidingPaneLayout.class.getDeclaredField("mOverhangSize");
-                f_overHang.setAccessible(true);
-                f_overHang.set(slidingPaneLayout, 0);
+                Field field = SlidingPaneLayout.class.getDeclaredField("mOverhangSize");
+                field.setAccessible(true);
+                field.set(slidingPaneLayout, 0);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -85,4 +81,6 @@ public abstract class BaseSwipeActivity extends AppCompatActivity implements Sli
     @Override
     public void onPanelSlide(View view, float v) {
     }
+
+
 }
