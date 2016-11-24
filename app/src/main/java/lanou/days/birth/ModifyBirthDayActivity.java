@@ -25,7 +25,7 @@ public class ModifyBirthDayActivity extends BaseActivity implements View.OnClick
     private int month;
     private int day;
     private EditText show;
-    public static int RESULT = 0;
+    public static final int RESULT = 0;
     @Override
     protected void initData() {
        setClick(this,modifyBtn);

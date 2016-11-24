@@ -29,7 +29,7 @@ public class BirthFragment extends BaseFragment implements View.OnClickListener 
     private ImageView birthModify;
     private TextView birthdayTv;
     private TextView birthdayTime;
-    long days = 0;
+    private long days = 0;
     private TextView haveBornTv;
     private RelativeLayout rlFriends;
 
