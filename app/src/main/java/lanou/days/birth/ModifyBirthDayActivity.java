@@ -28,8 +28,8 @@ public class ModifyBirthDayActivity extends BaseActivity implements View.OnClick
     public static int RESULT = 0;
     @Override
     protected void initData() {
-       setClick(this,modifyBtn);
-        setClick(this,chooseBtn);
+       setClick(this,modifyBtn,chooseBtn);
+//        setClick(this,chooseBtn);
     }
 
     @Override

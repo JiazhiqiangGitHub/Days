@@ -15,7 +15,7 @@ import lanou.days.R;
  */
 public abstract class BaseSwipeActivity extends AppCompatActivity implements SlidingPaneLayout.PanelSlideListener {
 
-    public final static String TAG = BaseSwipeActivity.class.getCanonicalName();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
