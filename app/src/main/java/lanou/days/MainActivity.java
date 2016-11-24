@@ -10,7 +10,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -45,8 +44,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         btnBirth = bindView(R.id.btn_main_birth);
         btnSetting = bindView(R.id.btn_main_setting);
         btnNews = bindView(R.id.btn_main_news);
-        View v = LayoutInflater.from(this).inflate(R.layout.main_left_head,null);
-        tvName = bindView(v,R.id.tv_main_user_name);
+        
+        NavigationView v = bindView(R.id.main_nv);
+        View headerView = v.getHeaderView(0);
+        tvName = bindView(headerView,R.id.tv_main_user_name);
     }
 
     @Override
@@ -70,7 +71,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         Log.d("aaMainActivity", "bmobUser:" + bmobUser);
         Log.d("aaMainActivity", "tvName:" + tvName);
             if (bmobUser != null) {
-                //// TODO: 16/11/24  
+                //// TODO: 16/11/24
+                Log.d("Sysout", bmobUser.getUsername());
                 tvName.setText(bmobUser.getUsername());
             }
     }
