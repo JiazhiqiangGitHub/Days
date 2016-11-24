@@ -28,17 +28,13 @@ import lanou.days.write.WriteBean;
  */
 public class NoteFragment extends BaseFragment  {
     private PullToRefreshListView lv;
-    private ArrayList<NoteBean> mArrayList;
-    private NoteBean mBean;
     private NoteAdapter mAdapter;
 
     @Override
     protected void initData() {
-        mArrayList = new ArrayList<>();
-        mBean = new NoteBean();
         mAdapter = new NoteAdapter();
         getBeanData(); // 去拿对应账号的内容
-
+        lv.setAdapter(mAdapter);
         lv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> pullToRefreshBase) {
@@ -79,7 +75,6 @@ public class NoteFragment extends BaseFragment  {
                 if (e == null){
                     //成功
                         mAdapter.setList(object);
-                        lv.setAdapter(mAdapter);
                 } else {
                     // 失败
                     Log.d("NoteFragment", e.getMessage());
