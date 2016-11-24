@@ -7,7 +7,7 @@ import lanou.days.base.BaseFragment;
  */
 public class ReadFragment extends BaseFragment{
     @Override
-    protected void initDate() {
+    protected void initData() {
 
     }
 
