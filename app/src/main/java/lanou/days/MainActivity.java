@@ -9,11 +9,16 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.RadioButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import cn.bmob.v3.BmobUser;
 import lanou.days.base.BaseActivity;
 import lanou.days.birth.BirthFragment;
 import lanou.days.enter.LoginActivity;
@@ -26,6 +31,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private RadioButton btnWrite,btnNote,btnBirth,btnSetting,btnNews;
     private FragmentManager manager;
     private FragmentTransaction transaction;
+    private TextView tvName;
     @Override
     protected int getLayout() {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -39,6 +45,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         btnBirth = bindView(R.id.btn_main_birth);
         btnSetting = bindView(R.id.btn_main_setting);
         btnNews = bindView(R.id.btn_main_news);
+        View v = LayoutInflater.from(this).inflate(R.layout.main_left_head,null);
+        tvName = bindView(v,R.id.tv_main_user_name);
     }
 
     @Override
@@ -58,7 +66,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         btnSetting.setOnClickListener(this);
         btnNews.setOnClickListener(this);
 
-
+        BmobUser bmobUser = BmobUser.getCurrentUser();
+        Log.d("aaMainActivity", "bmobUser:" + bmobUser);
+        Log.d("aaMainActivity", "tvName:" + tvName);
+            if (bmobUser != null) {
+                //// TODO: 16/11/24  
+                tvName.setText(bmobUser.getUsername());
+            }
     }
 
     //创建侧滑
@@ -110,6 +124,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             startActivity(intent);
         }else if(id == R.id.nav_night){
 
+        }else if(id == R.id.nav_close){
+           BmobUser.logOut();
+            Toast.makeText(this, "已退出", Toast.LENGTH_SHORT).show();
         }
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.dl);
         drawerLayout.closeDrawer(GravityCompat.START);

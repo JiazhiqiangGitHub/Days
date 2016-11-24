@@ -100,12 +100,12 @@ public class NewLoginActivity extends BaseActivity implements View.OnClickListen
                                 Toast.makeText(NewLoginActivity.this, "注册成功喵", Toast.LENGTH_SHORT).show();
                                 finish();
                             }else{
-                                Toast.makeText(NewLoginActivity.this, "主人,用户名不符合要求喵", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(NewLoginActivity.this, "主人,用户名貌似被占用了喵", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
                 }else{
-                    Toast.makeText(this, "主人,请补全用户名或密码喵", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "主人,请补全密码喵", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }

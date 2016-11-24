@@ -27,7 +27,6 @@
       android:fitsSystemWindows="true"
       app:headerLayout = "@layout/main_left_head"
       app:menu="@menu/main_left_body">
-
   </android.support.design.widget.NavigationView>
 
 
