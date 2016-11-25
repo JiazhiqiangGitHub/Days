@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 /**
  * Created by dllo on 16/10/31.
  */
@@ -86,7 +88,7 @@ public class CommonViewHolder extends RecyclerView.ViewHolder{
 
     public CommonViewHolder setImage(int id,String url){
         ImageView imageView = getView(id);
-        //// TODO: 16/11/23 请求图片 
+        Picasso.with(context).load(url).into(imageView);
         return this;
     }
 

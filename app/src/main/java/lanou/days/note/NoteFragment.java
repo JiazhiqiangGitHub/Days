@@ -1,18 +1,12 @@
 package lanou.days.note;
 
 import android.util.Log;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
@@ -28,14 +22,10 @@ import lanou.days.write.WriteBean;
  */
 public class NoteFragment extends BaseFragment  {
     private PullToRefreshListView lv;
-    private ArrayList<NoteBean> mArrayList;
-    private NoteBean mBean;
     private NoteAdapter mAdapter;
 
     @Override
     protected void initData() {
-        mArrayList = new ArrayList<>();
-        mBean = new NoteBean();
         mAdapter = new NoteAdapter();
         getBeanData(); // 去拿对应账号的内容
 
