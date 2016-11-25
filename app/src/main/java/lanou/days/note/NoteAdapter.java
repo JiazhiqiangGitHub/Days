@@ -13,6 +13,7 @@ import lanou.days.base.CommonViewHolder;
 import lanou.days.write.WriteBean;
 
 /**
+ * 笔记Fragment的Adapter
  * Created by dllo on 16/11/23.
  */
 

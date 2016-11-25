@@ -16,6 +16,7 @@ import lanou.days.R;
 import lanou.days.base.BaseFragment;
 
 /**
+ *  写笔记的Fragment
  * Created by dllo on 16/11/22.
  */
 public class WriteFragment extends BaseFragment implements View.OnClickListener {

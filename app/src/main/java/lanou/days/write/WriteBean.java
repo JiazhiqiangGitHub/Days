@@ -6,6 +6,7 @@ import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobUser;
 
 /**
+ * 应用到的Bean,存放笔记和相关数据
  * Created by dllo on 16/11/24.
  */
 

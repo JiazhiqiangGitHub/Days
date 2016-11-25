@@ -24,7 +24,8 @@ import lanou.days.base.BaseFragment;
 import lanou.days.write.WriteBean;
 
 /**
- * Created by dllo on 16/11/22.
+ * 所有笔记的Fragment
+ * Created by 张家鑫 on 16/11/22.
  */
 public class NoteFragment extends BaseFragment  {
     private PullToRefreshListView lv;
@@ -34,7 +35,6 @@ public class NoteFragment extends BaseFragment  {
     protected void initData() {
         mAdapter = new NoteAdapter();
         getBeanData(); // 去拿对应账号的内容
-        lv.setAdapter(mAdapter);
         lv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> pullToRefreshBase) {
@@ -61,8 +61,6 @@ public class NoteFragment extends BaseFragment  {
         return R.layout.fragment_note;
     }
 
-
-
     private void getBeanData() {
         BmobUser user = BmobUser.getCurrentUser();
         BmobQuery<WriteBean> query = new BmobQuery<WriteBean>();
@@ -75,9 +73,11 @@ public class NoteFragment extends BaseFragment  {
                 if (e == null){
                     //成功
                         mAdapter.setList(object);
+                        lv.setAdapter(mAdapter);
                 } else {
                     // 失败
                     Log.d("NoteFragment", e.getMessage());
+                    Toast.makeText(getContext(), "失...失败了喵", Toast.LENGTH_SHORT).show();
                 }
             }
         });
