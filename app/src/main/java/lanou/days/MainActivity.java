@@ -97,19 +97,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         transaction = manager.beginTransaction();
         switch (view.getId()){
             case R.id.btn_main_write:
-                transaction.replace(R.id.lb_main, new WriteFragment());
+                    transaction.replace(R.id.lb_main, new WriteFragment());
                 break;
             case R.id.btn_main_note:
-                transaction.replace(R.id.lb_main, new NoteFragment());
+
+                    transaction.replace(R.id.lb_main, new NoteFragment());
+
                 break;
             case R.id.btn_main_birth:
-                transaction.replace(R.id.lb_main, new BirthFragment());
+
+                    transaction.replace(R.id.lb_main, new BirthFragment());
+
                 break;
             case R.id.btn_main_news:
-                transaction.replace(R.id.lb_main, new NewsFragment());
+
+                    transaction.replace(R.id.lb_main, new NewsFragment());
+
                 break;
             case R.id.btn_main_setting:
-                transaction.replace(R.id.lb_main, new SettingFragment());
+
+                    transaction.replace(R.id.lb_main, new SettingFragment());
+
                 break;
         }
         transaction.commit();
@@ -127,8 +135,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         }else if(id == R.id.nav_night){
 
         }else if(id == R.id.nav_close){
-           BmobUser.logOut();
-            Toast.makeText(this, "已退出", Toast.LENGTH_SHORT).show();
+            BmobUser user = BmobUser.getCurrentUser();
+            if (user != null) {
+                BmobUser.logOut();
+                Toast.makeText(this, "已退出", Toast.LENGTH_SHORT).show();
+
+            } else {
+                Toast.makeText(this, "你根本没有登录", Toast.LENGTH_SHORT).show();
+            }
         }
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.dl);
         drawerLayout.closeDrawer(GravityCompat.START);

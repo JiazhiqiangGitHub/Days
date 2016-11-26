@@ -7,4 +7,5 @@
     <color name="colorTextChecked">#1296DB</color>
     <color name="colorOpeningBG">#65CEFE</color>
     <color name="colorOpeningTV">#FFFFFF</color>
+    <color name="colorContentSaved">#737576</color>
 </resources>
