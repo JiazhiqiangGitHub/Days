@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -21,7 +22,9 @@ import java.util.ArrayList;
 
 import lanou.days.R;
 import lanou.days.base.BaseActivity;
+import lanou.days.birth.tool.DBTool;
 import lanou.days.birth.tool.OnRecyclerItemClickListener;
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 /**
  * Created by dllo on 16/11/23.
@@ -37,6 +40,13 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
     private ArrayList<String> arrayList;
     private PopAdapter adapter;
     private LinearLayoutManager manager;
+    private StickyListHeadersListView stickyListHeadersListView;
+    private MyconstellationAdapter conAdapter;
+    private ConstellationBean bean;
+    private ArrayList<ConstellationBean> constellationBeanArrayList;
+    private DBTool dbTool;
+    private String name = null;
+    private String constellation = null;
 
     @Override
     protected int getLayout() {
@@ -48,19 +58,34 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
         addIv = bindView(R.id.iv_add);
         back = bindView(R.id.tv_back);
         more = bindView(R.id.iv_more);
-        pop = LayoutInflater.from(this).inflate(R.layout.pop,null);
+        stickyListHeadersListView = bindView(R.id.slhl_list);
+        pop = LayoutInflater.from(this).inflate(R.layout.pop, null);
         moreRv = (RecyclerView) pop.findViewById(R.id.rv_more);
     }
 
     @Override
     protected void initData() {
-        setClick(this,addIv,back,more);
+        setClick(this, addIv, back, more);
         arrayList = new ArrayList<>();
         arrayList.add("生日倒数");
-        arrayList.add("出生天数");
         arrayList.add("月份");
-        arrayList.add("生肖");
+        arrayList.add("星座");
         manager = new LinearLayoutManager(this);
+        conAdapter = new MyconstellationAdapter(this);
+        bean = new ConstellationBean();
+        constellationBeanArrayList = new ArrayList<>();
+        name = getIntent().getStringExtra("name");
+        constellation = getIntent().getStringExtra("constellation");
+        int kind = getIntent().getIntExtra("kind", 0);
+        if (constellation != null) {
+            bean.setKind(kind);
+            bean.setName(name);
+            bean.setConstellation(constellation);
+            dbTool = new DBTool();
+            dbTool.insert(bean);
+        }
+
+//        dbTool.deleteAllData(ConstellationBean.class);
 
     }
 
@@ -71,21 +96,22 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.iv_add:
-                startActivity(new Intent(this,AddFriendsActivity.class));
+                startActivity(new Intent(this, AddFriendsActivity.class));
                 break;
             case R.id.tv_back:
                 onBackPressed();
                 break;
             case R.id.iv_more:
-                if (popupWindow == null||!popupWindow.isShowing()){
+                if (popupWindow == null || !popupWindow.isShowing()) {
                     initMorePop();
                 }
                 break;
         }
     }
-    public void initMorePop(){
+
+    public void initMorePop() {
         popupWindow = new PopupWindow(200, ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setContentView(pop);
         adapter = new PopAdapter();
@@ -99,8 +125,36 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
 
     @Override
     public void onItemClick(int position) {
-        if(popupWindow.isShowing()){
+        if (popupWindow.isShowing()) {
             popupWindow.dismiss();
+        }
+        switch (adapter.arrayList.get(position)) {
+            case "生日倒数":
+                break;
+            case "月份":
+                break;
+            case "星座":
+                dbTool.queryAllData(ConstellationBean.class, new DBTool.OnQueryListener<ConstellationBean>() {
+                    @Override
+                    public void onQuery(ArrayList<ConstellationBean> constellationBeen) {
+                        conAdapter.setArrayList(constellationBeen);
+                        stickyListHeadersListView.setAdapter(conAdapter);
+                    }
+                });
+                stickyListHeadersListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+                    @Override
+                    public void onScrollStateChanged(AbsListView absListView, int i) {
+                        stickyListHeadersListView.setSelection(i);
+                    }
+
+                    @Override
+                    public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+
+                    }
+                });
+                break;
+
+
         }
     }
 }
