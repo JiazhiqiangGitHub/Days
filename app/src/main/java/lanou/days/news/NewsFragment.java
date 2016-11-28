@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import lanou.days.R;
 import lanou.days.base.BaseFragment;
 import lanou.days.news.read.ReadFragment;
+import lanou.days.news.technology.TelchnologyFragment;
 
 /**
  * Created by dllo on 16/11/23.

@@ -41,5 +41,4 @@ public abstract class BaseActivity  extends AppCompatActivity{
             view.setOnClickListener(clickListener);
         }
     }
-
 }

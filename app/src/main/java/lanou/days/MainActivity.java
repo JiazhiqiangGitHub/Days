@@ -29,7 +29,6 @@ import lanou.days.write.WriteFragment;
 public class MainActivity extends BaseActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
     private RadioButton btnWrite,btnNote,btnBirth,btnSetting,btnNews;
     private FragmentManager manager;
-
     private TextView tvName;
     @Override
     protected int getLayout() {
@@ -124,8 +123,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         if (id == R.id.nav_mine){
             Intent intent = new Intent(this,LoginActivity.class);
             startActivity(intent);
-        }else if(id == R.id.nav_night){
-
         }else if(id == R.id.nav_close){
            BmobUser.logOut();
             Toast.makeText(this, "已退出", Toast.LENGTH_SHORT).show();
@@ -134,4 +131,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+
+
+
 }

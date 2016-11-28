@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class TabAdapter extends FragmentPagerAdapter{
     private ArrayList<Fragment> fragments;
-    private String[] string = {"爱读书","科技范"};
+    private String[] string = {"新闻","体育"};
 
     public void setFragments(ArrayList<Fragment> fragments) {
         this.fragments = fragments;
@@ -23,7 +23,7 @@ public class TabAdapter extends FragmentPagerAdapter{
 
     @Override
     public Fragment getItem(int position) {
-        return fragments.get(position);
+        return fragments.get(position );
     }
 
     @Override

@@ -17,7 +17,9 @@
         android:maxLength="60"
         android:singleLine="true"
         android:textSize="15dp"
-        android:textCursorDrawable="@null"/>
+        android:textCursorDrawable="@null"
+        android:padding="5dp"/>
+
     <LinearLayout
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
@@ -25,6 +27,7 @@
         android:orientation="horizontal"
         android:background="@color/colorOpeningBG">
         <TextView
+            android:layout_marginLeft="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="请记得上传喵"
@@ -32,11 +35,30 @@
             android:textColor="@color/colorOpeningTV"
             android:layout_gravity="center"/>
         <LinearLayout
+            android:id="@+id/ll_write_template"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            android:layout_marginStart="140dp">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/template"
+                android:layout_gravity="center"/>
+            <TextView
+                android:text="模板"
+                android:textSize="15sp"
+                android:textColor="@color/colorOpeningTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+        <LinearLayout
             android:id="@+id/ll_write_updata"
             android:layout_width="60dp"
             android:layout_height="50dp"
             android:orientation="vertical"
-            android:layout_marginLeft="210dp">
+            android:layout_marginLeft="10dp">
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -52,13 +74,16 @@
         </LinearLayout>
 
     </LinearLayout>
+
     <EditText
         android:id="@+id/et_write_content"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="350dp"
         android:background="@null"
-        android:textCursorDrawable="@null"/>
-
+        android:textCursorDrawable="@null"
+        android:padding="5dp"
+        android:gravity="start"
+        />
 </LinearLayout>
 </ScrollView>
