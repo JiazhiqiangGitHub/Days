@@ -83,8 +83,8 @@ public class MyconstellationAdapter extends BaseAdapter implements StickyListHea
 
     private class BodyViewHolder {
 
-        private final TextView userName;
-        private final TextView dateTv;
+        private  TextView userName;
+        private  TextView dateTv;
 
         public BodyViewHolder(View view) {
             userName = (TextView) view.findViewById(R.id.tv_user_name);
@@ -94,7 +94,7 @@ public class MyconstellationAdapter extends BaseAdapter implements StickyListHea
 
     private class HeadViewHolder {
 
-        private final TextView headTv;
+        private  TextView headTv;
 
 
         public HeadViewHolder(View convertView) {

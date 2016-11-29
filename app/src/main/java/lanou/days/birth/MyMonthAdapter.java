@@ -85,7 +85,7 @@ public class MyMonthAdapter extends BaseAdapter implements StickyListHeadersAdap
 
     private class HeadViewHolder {
 
-        private final TextView monHead;
+        private  TextView monHead;
 
         public HeadViewHolder(View convertView) {
             monHead = (TextView) convertView.findViewById(R.id.tv_month_head);
@@ -94,8 +94,8 @@ public class MyMonthAdapter extends BaseAdapter implements StickyListHeadersAdap
 
     private class BodyViewHolder {
 
-        private final TextView monName;
-        private final TextView monDate;
+        private  TextView monName;
+        private  TextView monDate;
 
         public BodyViewHolder(View view) {
             monName = (TextView) view.findViewById(R.id.tv_month_name);

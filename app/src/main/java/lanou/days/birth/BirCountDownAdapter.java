@@ -85,7 +85,7 @@ public class BirCountDownAdapter extends BaseAdapter implements StickyListHeader
 
     private class HeadViewHolder {
 
-        private final TextView birCountDown;
+        private  TextView birCountDown;
 
         public HeadViewHolder(View convertView) {
             birCountDown = (TextView) convertView.findViewById(R.id.tv_bir_head);
@@ -94,8 +94,8 @@ public class BirCountDownAdapter extends BaseAdapter implements StickyListHeader
 
     private class BodyViewHolder {
 
-        private final TextView name;
-        private final TextView date;
+        private  TextView name;
+        private  TextView date;
 
         public BodyViewHolder(View view) {
             name = (TextView) view.findViewById(R.id.tv_bir_name);
