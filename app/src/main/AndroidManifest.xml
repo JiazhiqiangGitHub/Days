@@ -30,7 +30,7 @@
 
 
         <activity android:name=".birth.ModifyBirthDayActivity" />
-        <activity android:name=".birth.FriendsActivity" />
+        <activity android:name=".birth.FriendsActivity" android:launchMode="singleTask"/>
         <activity android:name=".MainActivity" />
         <activity
             android:name=".birth.AddFriendsActivity"

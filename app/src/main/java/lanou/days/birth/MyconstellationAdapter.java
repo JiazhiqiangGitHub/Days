@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 import lanou.days.R;
@@ -18,14 +16,14 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
  * Created by dllo on 16/11/26.
  */
 public class MyconstellationAdapter extends BaseAdapter implements StickyListHeadersAdapter{
-    private ArrayList<ConstellationBean> arrayList;
+    private ArrayList<UserBean> arrayList;
     private Context context;
 
     public MyconstellationAdapter(Context context) {
         this.context = context;
     }
 
-    public void setArrayList(ArrayList<ConstellationBean> arrayList) {
+    public void setArrayList(ArrayList<UserBean> arrayList) {
         this.arrayList = arrayList;
         notifyDataSetChanged();
     }
@@ -60,9 +58,10 @@ public class MyconstellationAdapter extends BaseAdapter implements StickyListHea
         }else {
             viewHolder = (BodyViewHolder) view.getTag();
         }
-        ConstellationBean bean = this.arrayList.get(i);
+        UserBean bean = this.arrayList.get(i);
         if (bean != null){
             viewHolder.userName.setText(arrayList.get(i).getName());
+            viewHolder.dateTv.setText(arrayList.get(i).getDate());
         }
         return view;
     }
@@ -78,15 +77,18 @@ public class MyconstellationAdapter extends BaseAdapter implements StickyListHea
         }
         String headText = this.arrayList.get(position).getConstellation();
         headViewHolder.headTv.setText(headText);
+
         return convertView;
     }
 
     private class BodyViewHolder {
 
         private final TextView userName;
+        private final TextView dateTv;
 
         public BodyViewHolder(View view) {
             userName = (TextView) view.findViewById(R.id.tv_user_name);
+            dateTv = (TextView) view.findViewById(R.id.tv_date);
         }
     }
 
@@ -94,8 +96,10 @@ public class MyconstellationAdapter extends BaseAdapter implements StickyListHea
 
         private final TextView headTv;
 
+
         public HeadViewHolder(View convertView) {
             headTv = (TextView) convertView.findViewById(R.id.tv_head);
+
         }
     }
 }

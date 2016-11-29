@@ -1,8 +1,6 @@
 package lanou.days.birth;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,17 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import lanou.days.R;
-import lanou.days.base.BaseActivity;
 import lanou.days.birth.tool.DBTool;
 import lanou.days.birth.tool.OnRecyclerItemClickListener;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
@@ -42,11 +37,16 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
     private LinearLayoutManager manager;
     private StickyListHeadersListView stickyListHeadersListView;
     private MyconstellationAdapter conAdapter;
-    private ConstellationBean bean;
-    private ArrayList<ConstellationBean> constellationBeanArrayList;
+    private UserBean bean;
     private DBTool dbTool;
     private String name = null;
     private String constellation = null;
+    private int kind;
+    private String date;
+    private int monthKind;
+    private MyMonthAdapter monAdapter;
+    private int birKind;
+    private BirCountDownAdapter birAdapter;
 
     @Override
     protected int getLayout() {
@@ -72,21 +72,32 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
         arrayList.add("星座");
         manager = new LinearLayoutManager(this);
         conAdapter = new MyconstellationAdapter(this);
-        bean = new ConstellationBean();
-        constellationBeanArrayList = new ArrayList<>();
-        name = getIntent().getStringExtra("name");
-        constellation = getIntent().getStringExtra("constellation");
-        int kind = getIntent().getIntExtra("kind", 0);
-        if (constellation != null) {
-            bean.setKind(kind);
-            bean.setName(name);
-            bean.setConstellation(constellation);
-            dbTool = new DBTool();
-            dbTool.insert(bean);
-        }
+        monAdapter = new MyMonthAdapter(this);
+        birAdapter = new BirCountDownAdapter(this);
+        dbTool = new DBTool();
+//        dbTool.deleteAllData(UserBean.class);
 
-//        dbTool.deleteAllData(ConstellationBean.class);
+    }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        name = intent.getStringExtra("name");
+        constellation = intent.getStringExtra("constellation");
+        kind = intent.getIntExtra("kind", 0);
+        date = intent.getStringExtra("date");
+        monthKind = intent.getIntExtra("monthKind",0);
+        birKind = intent.getIntExtra("countDown",0);
+        bean = new UserBean();
+        bean.setKind(kind);
+        bean.setName(name);
+        bean.setDate(date);
+        bean.setBirKind(birKind);
+        bean.setConstellation(constellation);
+        bean.setDate(date);
+        bean.setMonKind(monthKind);
+        bean.setMonth(String.valueOf(monthKind));
+        dbTool.insert(bean);
     }
 
     @Override
@@ -124,19 +135,77 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(final int position) {
         if (popupWindow.isShowing()) {
             popupWindow.dismiss();
         }
         switch (adapter.arrayList.get(position)) {
             case "生日倒数":
+
+                dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
+                    @Override
+                    public void onQuery(ArrayList<UserBean> userBeen) {
+                        Collections.sort(userBeen, new Comparator<UserBean>() {
+                            @Override
+                            public int compare(UserBean userBean, UserBean t1) {
+                                return userBean.getBirKind() - t1.getBirKind();
+                            }
+                        });
+                        Log.d("FriendsActivity", "userBeen.get(position).getBirKind():" + userBeen.get(position).getBirKind());
+                        birAdapter.setArrayList(userBeen);
+                        stickyListHeadersListView.setAdapter(birAdapter);
+                    }
+                });
+                stickyListHeadersListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+                    @Override
+                    public void onScrollStateChanged(AbsListView absListView, int i) {
+                        birAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+
+                    }
+                });
                 break;
             case "月份":
+                dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
+                    @Override
+                    public void onQuery(ArrayList<UserBean> userBeen) {
+                        Collections.sort(userBeen, new Comparator<UserBean>() {
+                            @Override
+                            public int compare(UserBean userBean, UserBean t1) {
+                                return userBean.getMonKind() - t1.getMonKind();
+                            }
+                        });
+                        Log.d("FriendsActivity", "userBeen:" + userBeen);
+                        monAdapter.setArrayList(userBeen);
+                        stickyListHeadersListView.setAdapter(monAdapter);
+                    }
+                });
+                stickyListHeadersListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+                    @Override
+                    public void onScrollStateChanged(AbsListView absListView, int i) {
+                        monAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+
+                    }
+                });
                 break;
             case "星座":
-                dbTool.queryAllData(ConstellationBean.class, new DBTool.OnQueryListener<ConstellationBean>() {
+//                dbTool.deleteAllData(UserBean.class);
+                dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
                     @Override
-                    public void onQuery(ArrayList<ConstellationBean> constellationBeen) {
+                    public void onQuery(ArrayList<UserBean> constellationBeen) {
+                        Collections.sort(constellationBeen, new Comparator<UserBean>() {
+                            @Override
+                            public int compare(UserBean constellationBean, UserBean t1) {
+                                return constellationBean.getKind() - t1.getKind();
+                            }
+                        });//分组
                         conAdapter.setArrayList(constellationBeen);
                         stickyListHeadersListView.setAdapter(conAdapter);
                     }
@@ -144,7 +213,8 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
                 stickyListHeadersListView.setOnScrollListener(new AbsListView.OnScrollListener() {
                     @Override
                     public void onScrollStateChanged(AbsListView absListView, int i) {
-                        stickyListHeadersListView.setSelection(i);
+//                        stickyListHeadersListView.setSelection(i);
+                        conAdapter.notifyDataSetChanged();
                     }
 
                     @Override

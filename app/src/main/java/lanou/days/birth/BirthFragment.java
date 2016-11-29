@@ -72,7 +72,6 @@ public class BirthFragment extends BaseFragment implements View.OnClickListener 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST && ModifyBirthDayActivity.RESULT == resultCode) {
-            Log.d("BirthFragment", data.getStringExtra("birthday"));
             birthdayTv.setText(data.getStringExtra("birthday"));
             getBirthday();
             birthdayTime.setText((int) days + "天");
