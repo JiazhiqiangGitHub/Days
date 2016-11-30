@@ -25,8 +25,6 @@ public class MyFancyCoverFlowAdapter extends FancyCoverFlowAdapter{
     @Override
     public View getCoverFlowItem(int position, View convertView, ViewGroup parent) {
 
-        
-
         if (convertView == null){
             convertView = LayoutInflater.from(context).
                     inflate(R.layout.fragment_technology_head_item,null);
