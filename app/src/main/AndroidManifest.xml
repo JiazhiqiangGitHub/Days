@@ -31,6 +31,8 @@
         <activity android:name=".enter.LoginActivity"/>
         <activity android:name=".enter.NewLoginActivity"/>
         <activity android:name=".note.NoteDetail"/>
+        <activity android:name=".news.read.ReadActivity"/>
+        <activity android:name=".news.technology.TechnologyActivity"/>
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package lanou.days.news.read;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -44,7 +45,9 @@ public class ReadAdapter extends RecyclerView.Adapter<CommonViewHolder>{
                     @Override
                     public void onClick(View view) {
                         Toast.makeText(context, "position:" + position, Toast.LENGTH_SHORT).show();
-
+                        Intent intent = new Intent(context,ReadActivity.class);
+                        intent.putExtra("read",bean.getData().getItems().get(position).getUrl());
+                        context.startActivity(intent);
                     }
                 });
 

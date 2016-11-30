@@ -2,8 +2,9 @@ package lanou.days.note;
 
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -15,7 +16,6 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
-import lanou.days.MainActivity;
 import lanou.days.R;
 import lanou.days.base.BaseFragment;
 import lanou.days.write.WriteBean;
@@ -24,7 +24,7 @@ import lanou.days.write.WriteBean;
  * 所有笔记的Fragment
  * Created by 张家鑫 on 16/11/22.
  */
-public class NoteFragment extends BaseFragment implements AdapterView.OnItemClickListener {
+public class NoteFragment extends BaseFragment implements AdapterView.OnItemClickListener{
     private PullToRefreshListView lv;
     private NoteAdapter mAdapter;
     private static int tag = 1;

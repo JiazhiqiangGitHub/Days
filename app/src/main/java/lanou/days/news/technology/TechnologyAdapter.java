@@ -1,6 +1,7 @@
 package lanou.days.news.technology;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,9 @@ public class TechnologyAdapter extends BaseAdapter{
                     @Override
                     public void onClick(View view) {
                         Toast.makeText(context, "i:" + i, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(context,TechnologyActivity.class);
+                        intent.putExtra("technology",bean.getData().getItems().get(i).getUrl());
+                        context.startActivity(intent);
                     }
                 });
 

@@ -1,11 +1,13 @@
 package lanou.days.news.technology;
 
+import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
-
-import com.dalong.francyconverflow.FancyCoverFlow;
+import android.widget.RelativeLayout;
 
 import lanou.days.R;
 import lanou.days.base.BaseFragment;
@@ -20,9 +22,10 @@ import lanou.days.values.Values;
 public class TelchnologyFragment extends BaseFragment {
     private ListView lv;
     private TechnologyAdapter adapter;
-    private FancyCoverFlow mfancyCoverFlow;
-    private MyFancyCoverFlowAdapter flowAdapter;
+    private ViewPager vp;
+    private RelativeLayout mViewPagerContainer;
     private View headview;
+    private ViewPagerAdapter vpAdapter;
 
 
     @Override
@@ -47,24 +50,39 @@ public class TelchnologyFragment extends BaseFragment {
     }
 
     private void headViewinit() {
-        int[] images = {R.mipmap.ic_launcher,R.mipmap.test11,R.mipmap.test11,R.mipmap.ic_launcher};
-
-        mfancyCoverFlow = (FancyCoverFlow) headview.findViewById(R.id.fancy_cover_flow);
-        flowAdapter = new MyFancyCoverFlowAdapter(getActivity(), images);
-        mfancyCoverFlow.setAdapter(flowAdapter);
-        flowAdapter.notifyDataSetChanged();
-        mfancyCoverFlow.setUnselectedAlpha(0.5f);//透明度
-        mfancyCoverFlow.setUnselectedSaturation(0.5f);//设置选中的饱和度
-        mfancyCoverFlow.setUnselectedScale(0.3f);//设置选中的规模
-        mfancyCoverFlow.setSpacing(0);//设置间距
-        mfancyCoverFlow.setMaxRotation(0);//设置最大旋转
-        mfancyCoverFlow.setScaleDownGravity(0.5f);
-        mfancyCoverFlow.setActionDistance(FancyCoverFlow.ACTION_DISTANCE_AUTO);
-        mfancyCoverFlow.setSelection(Integer.MAX_VALUE / 2);
+        //clipChild用来定义他的子控件是否要在他应有的边界内进行绘制。
+        // 默认情况下，clipChild被设置为true。 也就是不允许进行扩展绘制。
+        vp.setClipChildren(false);
+        mViewPagerContainer.setClipChildren(false);
+        vpAdapter = new ViewPagerAdapter(getContext());
+        vp.setAdapter(vpAdapter);
+        //设置ViewPager切换效果
+        vp.setPageTransformer(true, new ZoomOutPageTransformer());
+        //设置预加载数量
+        vp.setOffscreenPageLimit(3);
+        //设置每页之间的左右间隔
+        vp.setPageMargin(30);
+        //将容器的触摸事件反馈给ViewPager
+        mViewPagerContainer.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return vp.dispatchTouchEvent(event);
+            }
+        });
     }
     @Override
     protected void initView() {
         headview = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_technology_head,null);
+        vp = bindView(headview,R.id.vp_technology);
+        mViewPagerContainer = bindView(headview,R.id.vp_container);
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        getActivity().getWindow().getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
+        int screenWidth = outMetrics.widthPixels;
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) vp.getLayoutParams();
+        lp.leftMargin = screenWidth / 3;
+        lp.rightMargin = screenWidth / 3;
+        vp.setLayoutParams(lp);
+
         lv = bindView(R.id.lv_technology);
         lv.addHeaderView(headview);
     }
@@ -73,4 +91,7 @@ public class TelchnologyFragment extends BaseFragment {
     protected int getLayout() {
         return R.layout.fragment_technology;
     }
+
+
+
 }

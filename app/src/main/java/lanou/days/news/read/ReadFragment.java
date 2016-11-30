@@ -1,6 +1,5 @@
 package lanou.days.news.read;
 
-import android.os.CountDownTimer;
 import android.util.Log;
 
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
@@ -36,20 +35,8 @@ public class ReadFragment extends BaseFragment {
 
             @Override
             public void onLoadMore() {
-                //TODO 上拉加载2s 是没用的 ,删了,
-                CountDownTimer countDownTimer = new CountDownTimer(2000, 1000) {
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-                    }
-
-                    @Override
-                    public void onFinish() {
                         OkHttpGet2();
                         recyclerView.setPullLoadMoreCompleted();
-                    }
-                };
-                countDownTimer.start();
-
             }
         });
     }
@@ -84,13 +71,9 @@ public class ReadFragment extends BaseFragment {
                 readAdapter.setBean(readBean);
                 recyclerView.setAdapter(readAdapter);
                 recyclerView.setGridLayout(1);
-
             }
-
             @Override
             public void onError(Exception exception) {
-                Log.d("ReadFragment", "dsahjbdiy");
-                Log.d("ReadFragment", exception.getMessage());
             }
         });
     }
