@@ -83,12 +83,15 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
                 mPopup.dismiss(); // 关闭
                 break;
             case R.id.ll_write_pop_one:
+                getSystemTime();
                 getTemplateOne();
                 break;
             case R.id.ll_write_pop_two:
+                getSystemTime();
                 getTemplateTwo();
                 break;
             case R.id.ll_write_pop_three:
+                getSystemTime();
                 getTemplateThree();
                 break;
             default:

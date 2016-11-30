@@ -47,8 +47,17 @@ public class NoteAdapter extends BaseAdapter {
                 .setText(R.id.tv_note_item_time,mList.get(i).getUpdatedAt())
                 .setText(R.id.tv_note_item_content,mList.get(i).getContent());
         return viewHolder.getItemView();
-
     }
+
+    public String[] getText(int i){
+        String title = mList.get(i).getTitle();
+        String time = mList.get(i).getUpdatedAt();
+        String content = mList.get(i).getContent();
+        String objectID = mList.get(i).getObjectId();
+        String[] all = {title,time,content,objectID};
+        return all;
+    }
+
 
 
 }
