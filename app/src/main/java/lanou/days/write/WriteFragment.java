@@ -20,6 +20,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import lanou.days.R;
 import lanou.days.base.BaseFragment;
+import lanou.days.base.SharedConfig;
 
 /**
  *  写笔记的Fragment
@@ -41,6 +42,9 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
         SharedPreferences getSp = getActivity().getSharedPreferences("write",Context.MODE_PRIVATE);
         title.setText(getSp.getString("文章标题",""));
         content.setText(getSp.getString("文章内容",""));
+//          title.setText(SharedConfig.getSharedConfigString(getActivity(),"write","文章标题"));
+//          content.setText(SharedConfig.getSharedConfigString(getActivity(),"write","文章内容"));
+
 
     }
 
@@ -240,6 +244,8 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
         editor.putString("文章标题",title.getText().toString());
         editor.putString("文章内容",content.getText().toString());
         editor.apply();
+//        SharedConfig.putSharedConfig(getActivity(),"write","文章标题","");
+//        SharedConfig.putSharedConfig(getActivity(),"write","文章内容","");
            super.onDestroyView();
     }
     private void getSystemTime(){

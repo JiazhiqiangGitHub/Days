@@ -2,19 +2,50 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:layoutAnimation="@anim/list_anim_layout">
+
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/colorOpeningBG">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="离线"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:text="关于我们"
+            android:textSize="30dp"
+            android:textColor="@color/colorOpeningTV"
+            android:layout_marginStart="10dp"/>
     </LinearLayout>
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text=" Days 是由颜值担当组开发的一款免费的笔记软件.是您生活的可靠助手.
+  颜值担当组构成:组长老毕(贾志强),杰伦(马闯),骚男(张家鑫)
+  详情请致电 TEL:15840634602"
+         android:textSize="16dp"/>
+    <ImageView
+        android:id="@+id/iv_setting_alipay"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:src="@mipmap/alipay"/>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Days的成长与维护依赖着您的支持喵!"
+        android:textSize="15dp"
+        android:layout_gravity="center"/>
+
+
+
+
+
+
+
+
 
 
 </LinearLayout>

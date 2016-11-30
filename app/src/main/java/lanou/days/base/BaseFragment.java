@@ -48,6 +48,12 @@ public abstract class BaseFragment extends Fragment{
     protected <T extends View> T bindView(View view,int id){
         return (T) view.findViewById(id);
     }
+    //简化很多的监听事件
+    protected void setClick(View.OnClickListener clickListener,View ... views){
+        for(View view : views){
+            view.setOnClickListener(clickListener);
+        }
+    }
     protected abstract void initData();
 
     protected abstract void initView();
