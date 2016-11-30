@@ -20,15 +20,14 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import lanou.days.R;
 import lanou.days.base.BaseFragment;
-import lanou.days.base.SharedConfig;
 
 /**
- *  写笔记的Fragment
+ * 写笔记的Fragment
  * Created by dllo on 16/11/22.
  */
 public class WriteFragment extends BaseFragment implements View.OnClickListener {
-    private EditText title,content;
-    private LinearLayout updata,template,chooseTypeOne,chooseTypeTwo,chooseTypeThree;
+    private EditText title, content;
+    private LinearLayout updata, template, chooseTypeOne, chooseTypeTwo, chooseTypeThree;
     private Button btnQuit;
     private View mView;
     private PopupWindow mPopup;
@@ -36,12 +35,12 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     protected void initData() {
-        mPopup = new PopupWindow(mView,720,300);
+        mPopup = new PopupWindow(mView, 720, 300);
         mPopup.setAnimationStyle(R.style.PopupAnimation);
         //TODO 封装
-        SharedPreferences getSp = getActivity().getSharedPreferences("write",Context.MODE_PRIVATE);
-        title.setText(getSp.getString("文章标题",""));
-        content.setText(getSp.getString("文章内容",""));
+        SharedPreferences getSp = getActivity().getSharedPreferences("write", Context.MODE_PRIVATE);
+        title.setText(getSp.getString("文章标题", ""));
+        content.setText(getSp.getString("文章内容", ""));
 //          title.setText(SharedConfig.getSharedConfigString(getActivity(),"write","文章标题"));
 //          content.setText(SharedConfig.getSharedConfigString(getActivity(),"write","文章内容"));
 
@@ -50,19 +49,19 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     protected void initView() {
-        mView = getActivity().getLayoutInflater().inflate(R.layout.pop_write_template,null);
+        mView = getActivity().getLayoutInflater().inflate(R.layout.pop_write_template, null);
         title = bindView(R.id.et_write_title);
         content = bindView(R.id.et_write_content);
         updata = bindView(R.id.ll_write_updata);
         template = bindView(R.id.ll_write_template);
         template.setOnClickListener(this);
-        chooseTypeOne = bindView(mView,R.id.ll_write_pop_one);
+        chooseTypeOne = bindView(mView, R.id.ll_write_pop_one);
         chooseTypeOne.setOnClickListener(this);
-        chooseTypeTwo = bindView(mView,R.id.ll_write_pop_two);
+        chooseTypeTwo = bindView(mView, R.id.ll_write_pop_two);
         chooseTypeTwo.setOnClickListener(this);
-        chooseTypeThree = bindView(mView,R.id.ll_write_pop_three);
+        chooseTypeThree = bindView(mView, R.id.ll_write_pop_three);
         chooseTypeThree.setOnClickListener(this);
-        btnQuit = bindView(mView,R.id.btn_write_pop_quit);
+        btnQuit = bindView(mView, R.id.btn_write_pop_quit);
         btnQuit.setOnClickListener(this);
         updata.setOnClickListener(this);
     }
@@ -74,97 +73,46 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        int templateNum = 0;
+        switch (view.getId()) {
             case R.id.ll_write_updata:
                 writeDialog();
                 break;
             case R.id.ll_write_template:
-                if (!mPopup.isShowing()){
+                if (!mPopup.isShowing()) {
                     chooseTemplate();
                 }
                 break;
             case R.id.btn_write_pop_quit:
                 mPopup.dismiss(); // 关闭
                 break;
-            case R.id.ll_write_pop_one:
-                getSystemTime();
-                getTemplateOne();
-                break;
-            case R.id.ll_write_pop_two:
-                getSystemTime();
-                getTemplateTwo();
-                break;
             case R.id.ll_write_pop_three:
-                getSystemTime();
-                getTemplateThree();
+                templateNum++;
+            case R.id.ll_write_pop_two:
+                templateNum++;
+            case R.id.ll_write_pop_one:
+                setContentWithTemplate(templateNum);
                 break;
             default:
                 break;
         }
     }
 
-    private void getTemplateThree() {
-        title.setText((mTime + "日记"));
-        content.setText("天气 ☁                            心情 (｡・`ω´･)\n" +
-                "=====================================\n" +
-                "   (´・ω・)ﾉ     每天写日记是很好的习惯喵");
-        mPopup.dismiss();
-    }
-
-    private void getTemplateTwo() {
+    private void setContentWithTemplate(int templateNum) {
         getSystemTime();
-        title.setText(("会议记录:" +" "+ mTime ));
-        content.setText("会议日期: \n"+
-                "______________________________________________\n" +
-                "会议主题: \n" +
-                "______________________________________________\n" +
-                "会议内容\n" +
-                "     1.\n" +
-                "\n" +
-                "     2.\n" +
-                "\n" +
-                "     3.\n" +
-                "\n" +
-                "     4.\n" +
-                "\n" +
-                "______________________________________________\n" +
-                "ToDo事项\n" +
-                "     ①:\n" +
-                "     ②:\n" +
-                "     ③:\n" +
-                "     ④:\n" +
-                "     ⑤:\n" +
-                "     ⑥:\n" +
-                "     ⑦:\n" +
-                "\n" +
-                "\n" +
-                "______________________________________________\n" +
-                "Days提醒您,要做的事情最优数量是3喵");
-        mPopup.dismiss();
-    }
-
-    private void getTemplateOne() {
-        getSystemTime();
-        title.setText((mTime + "的账单"));
-        content.setText("收入:\n" +
-                "\n" +
-                "\n" +
-                "渠道:\n" +
-                "\n" +
-                "\n" +
-                "\n" +
-                "支出:\n" +
-                "\n" +
-                "\n" +
-                "方式:\n" +
-                "\n" +
-                "\n" +
-                "\n" +
-                "**********************************************\n" +
-                "今日总账:\n" +
-                "\n" +
-                "\n" +
-                "小结:");
+        //TODO 把title 想内容一样封装起来
+        switch (templateNum) {
+            case 0:
+                title.setText((mTime + "的账单"));
+                break;
+            case 1:
+                title.setText(("会议记录:" + " " + mTime));
+                break;
+            case 2:
+                title.setText((mTime + "日记"));
+                break;
+        }
+        content.setText(TemplateFactory.getTemplateContent(templateNum));
         mPopup.dismiss();
     }
 
@@ -177,7 +125,7 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
         builder.setPositiveButton("上传", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if (title.getText().toString().equals("")){
+                if (title.getText().toString().equals("")) {
                     Toast.makeText(getContext(), "至少得写一个标题喵", Toast.LENGTH_SHORT).show();
                 } else {
                     upData();
@@ -187,7 +135,7 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
         builder.setNegativeButton("先等等", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-               // 什么也不做,\(^o^)/~
+                // 什么也不做,\(^o^)/~
             }
         });
         builder.show();
@@ -198,7 +146,7 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
      */
     private void upData() {
         BmobUser bmobUser = BmobUser.getCurrentUser();
-        if(bmobUser != null){
+        if (bmobUser != null) {
             // 允许用户使用应用
             // 继续上传
             WriteBean writeBean = new WriteBean();
@@ -219,7 +167,7 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
                     }
                 }
             });
-        }else{
+        } else {
             //缓存用户对象为空时， 可打开用户注册界面
             Toast.makeText(getContext(), "您还没有登录喵,请先登录喵", Toast.LENGTH_SHORT).show();
         }
@@ -230,7 +178,7 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
      */
     private void chooseTemplate() {
         // pop设置
-        mPopup.showAtLocation(mView, Gravity.CENTER,0,0);
+        mPopup.showAtLocation(mView, Gravity.CENTER, 0, 0);
         mPopup.setOutsideTouchable(false);
         mPopup.setFocusable(true); // 设置PopupWindow可获得焦点
         mPopup.setTouchable(true);
@@ -241,14 +189,15 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
     public void onDestroyView() {
         SharedPreferences sp = getActivity().getSharedPreferences("write", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putString("文章标题",title.getText().toString());
-        editor.putString("文章内容",content.getText().toString());
+        editor.putString("文章标题", title.getText().toString());
+        editor.putString("文章内容", content.getText().toString());
         editor.apply();
 //        SharedConfig.putSharedConfig(getActivity(),"write","文章标题","");
 //        SharedConfig.putSharedConfig(getActivity(),"write","文章内容","");
-           super.onDestroyView();
+        super.onDestroyView();
     }
-    private void getSystemTime(){
+
+    private void getSystemTime() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日");
         Date curDate = new Date(System.currentTimeMillis());//获取当前时间
         mTime = formatter.format(curDate);
