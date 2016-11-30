@@ -3,11 +3,13 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="160dp"
     android:layout_gravity="center"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    >
 <com.dalong.francyconverflow.FancyCoverFlow
     android:layout_width="match_parent"
-    android:layout_height="160dp"
-    android:id="@+id/fancy_cover_flow">
+    android:layout_height="120dp"
+    android:id="@+id/fancy_cover_flow"
+    >
 
 </com.dalong.francyconverflow.FancyCoverFlow>
 

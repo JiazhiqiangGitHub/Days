@@ -9,8 +9,6 @@ import android.view.WindowManager;
 import com.dalong.francyconverflow.FancyCoverFlow;
 import com.dalong.francyconverflow.FancyCoverFlowAdapter;
 
-import java.util.List;
-
 import lanou.days.R;
 
 /**
@@ -18,15 +16,17 @@ import lanou.days.R;
  */
 public class MyFancyCoverFlowAdapter extends FancyCoverFlowAdapter{
     private Context context;
-    public List<Item> list;
+    private int[] images = {};
 
-    public MyFancyCoverFlowAdapter(Context context, List<Item> list) {
+    public MyFancyCoverFlowAdapter(Context context, int[] images) {
         this.context = context;
-        this.list = list;
+        this.images = images;
     }
-
     @Override
     public View getCoverFlowItem(int position, View convertView, ViewGroup parent) {
+
+        
+
         if (convertView == null){
             convertView = LayoutInflater.from(context).
                     inflate(R.layout.fragment_technology_head_item,null);
@@ -45,11 +45,12 @@ public class MyFancyCoverFlowAdapter extends FancyCoverFlowAdapter{
 
     @Override
     public Object getItem(int i) {
-        return list.get(i % list.size());
+        return images[i];
     }
 
     @Override
     public long getItemId(int i) {
         return i;
     }
+
 }
