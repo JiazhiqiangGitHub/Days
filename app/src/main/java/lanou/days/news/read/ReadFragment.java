@@ -36,6 +36,7 @@ public class ReadFragment extends BaseFragment {
 
             @Override
             public void onLoadMore() {
+                //TODO 上拉加载2s 是没用的 ,删了,
                 CountDownTimer countDownTimer = new CountDownTimer(2000, 1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
