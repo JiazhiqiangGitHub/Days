@@ -67,20 +67,30 @@ public class AddFriendsActivity extends BaseSwipeActivity implements View.OnClic
                 new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        mYear = year;
+                        mMonth = monthOfYear + 1;
+                        mDay = dayOfMonth;
                         contactBirthday.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
                     }
                 }, nYear, nMonth, nDay).show();
                 break;
             case R.id.iv_add:
                 Intent intent = new Intent(AddFriendsActivity.this, FriendsActivity.class);
-                intent.putExtra("name", userName.getText().toString());
-                intent.putExtra("constellation", getConstellation(mMonth, mDay).toString());
-                Log.d("AddFriendsActivity", getConstellation(mMonth, mDay).toString());
-                intent.putExtra("kind", getKind(getConstellation(mMonth, mDay)));
-                intent.putExtra("date", contactBirthday.getText());
-                intent.putExtra("monthKind", getMonthKind(mMonth));
-                intent.putExtra("countDown",getBirthdayCountDown());
-                Log.d("AddFriendsActivity", "getBirthdayCountDown():" + getBirthdayCountDown());
+                if (mMonth != 0){
+                    intent.putExtra("name", userName.getText().toString());
+                    intent.putExtra("constellation", getConstellation(mMonth, mDay).toString());
+                    intent.putExtra("kind", getKind(getConstellation(mMonth, mDay)));
+                    intent.putExtra("date", contactBirthday.getText());
+                    intent.putExtra("monthKind", getMonthKind(mMonth));
+                    intent.putExtra("countDown",getBirthdayCountDown());
+                }else {
+                    intent.putExtra("name", userName.getText().toString());
+                    intent.putExtra("constellation", getConstellation(nMonth+1, nDay).toString());
+                    intent.putExtra("kind", getKind(getConstellation(nMonth+1, nDay)));
+                    intent.putExtra("date", contactBirthday.getText());
+                    intent.putExtra("monthKind", getMonthKind(nMonth+1));
+                    intent.putExtra("countDown",getBirthdayCountDown());
+                }
                 startActivity(intent);
                 finish();
                 break;
@@ -133,7 +143,7 @@ public class AddFriendsActivity extends BaseSwipeActivity implements View.OnClic
         if (month != 0) {
             monKind = month;
         } else {
-            monKind = nMonth;
+            monKind = nMonth + 1;
         }
         return monKind;
     }
@@ -172,56 +182,57 @@ public class AddFriendsActivity extends BaseSwipeActivity implements View.OnClic
 
     public String getConstellation(int month, int days) {
         String constellation = null;
-        if (3 == month && days >= 21 && days <= 31) {
-            constellation = "白羊座";
-        } else if (4 == month && days >= 1 && days <= 20) {
-            constellation = "白羊座";
-        } else if (4 == month && days >= 21 && days <= 30) {
-            constellation = "金牛座";
-        } else if (5 == month && days >= 1 && days <= 21) {
-            constellation = "金牛座";
-        } else if (5 == month && days >= 22 && days <= 31) {
-            constellation = "双子座";
-        } else if (6 == month && days >= 1 && days <= 21) {
-            constellation = "双子座";
-        } else if (6 == month && days >= 22 && days <= 30) {
-            constellation = "巨蟹座";
-        } else if (7 == month && days >= 1 && days <= 22) {
-            constellation = "巨蟹座";
-        } else if (7 == month && days >= 23 && days <= 31) {
-            constellation = "狮子座";
-        } else if (8 == month && days >= 1 && days <= 23) {
-            constellation = "狮子座";
-        } else if (8 == month && days >= 24 && days <= 31) {
-            constellation = "处女座";
-        } else if (9 == month && days >= 1 && days <= 23) {
-            constellation = "处女座";
-        } else if (9 == month && days >= 24 && days <= 30) {
-            constellation = "天秤座";
-        } else if (10 == month && days >= 1 && days <= 23) {
-            constellation = "天秤座";
-        } else if (10 == month && days >= 24 && days <= 31) {
-            constellation = "天蝎座";
-        } else if (11 == month && days >= 1 && days <= 22) {
-            constellation = "天蝎座";
-        } else if (11 == month && days >= 23 && days <= 30) {
-            constellation = "射手座";
-        } else if (12 == month && days >= 1 && days <= 21) {
-            constellation = "射手座";
-        } else if (12 == month && days >= 22 && days <= 31) {
-            constellation = "摩羯座";
-        } else if (1 == month && days >= 1 && days <= 20) {
-            constellation = "摩羯座";
-        } else if (1 == month && days >= 21 && days <= 31) {
-            constellation = "水瓶座";
-            return constellation;
-        } else if (2 == month && days >= 1 && days <= 19) {
-            constellation = "水瓶座";
-        } else if (2 == month && days >= 20 && days <= 30) {
-            constellation = "双鱼座";
-        } else {
-            constellation = "双鱼座";
-        }
+
+            if (3 == month && days >= 21 && days <= 31) {
+                constellation = "白羊座";
+            } else if (4 == month && days >= 1 && days <= 20) {
+                constellation = "白羊座";
+            } else if (4 == month && days >= 21 && days <= 30) {
+                constellation = "金牛座";
+            } else if (5 == month && days >= 1 && days <= 21) {
+                constellation = "金牛座";
+            } else if (5 == month && days >= 22 && days <= 31) {
+                constellation = "双子座";
+            } else if (6 == month && days >= 1 && days <= 21) {
+                constellation = "双子座";
+            } else if (6 == month && days >= 22 && days <= 30) {
+                constellation = "巨蟹座";
+            } else if (7 == month && days >= 1 && days <= 22) {
+                constellation = "巨蟹座";
+            } else if (7 == month && days >= 23 && days <= 31) {
+                constellation = "狮子座";
+            } else if (8 == month && days >= 1 && days <= 23) {
+                constellation = "狮子座";
+            } else if (8 == month && days >= 24 && days <= 31) {
+                constellation = "处女座";
+            } else if (9 == month && days >= 1 && days <= 23) {
+                constellation = "处女座";
+            } else if (9 == month && days >= 24 && days <= 30) {
+                constellation = "天秤座";
+            } else if (10 == month && days >= 1 && days <= 23) {
+                constellation = "天秤座";
+            } else if (10 == month && days >= 24 && days <= 31) {
+                constellation = "天蝎座";
+            } else if (11 == month && days >= 1 && days <= 22) {
+                constellation = "天蝎座";
+            } else if (11 == month && days >= 23 && days <= 30) {
+                constellation = "射手座";
+            } else if (12 == month && days >= 1 && days <= 21) {
+                constellation = "射手座";
+            } else if (12 == month && days >= 22 && days <= 31) {
+                constellation = "摩羯座";
+            } else if (1 == month && days >= 1 && days <= 20) {
+                constellation = "摩羯座";
+            } else if (1 == month && days >= 21 && days <= 31) {
+                constellation = "水瓶座";
+                return constellation;
+            } else if (2 == month && days >= 1 && days <= 19) {
+                constellation = "水瓶座";
+            } else if (2 == month && days >= 20 && days <= 30) {
+                constellation = "双鱼座";
+            } else {
+                constellation = "双鱼座";
+            }
         return constellation;
     }
 }

@@ -47,6 +47,9 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
     private MyMonthAdapter monAdapter;
     private int birKind;
     private BirCountDownAdapter birAdapter;
+    private int count;
+    public static final int RESULT = 1;
+
 
     @Override
     protected int getLayout() {
@@ -112,7 +115,18 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
                 startActivity(new Intent(this, AddFriendsActivity.class));
                 break;
             case R.id.tv_back:
-                onBackPressed();
+
+                dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
+                    @Override
+                    public void onQuery(ArrayList<UserBean> userBeen) {
+                        Intent intent = new Intent();
+                        count = userBeen.size();
+                        Log.d("FriendsActivity", "count:" + count);
+                        intent.putExtra("count",count);
+                        setResult(RESULT, intent);
+                    }
+                });
+                finish();
                 break;
             case R.id.iv_more:
                 if (popupWindow == null || !popupWindow.isShowing()) {

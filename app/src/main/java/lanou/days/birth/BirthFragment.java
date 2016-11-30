@@ -15,11 +15,13 @@ import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 import lanou.days.R;
 import lanou.days.base.BaseFragment;
+import lanou.days.birth.tool.DBTool;
 
 /**
  * Created by machuang on 16/11/22.
@@ -32,9 +34,20 @@ public class BirthFragment extends BaseFragment implements View.OnClickListener 
     private long days = 0;
     private TextView haveBornTv;
     private RelativeLayout rlFriends;
+    private TextView friendsCount;
+    private int count;
 
     @Override
     protected void initData() {
+        DBTool dbTool = new DBTool();
+        dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
+            @Override
+            public void onQuery(ArrayList<UserBean> userBeen) {
+                count = userBeen.size();
+                friendsCount.setText(String.valueOf(count));
+            }
+        });
+
         setItemOnClick(this, birthModify, rlFriends);
 
     }
@@ -46,6 +59,7 @@ public class BirthFragment extends BaseFragment implements View.OnClickListener 
         birthdayTime = bindView(R.id.tv_birthday_time);
         haveBornTv = bindView(R.id.tv_days);
         rlFriends = bindView(R.id.rl_friends);
+        friendsCount = bindView(R.id.tv_friends);
 
     }
 
@@ -76,6 +90,9 @@ public class BirthFragment extends BaseFragment implements View.OnClickListener 
             getBirthday();
             birthdayTime.setText((int) days + "天");
             getHaveBorn();
+        }else if (requestCode == REQUEST && FriendsActivity.RESULT == resultCode){
+            Log.d("BirthFragment", "data.getIntExtra" + data.getIntExtra("count", 0));
+            friendsCount.setText(data.getIntExtra("count",0));
         }
     }
 
