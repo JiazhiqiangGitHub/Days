@@ -15,11 +15,11 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 /**
  * Created by dllo on 16/11/26.
  */
-public class MyconstellationAdapter extends BaseAdapter implements StickyListHeadersAdapter{
+public class MyConstellationAdapter extends BaseAdapter implements StickyListHeadersAdapter{
     private ArrayList<UserBean> arrayList;
     private Context context;
 
-    public MyconstellationAdapter(Context context) {
+    public MyConstellationAdapter(Context context) {
         this.context = context;
     }
 

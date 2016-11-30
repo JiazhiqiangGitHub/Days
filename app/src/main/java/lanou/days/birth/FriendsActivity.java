@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -36,7 +35,7 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
     private PopAdapter adapter;
     private LinearLayoutManager manager;
     private StickyListHeadersListView stickyListHeadersListView;
-    private MyconstellationAdapter conAdapter;
+    private MyConstellationAdapter conAdapter;
     private UserBean bean;
     private DBTool dbTool;
     private String name = null;
@@ -74,10 +73,12 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
         arrayList.add("月份");
         arrayList.add("星座");
         manager = new LinearLayoutManager(this);
-        conAdapter = new MyconstellationAdapter(this);
+        conAdapter = new MyConstellationAdapter(this);
         monAdapter = new MyMonthAdapter(this);
         birAdapter = new BirCountDownAdapter(this);
         dbTool = new DBTool();
+
+        initMorePop();
 //        dbTool.deleteAllData(UserBean.class);
 
     }
@@ -129,8 +130,10 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
                 finish();
                 break;
             case R.id.iv_more:
-                if (popupWindow == null || !popupWindow.isShowing()) {
-                    initMorePop();
+                if (!popupWindow.isShowing()) {
+                    popupWindow.showAsDropDown(more);
+                } else {
+                    popupWindow.dismiss();
                 }
                 break;
         }
@@ -144,8 +147,8 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
         adapter.setArrayList(arrayList);
         moreRv.setAdapter(adapter);
         moreRv.setLayoutManager(manager);
-        popupWindow.showAsDropDown(more);
         adapter.setOnRecyclerItemClickListener(this);
+
     }
 
     @Override
@@ -159,6 +162,7 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
                 dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
                     @Override
                     public void onQuery(ArrayList<UserBean> userBeen) {
+                        //TODO 根据日期 确定kind值
                         Collections.sort(userBeen, new Comparator<UserBean>() {
                             @Override
                             public int compare(UserBean userBean, UserBean t1) {
@@ -170,17 +174,17 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
                         stickyListHeadersListView.setAdapter(birAdapter);
                     }
                 });
-                stickyListHeadersListView.setOnScrollListener(new AbsListView.OnScrollListener() {
-                    @Override
-                    public void onScrollStateChanged(AbsListView absListView, int i) {
-                        birAdapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onScroll(AbsListView absListView, int i, int i1, int i2) {
-
-                    }
-                });
+//                stickyListHeadersListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+//                    @Override
+//                    public void onScrollStateChanged(AbsListView absListView, int i) {
+//                       // birAdapter.notifyDataSetChanged();
+//                    }
+//
+//                    @Override
+//                    public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+//
+//                    }
+//                });
                 break;
             case "月份":
                 dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
@@ -197,17 +201,17 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
                         stickyListHeadersListView.setAdapter(monAdapter);
                     }
                 });
-                stickyListHeadersListView.setOnScrollListener(new AbsListView.OnScrollListener() {
-                    @Override
-                    public void onScrollStateChanged(AbsListView absListView, int i) {
-                        monAdapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onScroll(AbsListView absListView, int i, int i1, int i2) {
-
-                    }
-                });
+//                stickyListHeadersListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+//                    @Override
+//                    public void onScrollStateChanged(AbsListView absListView, int i) {
+//                        monAdapter.notifyDataSetChanged();
+//                    }
+//
+//                    @Override
+//                    public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+//
+//                    }
+//                });
                 break;
             case "星座":
 //                dbTool.deleteAllData(UserBean.class);
@@ -224,18 +228,18 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
                         stickyListHeadersListView.setAdapter(conAdapter);
                     }
                 });
-                stickyListHeadersListView.setOnScrollListener(new AbsListView.OnScrollListener() {
-                    @Override
-                    public void onScrollStateChanged(AbsListView absListView, int i) {
-//                        stickyListHeadersListView.setSelection(i);
-                        conAdapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onScroll(AbsListView absListView, int i, int i1, int i2) {
-
-                    }
-                });
+//                stickyListHeadersListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+//                    @Override
+//                    public void onScrollStateChanged(AbsListView absListView, int i) {
+////                        stickyListHeadersListView.setSelection(i);
+//                        conAdapter.notifyDataSetChanged();
+//                    }
+//
+//                    @Override
+//                    public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+//
+//                    }
+//                });
                 break;
 
 

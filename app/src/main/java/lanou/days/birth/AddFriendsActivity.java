@@ -109,10 +109,10 @@ public class AddFriendsActivity extends BaseSwipeActivity implements View.OnClic
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        int birthyear = calendar.get(Calendar.YEAR);
-        while (birthyear < yearNow) {
+        int birthYear = calendar.get(Calendar.YEAR);
+        while (birthYear < yearNow) {
             calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) + 1);
-            birthyear = calendar.get(Calendar.YEAR);
+            birthYear = calendar.get(Calendar.YEAR);
         }
         Date ed = new Date();
         Log.d("AddFriendsActivity", "ed:" + ed);

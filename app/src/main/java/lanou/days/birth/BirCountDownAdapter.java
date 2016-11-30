@@ -27,6 +27,7 @@ public class BirCountDownAdapter extends BaseAdapter implements StickyListHeader
 
     public void setArrayList(ArrayList<UserBean> arrayList) {
         this.arrayList = arrayList;
+        notifyDataSetChanged();
     }
 
     @Override

@@ -6,6 +6,9 @@ import android.os.Looper;
 
 import com.litesuits.orm.LiteOrm;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -19,15 +22,13 @@ import java.util.concurrent.TimeUnit;
 public class SingletonUtils {
 
     private static SingletonUtils singletonUtils;
-    private ThreadPoolExecutor threadPoolExecutor;
+    private ExecutorService threadPoolExecutor;
     private LiteOrm liteOrm;
     private Handler handler;
 
     private SingletonUtils(String DBName) {
         int corePoolSize = Runtime.getRuntime().availableProcessors() + 1;
-        int maxPoolSize = corePoolSize * 2 + 1;
-        threadPoolExecutor = new ThreadPoolExecutor(corePoolSize, maxPoolSize, 60l,
-                TimeUnit.SECONDS, new LinkedBlockingDeque<Runnable>());
+        threadPoolExecutor = Executors.newFixedThreadPool(corePoolSize);
 
         liteOrm = LiteOrm.newSingleInstance(MyApp.getContext(), DBName);
         // Handler 只能在 主线程里 new
@@ -48,7 +49,7 @@ public class SingletonUtils {
     }
 
     /* 获取 线程池的 方法 */
-    public ThreadPoolExecutor getThreadPoolExecutor() {
+    public ExecutorService getThreadPoolExecutor() {
         return threadPoolExecutor;
     }
 

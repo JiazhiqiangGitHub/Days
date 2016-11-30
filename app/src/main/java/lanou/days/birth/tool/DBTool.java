@@ -7,6 +7,7 @@ import com.litesuits.orm.LiteOrm;
 import com.litesuits.orm.db.assit.WhereBuilder;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
 
 
@@ -18,7 +19,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class DBTool {
 
     private SingletonUtils singletonUtils;
-    private ThreadPoolExecutor threadPoolExecutor;
+    private ExecutorService threadPoolExecutor;
     private LiteOrm liteOrm;
     private Handler handler;
 
