@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="140dp"
+        android:layout_width="match_parent"
         android:layout_height="140dp"
         android:src="@mipmap/ic_launcher"
         android:id="@+id/iv_technology_read"/>

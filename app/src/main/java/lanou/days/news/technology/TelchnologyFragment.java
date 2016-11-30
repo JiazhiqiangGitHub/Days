@@ -47,7 +47,7 @@ public class TelchnologyFragment extends BaseFragment {
     }
 
     private void headViewinit() {
-        int[] images = {R.mipmap.ic_launcher,R.mipmap.test11,R.mipmap.test11};
+        int[] images = {R.mipmap.ic_launcher,R.mipmap.test11,R.mipmap.test11,R.mipmap.ic_launcher};
 
         mfancyCoverFlow = (FancyCoverFlow) headview.findViewById(R.id.fancy_cover_flow);
         flowAdapter = new MyFancyCoverFlowAdapter(getActivity(), images);
