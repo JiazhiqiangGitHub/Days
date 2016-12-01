@@ -22,7 +22,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return 10;
+        return Integer.MAX_VALUE;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class ViewPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView imageView = new ImageView(context);
-        imageView.setImageResource(R.mipmap.test11);
+        imageView.setImageResource(R.mipmap.head);
         ((ViewPager)container).addView(imageView);
         return imageView;
     }

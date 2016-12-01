@@ -25,6 +25,8 @@
         android:text="内容"
         android:layout_margin="10dp"
         android:id="@+id/tv_news_read_body"/>
-</LinearLayout>
+        
+
+    </LinearLayout>
 
 </LinearLayout>

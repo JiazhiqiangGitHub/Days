@@ -54,6 +54,8 @@ public class ReadAdapter extends RecyclerView.Adapter<CommonViewHolder>{
 
     }
 
+
+
     @Override
     public long getItemId(int i) {
         return i;

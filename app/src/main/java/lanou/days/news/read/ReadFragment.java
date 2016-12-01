@@ -6,8 +6,8 @@ import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 import lanou.days.R;
 import lanou.days.base.BaseFragment;
-import lanou.days.base.OkHttpManager;
-import lanou.days.base.ResponseCallBack;
+import lanou.days.okhttp.OkHttpManager;
+import lanou.days.okhttp.ResponseCallBack;
 import lanou.days.bean.ReadBean;
 import lanou.days.values.Values;
 

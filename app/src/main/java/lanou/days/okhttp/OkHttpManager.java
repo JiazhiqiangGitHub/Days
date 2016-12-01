@@ -1,4 +1,4 @@
-package lanou.days.base;
+package lanou.days.okhttp;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -19,7 +19,7 @@ import okhttp3.Response;
  * Created by 贾志强 on 16/11/25.
  */
 
-public class OkHttpManager extends NetManager{
+public class OkHttpManager extends NetManager {
         private static OkHttpManager ourInstance;
         private OkHttpClient mClient;
         private Handler mHandler;//用来做线程的切换
