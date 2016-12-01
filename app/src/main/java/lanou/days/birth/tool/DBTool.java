@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
 
+import lanou.days.birth.UserBean;
 
 
 /**
- *
- *  区分 Class<T> 与 T 的关系与区别
+ * 区分 Class<T> 与 T 的关系与区别
  */
 public class DBTool {
 
@@ -30,16 +30,30 @@ public class DBTool {
         handler = singletonUtils.getHandler();
     }
 
-    /** 插入数据库的 泛型 方法 */
-    public<T> void insert(T t) {
+    /**
+     * 插入数据库的 泛型 方法
+     */
+    public <T> void insert(T t) {
         threadPoolExecutor.execute(new InsertRunnable(t));
+    }
+
+    public <T> void upData(final T t) {
+        threadPoolExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+
+                liteOrm.update(t);
+            }
+        });
     }
 
     private class InsertRunnable<T> implements Runnable {
         private T t;
+
         public InsertRunnable(T t) {
             this.t = t;
         }
+
         @Override
         public void run() {
             liteOrm.insert(t);
@@ -59,11 +73,22 @@ public class DBTool {
 //            }
 //        });
 //    }
+    public void deleteById(final int id){
+        threadPoolExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                liteOrm.delete(new WhereBuilder(UserBean.class).where("id = ?",id));
+            }
+        });
+    }
 
-    /** 删除 数据库所有数据 泛型方法实现 */
-    public<T> void deleteAllData(Class<T> tClass) {
+    /**
+     * 删除 数据库所有数据 泛型方法实现
+     */
+    public <T> void deleteAllData(Class<T> tClass) {
         threadPoolExecutor.execute(new DeleteAllDataRunnable(tClass));
     }
+
     private class DeleteAllDataRunnable<T> implements Runnable {
         private Class<T> tClass;
 
@@ -103,15 +128,20 @@ public class DBTool {
 //    }
 
     // 查询数据库的 泛型 方法
-    /** 使用接口回调将数据返回到 主线程, 所以返回值不需要有, 也不应该有 !!! */
-    public<T> void queryAllData(Class<T> tClass, OnQueryListener<T> onQueryListener) {
+
+    /**
+     * 使用接口回调将数据返回到 主线程, 所以返回值不需要有, 也不应该有 !!!
+     */
+    public <T> void queryAllData(Class<T> tClass, OnQueryListener<T> onQueryListener) {
 
         threadPoolExecutor.execute(new QueryRunnable<>(tClass, onQueryListener));
     }
 
 
-    /** 实现 查询数据库的  外层 Runnable 泛型 类 */
-    private class QueryRunnable<T> implements Runnable{
+    /**
+     * 实现 查询数据库的  外层 Runnable 泛型 类
+     */
+    private class QueryRunnable<T> implements Runnable {
 
         private Class<T> tClass;
         private OnQueryListener onQueryListener;
@@ -128,8 +158,10 @@ public class DBTool {
         }
     }
 
-    /** 实现用 Handler将线程从子线程切换到主线程, 用接口对象将数据存入接口 */
-    private class CallbackRunnable<T> implements Runnable{
+    /**
+     * 实现用 Handler将线程从子线程切换到主线程, 用接口对象将数据存入接口
+     */
+    private class CallbackRunnable<T> implements Runnable {
 
         private OnQueryListener onQueryListener;
         private ArrayList<T> tArrayList;
@@ -145,8 +177,10 @@ public class DBTool {
         }
     }
 
-    /** 定义 查询数据库的 泛型 接口 */
-    public interface OnQueryListener<T>{
+    /**
+     * 定义 查询数据库的 泛型 接口
+     */
+    public interface OnQueryListener<T> {
         void onQuery(ArrayList<T> tArrayList);
     }
 

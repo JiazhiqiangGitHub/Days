@@ -17,7 +17,7 @@ import lanou.days.base.BaseActivity;
 /**
  * Created by dllo on 16/11/22.
  */
-public class ModifyBirthDayActivity extends BaseActivity implements View.OnClickListener {
+public class ModifyBirthDayActivity extends BaseSwipeActivity implements View.OnClickListener {
 
     private Button modifyBtn;
     private Button chooseBtn;
@@ -25,7 +25,7 @@ public class ModifyBirthDayActivity extends BaseActivity implements View.OnClick
     private int month;
     private int day;
     private EditText show;
-    public static final int RESULT = 0;
+    public static final int RESULT = 10;
     @Override
     protected void initData() {
        setClick(this,modifyBtn,chooseBtn);

@@ -7,14 +7,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 
+import cn.bmob.v3.b.I;
 import lanou.days.R;
 import lanou.days.birth.tool.DBTool;
 import lanou.days.birth.tool.OnRecyclerItemClickListener;
@@ -46,8 +53,8 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
     private MyMonthAdapter monAdapter;
     private int birKind;
     private BirCountDownAdapter birAdapter;
-    private int count;
-    public static final int RESULT = 1;
+    public static final int RESULT = 2;
+    private int num;
 
 
     @Override
@@ -77,10 +84,32 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
         monAdapter = new MyMonthAdapter(this);
         birAdapter = new BirCountDownAdapter(this);
         dbTool = new DBTool();
-
         initMorePop();
-//        dbTool.deleteAllData(UserBean.class);
+        dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
+            @Override
+            public void onQuery(ArrayList<UserBean> userBeen) {
+                monAdapter.setArrayList(userBeen);
+                stickyListHeadersListView.setAdapter(monAdapter);
+            }
+        });
+        stickyListHeadersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
 
+                dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
+                    @Override
+                    public void onQuery(ArrayList<UserBean> userBeen) {
+                        Intent intent = new Intent(FriendsActivity.this, DetailsActivity.class);
+                        intent.putExtra("name",userBeen.get(i).getName());
+                        intent.putExtra("constellation",userBeen.get(i).getConstellation());
+                        intent.putExtra("date",userBeen.get(i).getDate());
+                        intent.putExtra("id",userBeen.get(i).getId());
+                        startActivity(intent);
+                    }
+                });
+
+            }
+        });
     }
 
     @Override
@@ -90,13 +119,11 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
         constellation = intent.getStringExtra("constellation");
         kind = intent.getIntExtra("kind", 0);
         date = intent.getStringExtra("date");
-        monthKind = intent.getIntExtra("monthKind",0);
-        birKind = intent.getIntExtra("countDown",0);
+        monthKind = intent.getIntExtra("monthKind", 0);
         bean = new UserBean();
         bean.setKind(kind);
         bean.setName(name);
         bean.setDate(date);
-        bean.setBirKind(birKind);
         bean.setConstellation(constellation);
         bean.setDate(date);
         bean.setMonKind(monthKind);
@@ -116,18 +143,18 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
                 startActivity(new Intent(this, AddFriendsActivity.class));
                 break;
             case R.id.tv_back:
-
                 dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
                     @Override
                     public void onQuery(ArrayList<UserBean> userBeen) {
                         Intent intent = new Intent();
-                        count = userBeen.size();
+                        int count = userBeen.size();
                         Log.d("FriendsActivity", "count:" + count);
-                        intent.putExtra("count",count);
+                        intent.putExtra("count", count);
                         setResult(RESULT, intent);
+                        finish();
                     }
                 });
-                finish();
+
                 break;
             case R.id.iv_more:
                 if (!popupWindow.isShowing()) {
@@ -158,22 +185,34 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
         }
         switch (adapter.arrayList.get(position)) {
             case "生日倒数":
-
                 dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
                     @Override
                     public void onQuery(ArrayList<UserBean> userBeen) {
-                        //TODO 根据日期 确定kind值
-                        Collections.sort(userBeen, new Comparator<UserBean>() {
+                        for (UserBean str : userBeen) {
+                            num = getBirthdayCountDown(str.getDate());
+                            str.setBirKind(num);
+                            dbTool.upData(str);
+                        }
+                        dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
                             @Override
-                            public int compare(UserBean userBean, UserBean t1) {
-                                return userBean.getBirKind() - t1.getBirKind();
+                            public void onQuery(ArrayList<UserBean> userBeen) {
+                                //TODO 根据日期 确定kind值
+                                Collections.sort(userBeen, new Comparator<UserBean>() {
+                                    @Override
+                                    public int compare(UserBean userBean, UserBean t1) {
+                                        return userBean.getBirKind() - t1.getBirKind();
+                                    }
+                                });
+                                Log.d("FriendsActivity", "userBeen.get(position).getBirKind():" + userBeen.get(position).getBirKind());
+                                birAdapter.setArrayList(userBeen);
+                                stickyListHeadersListView.setAdapter(birAdapter);
                             }
                         });
-                        Log.d("FriendsActivity", "userBeen.get(position).getBirKind():" + userBeen.get(position).getBirKind());
-                        birAdapter.setArrayList(userBeen);
-                        stickyListHeadersListView.setAdapter(birAdapter);
+
                     }
                 });
+
+
 //                stickyListHeadersListView.setOnScrollListener(new AbsListView.OnScrollListener() {
 //                    @Override
 //                    public void onScrollStateChanged(AbsListView absListView, int i) {
@@ -244,5 +283,45 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
 
 
         }
+    }
+
+    public int getBirthdayCountDown(String date) {
+        int birKind;
+        long days;
+        String birthday = date;
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        int yearNow = calendar.get(Calendar.YEAR);//获取当前年份
+        try {
+            calendar.setTime(format.parse(birthday));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        int birthYear = calendar.get(Calendar.YEAR);
+        while (birthYear < yearNow) {
+            calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) + 1);
+            birthYear = calendar.get(Calendar.YEAR);
+        }
+        Date ed = new Date();
+        Log.d("AddFriendsActivity", "ed:" + ed);
+        Date sd = calendar.getTime();
+        Log.d("AddFriendsActivity", "sd:" + sd);
+
+        if ((ed.getTime() - sd.getTime()) / (3600 * 24 * 1000) < 0) {
+            days = -((ed.getTime() - sd.getTime()) / (3600 * 24 * 1000)) + 1;
+            Log.d("AddFriendsActivity", "days:if" + days);
+
+        } else {
+            calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) + 1);
+            sd = calendar.getTime();
+            days = -((ed.getTime() - sd.getTime()) / (3600 * 24 * 1000)) + 1;
+            Log.d("AddFriendsActivity", "days:else" + days);
+        }
+        if (days <= 31) {
+            birKind = 1;
+        } else {
+            birKind = 2;
+        }
+        return birKind;
     }
 }

@@ -38,7 +38,7 @@
             />
         <activity android:name=".enter.LoginActivity"/>
         <activity android:name=".enter.NewLoginActivity"/>
-
+        <activity android:name=".birth.DetailsActivity"/>
     </application>
 
 

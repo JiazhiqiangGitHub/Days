@@ -6,11 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import lanou.days.R;
+import lanou.days.birth.tool.OnRecyclerItemClickListener;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
 /**
@@ -20,7 +22,6 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 public class BirCountDownAdapter extends BaseAdapter implements StickyListHeadersAdapter{
     private ArrayList<UserBean> arrayList;
     private Context context;
-
     public BirCountDownAdapter(Context context) {
         this.context = context;
     }
@@ -70,7 +71,7 @@ public class BirCountDownAdapter extends BaseAdapter implements StickyListHeader
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         BodyViewHolder bodyViewHolder;
         if (view == null){
             view = LayoutInflater.from(context).inflate(R.layout.item_bir_body,viewGroup,false);
@@ -81,6 +82,7 @@ public class BirCountDownAdapter extends BaseAdapter implements StickyListHeader
         }
         bodyViewHolder.name.setText(arrayList.get(i).getName());
         bodyViewHolder.date.setText(arrayList.get(i).getDate());
+
         return view;
     }
 
@@ -98,9 +100,11 @@ public class BirCountDownAdapter extends BaseAdapter implements StickyListHeader
         private  TextView name;
         private  TextView date;
 
+
         public BodyViewHolder(View view) {
             name = (TextView) view.findViewById(R.id.tv_bir_name);
             date = (TextView) view.findViewById(R.id.tv_bir_date);
+
         }
     }
 }

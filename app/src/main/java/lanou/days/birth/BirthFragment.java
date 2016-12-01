@@ -22,6 +22,7 @@ import java.util.Date;
 import lanou.days.R;
 import lanou.days.base.BaseFragment;
 import lanou.days.birth.tool.DBTool;
+import lanou.days.birth.tool.MyApp;
 
 /**
  * Created by machuang on 16/11/22.
@@ -36,6 +37,7 @@ public class BirthFragment extends BaseFragment implements View.OnClickListener 
     private RelativeLayout rlFriends;
     private TextView friendsCount;
     private int count;
+
 
     @Override
     protected void initData() {
@@ -72,12 +74,12 @@ public class BirthFragment extends BaseFragment implements View.OnClickListener 
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.iv_birth_modify:
-                Intent intent = new Intent(getContext(),ModifyBirthDayActivity.class);
+                Intent intent = new Intent(MyApp.getContext(),ModifyBirthDayActivity.class);
                 startActivityForResult(intent,REQUEST);
                 break;
             case R.id.rl_friends:
-                Intent intent1 = new Intent(getContext(),FriendsActivity.class);
-                startActivity(intent1);
+                Intent intent1 = new Intent(MyApp.getContext(),FriendsActivity.class);
+                startActivityForResult(intent1,REQUEST);
                 break;
         }
     }

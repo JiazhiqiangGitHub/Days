@@ -82,59 +82,20 @@ public class AddFriendsActivity extends BaseSwipeActivity implements View.OnClic
                     intent.putExtra("kind", getKind(getConstellation(mMonth, mDay)));
                     intent.putExtra("date", contactBirthday.getText());
                     intent.putExtra("monthKind", getMonthKind(mMonth));
-                    intent.putExtra("countDown",getBirthdayCountDown());
+
+//                    intent.putExtra("countDown",getBirthdayCountDown());
                 }else {
                     intent.putExtra("name", userName.getText().toString());
                     intent.putExtra("constellation", getConstellation(nMonth+1, nDay).toString());
                     intent.putExtra("kind", getKind(getConstellation(nMonth+1, nDay)));
                     intent.putExtra("date", contactBirthday.getText());
                     intent.putExtra("monthKind", getMonthKind(nMonth+1));
-                    intent.putExtra("countDown",getBirthdayCountDown());
+//                    intent.putExtra("countDown",getBirthdayCountDown());
                 }
                 startActivity(intent);
                 finish();
                 break;
         }
-    }
-
-    public int getBirthdayCountDown() {
-        int birKind;
-        long days ;
-        String birthday = contactBirthday.getText().toString();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar calendar = Calendar.getInstance();
-        int yearNow = calendar.get(Calendar.YEAR);//获取当前年份
-        try {
-            calendar.setTime(format.parse(birthday));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        int birthYear = calendar.get(Calendar.YEAR);
-        while (birthYear < yearNow) {
-            calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) + 1);
-            birthYear = calendar.get(Calendar.YEAR);
-        }
-        Date ed = new Date();
-        Log.d("AddFriendsActivity", "ed:" + ed);
-        Date sd = calendar.getTime();
-        Log.d("AddFriendsActivity", "sd:" + sd);
-
-        if ((ed.getTime() - sd.getTime()) / (3600 * 24 * 1000) < 0) {
-            days = -((ed.getTime() - sd.getTime()) / (3600 * 24 * 1000)) + 1;
-            Log.d("AddFriendsActivity", "days:if" + days);
-
-        } else {
-            calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) + 1);
-            sd = calendar.getTime();
-            days = -((ed.getTime() - sd.getTime()) / (3600 * 24 * 1000)) + 1;
-            Log.d("AddFriendsActivity", "days:else" + days);
-        }
-        if (days <= 31) {
-            birKind = 1;
-        } else {
-            birKind = 2;
-        }
-        return birKind;
     }
 
 
