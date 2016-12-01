@@ -13,6 +13,7 @@ import android.widget.Toast;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
+import lanou.days.MainActivity;
 import lanou.days.R;
 import lanou.days.base.BaseActivity;
 
@@ -96,16 +97,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         if (e == null){
                             finish();
                             Toast.makeText(LoginActivity.this, "欢迎回家,主人", Toast.LENGTH_SHORT).show();
+
                         }else{
                             Toast.makeText(LoginActivity.this, "用户名或者密码错误", Toast.LENGTH_SHORT).show();
                         }
-
-
-
-
                     }
                 });
-
                 break;
             case R.id.btn_enter_new:
                 Intent intent = new Intent(LoginActivity.this,NewLoginActivity.class);

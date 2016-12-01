@@ -76,7 +76,7 @@
            android:button="@null"
            android:gravity="center"
            android:id="@+id/btn_main_setting"
-           android:text="设置"
+           android:text="更多"
            android:textSize="12sp"
            android:textColor="@drawable/settingtext_selector"
            android:drawableTop="@drawable/setting_selector"
