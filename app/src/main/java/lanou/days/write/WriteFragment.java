@@ -20,6 +20,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import lanou.days.R;
 import lanou.days.base.BaseFragment;
+import lanou.days.base.SharedConfig;
 
 /**
  * 写笔记的Fragment
@@ -32,17 +33,18 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
     private View mView;
     private PopupWindow mPopup;
     private String mTime;
+    private String mType;
 
     @Override
     protected void initData() {
         mPopup = new PopupWindow(mView, 720, 300);
         mPopup.setAnimationStyle(R.style.PopupAnimation);
         //TODO 封装
-        SharedPreferences getSp = getActivity().getSharedPreferences("write", Context.MODE_PRIVATE);
-        title.setText(getSp.getString("文章标题", ""));
-        content.setText(getSp.getString("文章内容", ""));
-//          title.setText(SharedConfig.getSharedConfigString(getActivity(),"write","文章标题"));
-//          content.setText(SharedConfig.getSharedConfigString(getActivity(),"write","文章内容"));
+//        SharedPreferences getSp = getActivity().getSharedPreferences("write", Context.MODE_PRIVATE);
+//        title.setText(getSp.getString("文章标题", ""));
+//        content.setText(getSp.getString("文章内容", ""));
+          title.setText(SharedConfig.getSharedConfigString(getActivity(),"write","文章标题"));
+          content.setText(SharedConfig.getSharedConfigString(getActivity(),"write","文章内容"));
 
 
     }
@@ -101,17 +103,18 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
     private void setContentWithTemplate(int templateNum) {
         getSystemTime();
         //TODO 把title 想内容一样封装起来
-        switch (templateNum) {
-            case 0:
-                title.setText((mTime + "的账单"));
-                break;
-            case 1:
-                title.setText(("会议记录:" + " " + mTime));
-                break;
-            case 2:
-                title.setText((mTime + "日记"));
-                break;
-        }
+//        switch (templateNum) {
+//            case 0:
+//                title.setText((mTime + "的账单"));
+//                break;
+//            case 1:
+//                title.setText(("会议记录:" + " " + mTime));
+//                break;
+//            case 2:
+//                title.setText((mTime + "日记"));
+//                break;
+//        }
+        title.setText(mTime + TemplateFactory.getTemplateTitle(templateNum));
         content.setText(TemplateFactory.getTemplateContent(templateNum));
         mPopup.dismiss();
     }
@@ -128,6 +131,7 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
                 if (title.getText().toString().equals("")) {
                     Toast.makeText(getContext(), "至少得写一个标题喵", Toast.LENGTH_SHORT).show();
                 } else {
+
                     upData();
                 }
             }
@@ -150,10 +154,20 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
             // 允许用户使用应用
             // 继续上传
             WriteBean writeBean = new WriteBean();
-            String titleStr = title.getText().toString();
+            final String titleStr = title.getText().toString();
             writeBean.setTitle(titleStr);
             String contentStr = content.getText().toString();
             writeBean.setContent(contentStr);
+            if (titleStr.contains("账单")){
+                mType = "账单";
+            } else if (titleStr.contains("日记")){
+                mType = "日记";
+            } else if (titleStr.contains("记录")){
+                mType = "记录";
+            }  else {
+                mType = "其他";
+            }
+            writeBean.setType(mType);
             writeBean.setAuthor(bmobUser);
             writeBean.save(new SaveListener<String>() {
                 @Override
@@ -187,13 +201,13 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     public void onDestroyView() {
-        SharedPreferences sp = getActivity().getSharedPreferences("write", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString("文章标题", title.getText().toString());
-        editor.putString("文章内容", content.getText().toString());
-        editor.apply();
-//        SharedConfig.putSharedConfig(getActivity(),"write","文章标题","");
-//        SharedConfig.putSharedConfig(getActivity(),"write","文章内容","");
+//        SharedPreferences sp = getActivity().getSharedPreferences("write", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sp.edit();
+//        editor.putString("文章标题", title.getText().toString());
+//        editor.putString("文章内容", content.getText().toString());
+//        editor.apply();
+        SharedConfig.putSharedConfig(getActivity(),"write","文章标题",title.getText().toString());
+        SharedConfig.putSharedConfig(getActivity(),"write","文章内容",content.getText().toString());
         super.onDestroyView();
     }
 

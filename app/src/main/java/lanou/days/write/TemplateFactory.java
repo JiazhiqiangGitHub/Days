@@ -63,4 +63,19 @@ public class TemplateFactory {
         }
         return template;
     }
+    public static String getTemplateTitle(int templateNum) {
+        String title= "";
+        switch (templateNum) {
+            case 0:
+                title = "的账单 ";
+                break;
+            case 1:
+                title = "的会议记录";
+                break;
+            case 2:
+                title = "日记";
+                break;
+        }
+        return title;
+    }
 }
