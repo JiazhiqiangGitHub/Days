@@ -18,6 +18,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:name=".birth.tool.MyApp"
         android:theme="@style/AppTheme">
         <activity android:name=".opening.OpeningActivity"
                   android:launchMode="singleTop">
@@ -27,12 +28,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
+
+
+        <activity android:name=".birth.ModifyBirthDayActivity" />
+        <activity android:name=".birth.FriendsActivity" android:launchMode="singleTask"/>
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".birth.AddFriendsActivity"
+            android:theme="@style/JK.SwipeBack.Transparent.Theme"
+            />
         <activity android:name=".enter.LoginActivity"/>
         <activity android:name=".enter.NewLoginActivity"/>
+
+        <activity android:name=".birth.DetailsActivity"/>
+
         <activity android:name=".note.NoteDetail"/>
+
         <activity android:name=".news.read.ReadActivity"/>
         <activity android:name=".news.technology.TechnologyActivity"/>
+
+
+
     </application>
+
 
 </manifest>

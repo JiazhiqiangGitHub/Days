@@ -27,11 +27,17 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.1'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:recyclerview-v7:24.2.1'
     compile 'com.github.userswlwork:pull-to-refresh:1.0.0'
+
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.wuxiaolong.pullloadmorerecyclerview:library:1.1.1'
     compile 'com.jude:rollviewpager:1.2.9'
     compile 'com.dalong.coverflow:coverflow:1.0.0'
+
+    compile 'se.emilsjolander:stickylistheaders:2.7.0'
+    compile files('libs/lite-orm-1.9.2.jar')
+
 }
 android {
     sourceSets {
