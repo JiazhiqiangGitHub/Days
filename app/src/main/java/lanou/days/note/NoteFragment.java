@@ -141,7 +141,7 @@ public class NoteFragment extends BaseFragment implements AdapterView.OnItemClic
                 mMainListView.setVisibility(View.INVISIBLE);
 
                 break;
-        }
+        } 
 
     }
 
