@@ -3,6 +3,7 @@ package lanou.days.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,19 @@ public abstract class BaseFragment extends Fragment{
     protected abstract void initView();
 
     protected abstract int getLayout();
+    //View的点击事件
+    protected void setItemOnClick(View.OnClickListener clickListener, View ...views){
+        int i = 0;
+        for (View view : views){
+            if (view == null) {
+                Log.d("BaseFragment-click", "i:" + i);
+            }else {
+
+                view.setOnClickListener(clickListener);
+            }
+            i++;
+        }
+    }
 
 
 
