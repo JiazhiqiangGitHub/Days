@@ -4,16 +4,23 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.util.HashMap;
+
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
-import lanou.days.MainActivity;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.PlatformDb;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.tencent.qq.QQ;
 import lanou.days.R;
 import lanou.days.base.BaseActivity;
 
@@ -22,9 +29,10 @@ import lanou.days.base.BaseActivity;
  */
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
     private EditText etTelephone,etPassword;
-    private ImageView btnBcak;
+    private ImageView btnBcak,qq;
     private Button btnEnter,btnNew;
     private String tel;
+    public static  final int RESULT = 0;
     @Override
     protected int getLayout() {
         return R.layout.activity_login;
@@ -37,6 +45,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         btnBcak = bindView(R.id.btn_enter_back);
         btnEnter = bindView(R.id.btn_enter_enter);
         btnNew = bindView(R.id.btn_enter_new);
+        qq = bindView(R.id.qq);
 
     }
 
@@ -47,6 +56,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         btnEnter.setOnClickListener(this);
         //按钮变色
         EditTextChangeColor();
+        qq.setOnClickListener(this);
 
     }
 
@@ -109,6 +119,48 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 Intent intent = new Intent(LoginActivity.this,NewLoginActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.qq:
+                Platform qq = ShareSDK.getPlatform(QQ.NAME);
+                qq.authorize();
+                qq.setPlatformActionListener(new PlatformActionListener() {
+                    @Override
+                    public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                        PlatformDb platformDb = platform.getDb();
+                        String name = platformDb.getUserName();
+                        Log.d("LoginActivity", name);
+                        String icon = platformDb.getUserIcon();
+                        Intent intent = new Intent();
+                        intent.putExtra("name", name);
+                        intent.putExtra("icon", icon);
+                        setResult(RESULT, intent);
+                        //// TODO: 16/12/2  
+                        BmobUser myUser = new BmobUser();
+                        myUser.setUsername(name);
+                        myUser.login(new SaveListener<BmobUser>() {
+                            @Override
+                            public void done(BmobUser bmobUser, BmobException e) {
+                                
+                            }
+                        });
+                        
+                        
+                        finish();
+                    }
+
+                    @Override
+                    public void onError(Platform platform, int i, Throwable throwable) {
+
+                    }
+
+                    @Override
+                    public void onCancel(Platform platform, int i) {
+
+                    }
+                });
+
+
+
+                break;
         }
     }
 
@@ -127,10 +179,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 }else{
                     Toast.makeText(LoginActivity.this, "用户名或者密码错误", Toast.LENGTH_SHORT).show();
                 }
-
-
-
-
             }
         });
     }

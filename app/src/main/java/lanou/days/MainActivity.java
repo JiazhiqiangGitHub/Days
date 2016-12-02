@@ -9,6 +9,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +18,14 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.HashMap;
+
 import cn.bmob.v3.BmobUser;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.PlatformDb;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.tencent.qq.QQ;
 import lanou.days.base.BaseActivity;
 import lanou.days.birth.BirthFragment;
 import lanou.days.enter.LoginActivity;
@@ -27,9 +35,12 @@ import lanou.days.setting.SettingFragment;
 import lanou.days.write.WriteFragment;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
-    private RadioButton btnWrite,btnNote,btnBirth,btnSetting,btnNews;
+    private RadioButton btnWrite, btnNote, btnBirth, btnSetting, btnNews;
     private FragmentManager manager;
     private TextView tvName;
+    private PlatformActionListener platformActionListener;
+    private String qqName;
+
     @Override
     protected int getLayout() {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -43,10 +54,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         btnBirth = bindView(R.id.btn_main_birth);
         btnSetting = bindView(R.id.btn_main_setting);
         btnNews = bindView(R.id.btn_main_news);
-        
+
         NavigationView v = bindView(R.id.main_nv);
         View headerView = v.getHeaderView(0);
-        tvName = bindView(headerView,R.id.tv_main_user_name);
+        tvName = bindView(headerView, R.id.tv_main_user_name);
 
     }
 
@@ -67,13 +78,51 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         btnSetting.setOnClickListener(this);
         btnNews.setOnClickListener(this);
 
+
+        //// TODO: 16/12/2
+        //判断是否登录
+        Platform qq = ShareSDK.getPlatform(QQ.NAME);
+        try {
+//
+            PlatformDb platformDb = qq.getDb();
+            qqName = platformDb.getUserName();
+//            icon = platformDb.getUserIcon();
+//
+            if (!TextUtils.isEmpty(qqName)) {
+                    tvName.setText(qqName);
+//                VolleySingleton.getInstance().getImage(icon, myIv);
+            }
+        } catch (NullPointerException e) {
+
+        }
+
+        //再给一遍授权
+        //输出所有授权信息
+        platformActionListener = new PlatformActionListener() {
+            @Override
+            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                //输出所有授权信息
+                platform.getDb().exportData();
+            }
+
+            @Override
+            public void onError(Platform platform, int i, Throwable throwable) {
+                throwable.printStackTrace();
+            }
+
+            @Override
+            public void onCancel(Platform platform, int i) {
+
+            }
+        };
+
         BmobUser bmobUser = BmobUser.getCurrentUser();
         Log.d("aaMainActivity", "bmobUser:" + bmobUser);
         Log.d("aaMainActivity", "tvName:" + tvName);
-            if (bmobUser != null) {
-                Log.d("Sysout", bmobUser.getUsername());
-                tvName.setText(bmobUser.getUsername());
-            }
+        if (bmobUser != null) {
+            Log.d("Sysout", bmobUser.getUsername());
+            tvName.setText(bmobUser.getUsername());
+        }
     }
 
     //创建侧滑
@@ -81,8 +130,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.dl);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,
-                R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
@@ -94,28 +143,28 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     public void onClick(View view) {
 
         FragmentTransaction transaction = manager.beginTransaction();
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn_main_write:
-                    transaction.replace(R.id.lb_main, new WriteFragment());
+                transaction.replace(R.id.lb_main, new WriteFragment());
                 break;
             case R.id.btn_main_note:
 
-                    transaction.replace(R.id.lb_main, new NoteFragment());
+                transaction.replace(R.id.lb_main, new NoteFragment());
 
                 break;
             case R.id.btn_main_birth:
 
-                    transaction.replace(R.id.lb_main, new BirthFragment());
+                transaction.replace(R.id.lb_main, new BirthFragment());
 
                 break;
             case R.id.btn_main_news:
 
-                    transaction.replace(R.id.lb_main, new NewsFragment());
+                transaction.replace(R.id.lb_main, new NewsFragment());
 
                 break;
             case R.id.btn_main_setting:
 
-                    transaction.replace(R.id.lb_main, new SettingFragment());
+                transaction.replace(R.id.lb_main, new SettingFragment());
 
                 break;
         }
@@ -128,10 +177,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.nav_mine){
-            Intent intent = new Intent(this,LoginActivity.class);
-            startActivity(intent);
-        }else if(id == R.id.nav_close){
+        if (id == R.id.nav_mine) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivityForResult(intent, 1);
+        } else if (id == R.id.nav_close) {
+
+            //退出登录
+            Platform qq = ShareSDK.getPlatform(QQ.NAME);
+            if (qq.isAuthValid()) {
+                qq.removeAccount(true);
+            }
+            qq.setPlatformActionListener(platformActionListener);
+            //authorize与showUser单独调用一个即可
+            qq.authorize();//单独授权，OnComplete返回的hashmap是空的
+            qq.showUser(null);//授权并获取用户信息
+            //isValid和removeAccount不开启线程，会直接返回。
+            //qq.removeAccount(true);
+            setResult(-1);
+            finish();
+
             BmobUser user = BmobUser.getCurrentUser();
             if (user != null) {
                 BmobUser.logOut();
@@ -140,6 +204,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             } else {
                 Toast.makeText(this, "你根本没有登录", Toast.LENGTH_SHORT).show();
             }
+
         }
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.dl);
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -147,7 +212,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("Sysout", "resultCode:" + resultCode);
+        if (data == null) {
+            //退出登录
+            return;
+        }
+        if (requestCode == 1 && LoginActivity.RESULT == resultCode && data != null) {
+                qqName = data.getStringExtra("name");
+//            icon = data.getStringExtra("icon");
+            tvName.setText(qqName);
+//            VolleySingleton.getInstance().getImage(icon, myIv);
 
+    }
+
+}
 
 
 }
