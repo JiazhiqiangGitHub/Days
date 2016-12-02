@@ -49,7 +49,7 @@ public class NoteAdapter extends BaseAdapter {
         return viewHolder.getItemView();
     }
 
-    public String[] getText(int i){
+    public String[] getText(int i) {
         String title = mList.get(i).getTitle();
         String time = mList.get(i).getUpdatedAt();
         String content = mList.get(i).getContent();
