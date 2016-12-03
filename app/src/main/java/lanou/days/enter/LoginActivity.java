@@ -134,14 +134,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         intent.putExtra("icon", icon);
                         setResult(RESULT, intent);
                         //// TODO: 16/12/2  
-                        BmobUser myUser = new BmobUser();
-                        myUser.setUsername(name);
-                        myUser.login(new SaveListener<BmobUser>() {
-                            @Override
-                            public void done(BmobUser bmobUser, BmobException e) {
-                                
-                            }
-                        });
+
                         
                         
                         finish();
@@ -157,7 +150,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                     }
                 });
-
 
 
                 break;

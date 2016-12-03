@@ -14,9 +14,12 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 
@@ -39,7 +42,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private FragmentManager manager;
     private TextView tvName;
     private PlatformActionListener platformActionListener;
-    private String qqName;
+    private String qqName,icon;
+    private ImageView userIcon;
 
     @Override
     protected int getLayout() {
@@ -55,10 +59,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         btnSetting = bindView(R.id.btn_main_setting);
         btnNews = bindView(R.id.btn_main_news);
 
+
         NavigationView v = bindView(R.id.main_nv);
         View headerView = v.getHeaderView(0);
         tvName = bindView(headerView, R.id.tv_main_user_name);
-
+        userIcon = bindView(headerView,R.id.iv_main_user_picture);
     }
 
     @Override
@@ -83,14 +88,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         //判断是否登录
         Platform qq = ShareSDK.getPlatform(QQ.NAME);
         try {
-//
+
             PlatformDb platformDb = qq.getDb();
             qqName = platformDb.getUserName();
-//            icon = platformDb.getUserIcon();
-//
+            icon = platformDb.getUserIcon();
+
             if (!TextUtils.isEmpty(qqName)) {
                     tvName.setText(qqName);
-//                VolleySingleton.getInstance().getImage(icon, myIv);
+
+                Picasso.with(this).load(icon).into(userIcon);
+
             }
         } catch (NullPointerException e) {
 
@@ -222,9 +229,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         }
         if (requestCode == 1 && LoginActivity.RESULT == resultCode && data != null) {
                 qqName = data.getStringExtra("name");
-//            icon = data.getStringExtra("icon");
+            icon = data.getStringExtra("icon");
             tvName.setText(qqName);
-//            VolleySingleton.getInstance().getImage(icon, myIv);
+            Picasso.with(this).load(icon).into(userIcon);
 
     }
 

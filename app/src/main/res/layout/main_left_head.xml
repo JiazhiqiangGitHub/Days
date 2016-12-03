@@ -10,21 +10,28 @@
     <!--android:theme="@style/ThemeOverlay.AppCompat.Dark"字体白色-->
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:src="@mipmap/ic_launcher"
         android:id="@+id/iv_main_user_picture"
-        android:layout_margin="10dp"/>
+        android:layout_margin="5dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="用户名称"
         android:id="@+id/tv_main_user_name"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:textSize="15dp"
         />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="www.days.com"
+        android:layout_margin="5dp"
+        android:textSize="15dp"
+        />
 
 
 
