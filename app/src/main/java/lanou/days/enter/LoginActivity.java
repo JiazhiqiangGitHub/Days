@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -33,6 +34,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private Button btnEnter,btnNew;
     private String tel;
     public static  final int RESULT = 0;
+    public static  final int RESULTOne = 1;
+    private TextView tvName;
     @Override
     protected int getLayout() {
         return R.layout.activity_login;
@@ -46,6 +49,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         btnEnter = bindView(R.id.btn_enter_enter);
         btnNew = bindView(R.id.btn_enter_new);
         qq = bindView(R.id.qq);
+
 
     }
 
@@ -96,8 +100,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 finish();
                 break;
             case R.id.btn_enter_enter:
-                Login();
-                String number = etTelephone.getText().toString();
+
+                final String number = etTelephone.getText().toString();
                 String world = etPassword.getText().toString();
                 BmobUser myUser = new BmobUser();
                 myUser.setUsername(number);
@@ -106,6 +110,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     @Override
                     public void done(BmobUser bmobUser, BmobException e) {
                         if (e == null){
+                            Intent intent = new Intent();
+                            intent.putExtra("number", number);
+                            setResult(RESULTOne, intent);
                             finish();
                             Toast.makeText(LoginActivity.this, "欢迎回家,主人", Toast.LENGTH_SHORT).show();
 
@@ -154,24 +161,5 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                 break;
         }
-    }
-
-    private void Login() {
-        String number = etTelephone.getText().toString();
-        String world = etPassword.getText().toString();
-        BmobUser myUser = new BmobUser();
-        myUser.setUsername(number);
-        myUser.setPassword(world);
-        myUser.login(new SaveListener<BmobUser>() {
-            @Override
-            public void done(BmobUser bmobUser, BmobException e) {
-                if (e == null){
-                    finish();
-                    Toast.makeText(LoginActivity.this, "欢迎回家,主人", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(LoginActivity.this, "用户名或者密码错误", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 }

@@ -39,6 +39,7 @@ dependencies {
     compile files('libs/MobTools-2016.1107.1809.jar')
     compile files('libs/ShareSDK-Core-2.7.10.jar')
     compile files('libs/ShareSDK-QQ-2.7.10.jar')
+    compile 'com.android.support:design:25.0.1'
 }
 android {
     sourceSets {

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/btn_main_write"
+        android:icon="@drawable/write_selector"
+        android:title="笔记" />
+    <item
+        android:id="@+id/btn_main_note"
+        android:icon="@drawable/note_selector"
+        android:title="个人文件" />
+    <item
+        android:id="@+id/btn_main_birth"
+        android:icon="@drawable/birth_selector"
+        android:title="生日本" />
+    <item
+        android:id="@+id/btn_main_news"
+        android:icon="@drawable/news_selector"
+        android:title="每日快讯" />
+    <item
+        android:id="@+id/btn_main_setting"
+        android:icon="@drawable/setting_selector"
+        android:title="更多" />
+</menu>
