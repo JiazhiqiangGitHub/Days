@@ -148,4 +148,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("MainActivity", "aaa");
+    }
 }

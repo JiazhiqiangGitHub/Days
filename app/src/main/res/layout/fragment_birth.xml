@@ -25,13 +25,13 @@
             android:layout_centerVertical="true"
             android:text="生日通讯录" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:src="@mipmap/like" />
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:src="@mipmap/like" />-->
     </RelativeLayout>
 
     <RelativeLayout
@@ -96,7 +96,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="100dp"
+        android:background="@mipmap/friends">
 
         <RelativeLayout
             android:id="@+id/rl_friends"
@@ -104,7 +105,8 @@
             android:layout_height="90dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
-            android:background="@mipmap/circle">
+
+            android:layout_centerInParent="true">
             <TextView
                 android:id="@+id/tv_friends"
                 android:layout_width="wrap_content"
@@ -120,33 +122,52 @@
                 android:layout_centerHorizontal="true"
                 />
         </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_centerInParent="true"
-            android:background="@mipmap/circle">
-            <TextView
-                android:id="@+id/tv_older"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="0"
-                android:textSize="25dp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="我的礼物"
-                android:layout_above="@id/tv_older"
-                android:layout_centerHorizontal="true"
-                />
-        </RelativeLayout>
+        <!--<RelativeLayout-->
+            <!--android:layout_width="90dp"-->
+            <!--android:layout_height="90dp"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:background="@mipmap/circle">-->
+            <!--<TextView-->
+                <!--android:id="@+id/tv_older"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:text="0"-->
+                <!--android:textSize="25dp" />-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="我的礼物"-->
+                <!--android:layout_above="@id/tv_older"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--/>-->
+        <!--</RelativeLayout>-->
 
     </RelativeLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:text="即将过生日" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <ImageView
+            android:id="@+id/im_run"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_launcher"
+            />
+        <TextView
+            android:id="@+id/tv_recent_name"
+            android:paddingLeft="15dp"
+            android:paddingRight="10dp"
+            android:textColor="#3164b7"
+            android:background="@mipmap/prompt"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/im_run"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </RelativeLayout>
 
 </LinearLayout>

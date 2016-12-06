@@ -31,6 +31,7 @@ dependencies {
     compile 'com.github.userswlwork:pull-to-refresh:1.0.0'
     compile 'se.emilsjolander:stickylistheaders:2.7.0'
     compile files('libs/lite-orm-1.9.2.jar')
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 }
 android {
     sourceSets {

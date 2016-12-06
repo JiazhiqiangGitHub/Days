@@ -29,6 +29,7 @@ public class MyMonthAdapter extends BaseAdapter implements StickyListHeadersAdap
 
     public void setArrayList(ArrayList<UserBean> arrayList) {
         this.arrayList = arrayList;
+        notifyDataSetChanged();
     }
 
     @Override

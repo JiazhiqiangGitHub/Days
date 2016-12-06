@@ -25,7 +25,7 @@ public class ModifyBirthDayActivity extends BaseSwipeActivity implements View.On
     private int month;
     private int day;
     private EditText show;
-    public static final int RESULT = 10;
+    public static final int RESULT = 4;
     @Override
     protected void initData() {
        setClick(this,modifyBtn,chooseBtn);

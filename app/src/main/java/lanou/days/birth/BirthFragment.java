@@ -1,9 +1,12 @@
 package lanou.days.birth;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 
 
+import android.content.IntentFilter;
 import android.util.Log;
 import android.view.View;
 
@@ -12,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,7 +32,8 @@ import lanou.days.birth.tool.MyApp;
  * Created by machuang on 16/11/22.
  */
 public class BirthFragment extends BaseFragment implements View.OnClickListener {
-    public static int REQUEST = 1;
+    public static final int REQUEST = 1;
+    public static final int FRI_REQUEST = 3;
     private ImageView birthModify;
     private TextView birthdayTv;
     private TextView birthdayTime;
@@ -37,11 +42,16 @@ public class BirthFragment extends BaseFragment implements View.OnClickListener 
     private RelativeLayout rlFriends;
     private TextView friendsCount;
     private int count;
+    private ImageView run;
+    private MyBroadCast broadCast;
+    private static TextView recentBir;
+    private DBTool dbTool;
 
 
     @Override
     protected void initData() {
-        DBTool dbTool = new DBTool();
+        Glide.with(getActivity()).load(R.mipmap.running).into(run);
+        dbTool = new DBTool();
         dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
             @Override
             public void onQuery(ArrayList<UserBean> userBeen) {
@@ -50,7 +60,12 @@ public class BirthFragment extends BaseFragment implements View.OnClickListener 
             }
         });
 
-        setItemOnClick(this, birthModify, rlFriends);
+        setItemOnClick(this, birthModify, rlFriends,recentBir);
+        broadCast = new MyBroadCast();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("haha");
+        getActivity().registerReceiver(broadCast,filter);
+
 
     }
 
@@ -62,7 +77,8 @@ public class BirthFragment extends BaseFragment implements View.OnClickListener 
         haveBornTv = bindView(R.id.tv_days);
         rlFriends = bindView(R.id.rl_friends);
         friendsCount = bindView(R.id.tv_friends);
-
+        run = bindView(R.id.im_run);
+        recentBir = bindView(R.id.tv_recent_name);
     }
 
     @Override
@@ -79,7 +95,30 @@ public class BirthFragment extends BaseFragment implements View.OnClickListener 
                 break;
             case R.id.rl_friends:
                 Intent intent1 = new Intent(MyApp.getContext(),FriendsActivity.class);
-                startActivityForResult(intent1,REQUEST);
+//                startActivityForResult(intent1,FRI_REQUEST);
+                startActivity(intent1);
+                break;
+            case R.id.tv_recent_name:
+                Calendar calendar = Calendar.getInstance();
+                final String day = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH)+1) + "-" +
+                        calendar.get(Calendar.DAY_OF_MONTH);
+                final ArrayList<String> arrayList = new ArrayList<>();
+                dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
+                    @Override
+                    public void onQuery(ArrayList<UserBean> userBeen) {
+                        for (UserBean bean:userBeen
+                                ) {
+                            if (day.equals(bean.getDate())){
+                                arrayList.add(bean.getName());
+                            }
+                        }
+                        Intent intent = new Intent();
+                        intent.setAction("hehe");
+                        intent.putStringArrayListExtra("briName",arrayList);
+                        getActivity().sendBroadcast(intent);
+
+                    }
+                });
                 break;
         }
     }
@@ -87,16 +126,23 @@ public class BirthFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST && ModifyBirthDayActivity.RESULT == resultCode) {
+        if (REQUEST == requestCode && ModifyBirthDayActivity.RESULT == resultCode) {
             birthdayTv.setText(data.getStringExtra("birthday"));
             getBirthday();
             birthdayTime.setText((int) days + "天");
             getHaveBorn();
-        }else if (requestCode == REQUEST && FriendsActivity.RESULT == resultCode){
-            Log.d("BirthFragment", "data.getIntExtra" + data.getIntExtra("count", 0));
-            friendsCount.setText(data.getIntExtra("count",0));
         }
+
+//        }else if (FRI_REQUEST == requestCode && FriendsActivity.RESULT == resultCode){
+//            data.getStringExtra("count");
+//            friendsCount.setText(data.getStringExtra("count"));
+////            Log.d("BirthFragment", data.getStringExtra("1"));
+////            friendsCount.setText(data.getStringExtra("1"));
+//        }
+
     }
+
+
 
 
 
@@ -142,5 +188,37 @@ public class BirthFragment extends BaseFragment implements View.OnClickListener 
             e.printStackTrace();
         }
     }
+    class MyBroadCast extends BroadcastReceiver{
 
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            friendsCount.setText(intent.getStringExtra("count"));
+//            Log.d("MyBroadCast", "intent.getStringArrayListExtra:" + intent.getStringArrayListExtra("briname"));
+//            String name = "";
+//            for (String str:intent.getStringArrayListExtra("briname")
+//                 ) {
+//                name = name + str + ",";
+//            }
+//            recentBir.setText(name + "过生日啦!");
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unregisterReceiver(broadCast);
+    }
+    public static class MyRecentBroadCast extends BroadcastReceiver{
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d("MyBroadCast", "intent.getStringArrayListExtra:" + intent.getStringArrayListExtra("briName"));
+            String name = "";
+            for (String str:intent.getStringArrayListExtra("briName")
+                    ) {
+                name = name + str + ",";
+            }
+            recentBir.setText(name + "过生日啦!");
+        }
+    }
 }

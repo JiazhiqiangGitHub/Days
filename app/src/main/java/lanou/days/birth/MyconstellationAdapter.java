@@ -26,6 +26,7 @@ public class MyConstellationAdapter extends BaseAdapter implements StickyListHea
 
     public void setArrayList(ArrayList<UserBean> arrayList) {
         this.arrayList = arrayList;
+        notifyDataSetChanged();
     }
 
     @Override
