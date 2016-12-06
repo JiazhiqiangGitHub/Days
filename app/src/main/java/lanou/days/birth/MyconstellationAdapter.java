@@ -97,4 +97,3 @@ public class MyConstellationAdapter extends BaseAdapter implements StickyListHea
         }
     }
 }
-

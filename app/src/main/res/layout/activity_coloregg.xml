@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:id="@+id/ll_coloregg"
+              android:background="#3d77bf">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="440dp"
+        android:layout_gravity="center"
+        android:src="@mipmap/girl"
+        android:id="@+id/iv_coloregg"/>
+    <TextView
+        android:id="@+id/tv_coloregg"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:text="亏你能发现这里呢..."
+              android:layout_gravity="center"
+              android:textSize="16sp"
+              android:textColor="@color/colorOpeningTV"/>
+
+</LinearLayout>

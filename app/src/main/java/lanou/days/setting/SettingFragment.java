@@ -1,11 +1,13 @@
 package lanou.days.setting;
 
+import android.content.Intent;
 import android.os.SystemClock;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import lanou.days.MainActivity;
 import lanou.days.R;
 import lanou.days.base.BaseFragment;
 
@@ -58,6 +60,9 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                 if (mHits[0] >= (mHits[mHits.length - 1] - 500)) {
                     // 点击了三次,进行跳转
                     Toast.makeText(getContext(), "点击了三次", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent();
+                    intent.setClass(getActivity(),ColorEgg.class);
+                    startActivity(intent);
                 }
                 break;
         }
