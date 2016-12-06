@@ -1,9 +1,8 @@
 package lanou.days.write;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +34,8 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
     private String mTime;
     private String mType;
 
+    private String readTitle,readBody,technologyTitle,technologyBody;
+
     @Override
     protected void initData() {
         mPopup = new PopupWindow(mView, 720, 300);
@@ -43,10 +44,16 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
 //        SharedPreferences getSp = getActivity().getSharedPreferences("write", Context.MODE_PRIVATE);
 //        title.setText(getSp.getString("文章标题", ""));
 //        content.setText(getSp.getString("文章内容", ""));
-          title.setText(SharedConfig.getSharedConfigString(getActivity(),"write","文章标题"));
-          content.setText(SharedConfig.getSharedConfigString(getActivity(),"write","文章内容"));
+        title.setText(SharedConfig.getSharedConfigString(getActivity(), "write", "文章标题"));
+        content.setText(SharedConfig.getSharedConfigString(getActivity(), "write", "文章内容"));
 
 
+        //获得新闻页传来的数据
+        Intent intent = getActivity().getIntent();
+        readTitle = intent.getStringExtra("readTitle");
+        title.setText(readTitle);
+        readBody = intent.getStringExtra("readBody");
+        content.setText(readBody);
     }
 
     @Override
@@ -158,13 +165,13 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
             writeBean.setTitle(titleStr);
             String contentStr = content.getText().toString();
             writeBean.setContent(contentStr);
-            if (titleStr.contains("账单")){
+            if (titleStr.contains("账单")) {
                 mType = "账单";
-            } else if (titleStr.contains("日记")){
+            } else if (titleStr.contains("日记")) {
                 mType = "日记";
-            } else if (titleStr.contains("记录")){
+            } else if (titleStr.contains("记录")) {
                 mType = "记录";
-            }  else {
+            } else {
                 mType = "其他";
             }
             writeBean.setType(mType);
@@ -206,8 +213,8 @@ public class WriteFragment extends BaseFragment implements View.OnClickListener 
 //        editor.putString("文章标题", title.getText().toString());
 //        editor.putString("文章内容", content.getText().toString());
 //        editor.apply();
-        SharedConfig.putSharedConfig(getActivity(),"write","文章标题",title.getText().toString());
-        SharedConfig.putSharedConfig(getActivity(),"write","文章内容",content.getText().toString());
+        SharedConfig.putSharedConfig(getActivity(), "write", "文章标题", title.getText().toString());
+        SharedConfig.putSharedConfig(getActivity(), "write", "文章内容", content.getText().toString());
         super.onDestroyView();
     }
 

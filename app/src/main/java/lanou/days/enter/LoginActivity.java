@@ -74,7 +74,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 tel = etTelephone.getText().toString().trim();
-                if (tel.length() == 11){
+                if (tel != null){
                     btnEnter.setEnabled(true);
                     btnEnter.setBackgroundColor(Color.BLUE);
                 }else{
@@ -140,10 +140,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         intent.putExtra("name", name);
                         intent.putExtra("icon", icon);
                         setResult(RESULT, intent);
-                        //// TODO: 16/12/2  
-
-                        
-                        
                         finish();
                     }
 

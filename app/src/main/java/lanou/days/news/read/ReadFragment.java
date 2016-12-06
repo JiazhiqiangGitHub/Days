@@ -1,14 +1,12 @@
 package lanou.days.news.read;
 
-import android.util.Log;
-
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 import lanou.days.R;
 import lanou.days.base.BaseFragment;
+import lanou.days.bean.ReadBean;
 import lanou.days.okhttp.OkHttpManager;
 import lanou.days.okhttp.ResponseCallBack;
-import lanou.days.bean.ReadBean;
 import lanou.days.values.Values;
 
 /**
@@ -56,9 +54,6 @@ public class ReadFragment extends BaseFragment {
 
             @Override
             public void onError(Exception exception) {
-                Log.d("ReadFragment", "dsahjbdiy");
-                Log.d("ReadFragment", exception.getMessage());
-
             }
         });
     }
@@ -76,6 +71,7 @@ public class ReadFragment extends BaseFragment {
             public void onError(Exception exception) {
             }
         });
+
     }
 
     @Override

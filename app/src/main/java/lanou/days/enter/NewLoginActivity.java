@@ -56,7 +56,7 @@ public class NewLoginActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 telBlooean = etNumber.getText().toString().trim();
-                if (telBlooean.length() == 11){
+                if (telBlooean != null){
                     btnOk.setEnabled(true);
                     btnOk.setBackgroundColor(Color.BLUE);
                 }else{

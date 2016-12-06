@@ -18,7 +18,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="用户名称"
+        android:text="我们好像在哪见过,你的名字是"
         android:id="@+id/tv_main_user_name"
         android:layout_margin="5dp"
         android:textSize="15dp"
@@ -27,7 +27,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="www.days.com"
+        android:text="www.days.com.cn"
         android:layout_margin="5dp"
         android:textSize="15dp"
         />

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import lanou.days.MainActivity;
 import lanou.days.R;
 import lanou.days.base.CommonViewHolder;
 import lanou.days.bean.ReadBean;
@@ -18,6 +19,8 @@ import lanou.days.bean.ReadBean;
 public class ReadAdapter extends RecyclerView.Adapter<CommonViewHolder>{
     private Context context;
     private ReadBean bean;
+
+
 
     public ReadAdapter(Context context) {
         this.context = context;
@@ -41,19 +44,33 @@ public class ReadAdapter extends RecyclerView.Adapter<CommonViewHolder>{
         holder.setText(R.id.tv_news_read_title,bean.getData().getItems().get(position).getTitle()).
                 setText(R.id.tv_news_read_body,bean.getData().getItems().get(position).getIntroduction()).
                 setImage(R.id.iv_news_read,bean.getData().getItems().get(position).getCover_image_url()).
+                setViewClick(R.id.btn_share_read, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //// TODO: 16/12/6 传值
+                        Intent intent = new Intent(context, MainActivity.class);
+                        intent.putExtra("readTitle",bean.getData().getItems().get(position).getTitle());
+                        intent.putExtra("readBody",bean.getData().getItems().get(position).getIntroduction());
+                        context.startActivity(intent);
+                    }
+                }).
                 setItemClick(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Toast.makeText(context, "position:" + position, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(context,ReadActivity.class);
+
                         intent.putExtra("read",bean.getData().getItems().get(position).getUrl());
                         context.startActivity(intent);
                     }
                 });
-
+                String str = bean.getData().getItems().get(position).getIntroduction();
+                if (str.length() >= 80){
+                    String strTwo = str.substring(0,80);
+                    holder.setText(R.id.tv_news_read_body,strTwo+". . .");
+                }
 
     }
-
 
 
     @Override
@@ -71,6 +88,5 @@ public class ReadAdapter extends RecyclerView.Adapter<CommonViewHolder>{
 
         return count;
     }
-
 
 }
