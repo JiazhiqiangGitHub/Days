@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorOpeningBG"
         app:tabSelectedTextColor="@color/colorOpeningTV"
-        app:tabIndicatorColor="@color/colorOpeningTV"
+        app:tabIndicatorColor="@color/colorOpeningBG"
         android:layout_marginTop="10dp">
 
     </android.support.design.widget.TabLayout>
