@@ -79,6 +79,7 @@ public class BirthFragment extends BaseFragment implements View.OnClickListener 
         friendsCount = bindView(R.id.tv_friends);
         run = bindView(R.id.im_run);
         recentBir = bindView(R.id.tv_recent_name);
+
     }
 
     @Override
@@ -209,16 +210,18 @@ public class BirthFragment extends BaseFragment implements View.OnClickListener 
         getActivity().unregisterReceiver(broadCast);
     }
     public static class MyRecentBroadCast extends BroadcastReceiver{
-
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d("MyBroadCast", "intent.getStringArrayListExtra:" + intent.getStringArrayListExtra("briName"));
             String name = "";
-            for (String str:intent.getStringArrayListExtra("briName")
+            for (String str : intent.getStringArrayListExtra("briName")
                     ) {
                 name = name + str + ",";
             }
-            recentBir.setText(name + "过生日啦!");
+            if (name.equals("")) {
+                recentBir.setText("今天没有人过生日!");
+            } else {
+                recentBir.setText(name + "过生日啦!");
+            }
         }
     }
 }
