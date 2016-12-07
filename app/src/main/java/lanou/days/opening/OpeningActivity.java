@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import cn.bmob.v3.Bmob;
+import cn.sharesdk.framework.ShareSDK;
 import lanou.days.MainActivity;
 import lanou.days.R;
 import lanou.days.base.BaseActivity;
@@ -29,6 +30,7 @@ public class OpeningActivity extends BaseActivity implements View.OnClickListene
         ll.setOnClickListener(this);
         //初始化bomb
         Bmob.initialize(this,"a4d0333e35368b5bdefc464a14d9ac90");
+        ShareSDK.initSDK(this,"19920c7229f22");
     }
 
     @Override

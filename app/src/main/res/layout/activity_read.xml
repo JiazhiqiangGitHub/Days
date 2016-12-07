@@ -5,20 +5,22 @@
 
     <WebView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
+        android:layout_height="match_parent"
+
         android:id="@+id/wv_read">
 
     </WebView>
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1">
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="分享"
-        android:layout_centerInParent="true"/>
-</RelativeLayout>
+
+<!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="1">-->
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="分享"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:id="@+id/share_news"/>-->
+<!--</RelativeLayout>-->
 
 </LinearLayout>

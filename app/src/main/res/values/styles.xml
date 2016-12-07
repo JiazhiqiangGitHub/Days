@@ -24,6 +24,12 @@
         <item name="android:windowExitAnimation">@anim/popup_exit</item>
     </style>
 
+
+    <style name="AppCompat.Dark" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+
     <style name="NightAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/nightColorPrimary</item>
