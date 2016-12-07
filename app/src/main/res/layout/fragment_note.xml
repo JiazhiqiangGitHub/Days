@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:ptr="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <com.handmark.pulltorefresh.library.PullToRefreshListView
+    <ListView
+        android:id="@+id/lv_directory"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layoutAnimation="@anim/list_anim_layout">
+    </ListView>
+    <ListView
         android:id="@+id/lv_note"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        ptr:ptrScrollingWhileRefreshingEnabled = "true"
         android:layoutAnimation="@anim/list_anim_layout">
-    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+    </ListView>
 
-</LinearLayout>
+</RelativeLayout>

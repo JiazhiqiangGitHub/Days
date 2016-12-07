@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class TabAdapter extends FragmentPagerAdapter{
     private ArrayList<Fragment> fragments;
-    private String[] string = {"爱读书","科技范"};
+    private String[] string = {"生活电台","饰品物语"};
 
     public void setFragments(ArrayList<Fragment> fragments) {
         this.fragments = fragments;

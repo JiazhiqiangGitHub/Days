@@ -86,6 +86,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 finish();
                 break;
             case R.id.btn_enter_enter:
+                Login();
                 String number = etTelephone.getText().toString();
                 String world = etPassword.getText().toString();
                 BmobUser myUser = new BmobUser();
@@ -109,5 +110,28 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 startActivity(intent);
                 break;
         }
+    }
+
+    private void Login() {
+        String number = etTelephone.getText().toString();
+        String world = etPassword.getText().toString();
+        BmobUser myUser = new BmobUser();
+        myUser.setUsername(number);
+        myUser.setPassword(world);
+        myUser.login(new SaveListener<BmobUser>() {
+            @Override
+            public void done(BmobUser bmobUser, BmobException e) {
+                if (e == null){
+                    finish();
+                    Toast.makeText(LoginActivity.this, "欢迎回家,主人", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(LoginActivity.this, "用户名或者密码错误", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+
+            }
+        });
     }
 }

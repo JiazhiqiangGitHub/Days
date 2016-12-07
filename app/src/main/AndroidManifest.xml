@@ -43,11 +43,20 @@
         <activity android:name=".birth.DetailsActivity"/>
 
         <activity android:name=".note.NoteDetail"/>
+
         <receiver android:name=".birth.BirthFragment$MyRecentBroadCast">
             <intent-filter>
                 <action android:name="hehe"/>
             </intent-filter>
         </receiver>
+
+
+        <activity android:name=".news.read.ReadActivity"/>
+        <activity android:name=".news.technology.TechnologyActivity"/>
+
+
+
+
     </application>
 
 

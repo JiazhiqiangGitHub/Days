@@ -13,6 +13,9 @@ import cn.bmob.v3.BmobUser;
 public class WriteBean extends BmobObject{
     private String title;
     private String content;
+    private String type;
+
+
     /**
      * 关联用
      */
@@ -37,9 +40,19 @@ public class WriteBean extends BmobObject{
     public BmobUser getAuthor() {
         return author;
     }
+
     public void setAuthor(BmobUser author) {
         this.author = author;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
 
 
 }

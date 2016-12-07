@@ -7,10 +7,6 @@
             android:icon="@mipmap/meblack"
             android:title="切换用户" />
         <item
-            android:id="@+id/nav_night"
-            android:icon="@mipmap/night"
-            android:title="夜间模式" />
-        <item
             android:id="@+id/nav_close"
             android:icon="@mipmap/ic_launcher"
             android:title= "退出登录" />
