@@ -157,6 +157,8 @@ public class UserIconActivity extends BaseActivity implements View.OnClickListen
                             public void done(BmobException e) {
                                if (e==null){
                                    Toast.makeText(UserIconActivity.this, "存储url成功", Toast.LENGTH_SHORT).show();
+
+
                                }else{
                                    Toast.makeText(UserIconActivity.this, "存储失败", Toast.LENGTH_SHORT).show();
                                }

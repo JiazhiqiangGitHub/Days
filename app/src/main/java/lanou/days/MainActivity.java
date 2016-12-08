@@ -41,6 +41,8 @@ import lanou.days.note.NoteFragment;
 import lanou.days.setting.SettingFragment;
 import lanou.days.write.WriteFragment;
 
+import static lanou.days.enter.LoginActivity.RESULTOne;
+
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     private FragmentManager manager;
     private TextView tvName;
@@ -150,30 +152,30 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
         };
 
-        BmobUser bmobUser = BmobUser.getCurrentUser();
-
-        if (bmobUser != null) {
-            a = bmobUser.getObjectId();
-            Log.d("Sysout", bmobUser.getUsername());
-            tvName.setText("我的名字是:" + bmobUser.getUsername());
-
-            //// TODO: 16/12/8
-            //获取bmob头像
-            BmobQuery<MyUser> bmobQuery = new BmobQuery<MyUser>();
-            bmobQuery.addWhereEqualTo("objectId", a);
-            bmobQuery.findObjects(new FindListener<MyUser>() {
-                @Override
-                public void done(List<MyUser> list, BmobException e) {
-                    if (e == null) {
-                        b = list.get(0).getIcon();
-                        Log.d("MainActivity", b);
-                        Picasso.with(getBaseContext()).load(b).into(userIcon);
-
-                    }
-                }
-            });
-
-        }
+//        BmobUser bmobUser = BmobUser.getCurrentUser();
+//
+//        if (bmobUser != null) {
+//            a = bmobUser.getObjectId();
+//            Log.d("Sysout", bmobUser.getUsername());
+//            tvName.setText("我的名字是:" + bmobUser.getUsername());
+//
+//            //// TODO: 16/12/8
+//            //获取bmob头像
+//            BmobQuery<MyUser> bmobQuery = new BmobQuery<MyUser>();
+//            bmobQuery.addWhereEqualTo("objectId", a);
+//            bmobQuery.findObjects(new FindListener<MyUser>() {
+//                @Override
+//                public void done(List<MyUser> list, BmobException e) {
+//                    if (e == null) {
+//                        b = list.get(0).getIcon();
+//                        Log.d("MainActivity", b);
+//                        Picasso.with(getBaseContext()).load(b).into(userIcon);
+//
+//                    }
+//                }
+//            });
+//
+//        }
 
 
     }
@@ -245,7 +247,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             Picasso.with(this).load(icon).into(userIcon);
 
         }
-        if (requestCode == 1 && LoginActivity.RESULTOne == resultCode && data != null) {
+        if (requestCode == 1 && RESULTOne == resultCode && data != null) {
             name = data.getStringExtra("number");
             tvName.setText("我的名字叫:" + name);
         }
@@ -257,5 +259,38 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void onClick(View view) {
         Intent intent = new Intent(this, UserIconActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BmobUser bmobUser = BmobUser.getCurrentUser();
+
+        if (bmobUser != null) {
+            a = bmobUser.getObjectId();
+            Log.d("Sysout", bmobUser.getUsername());
+            tvName.setText("我的名字是:" + bmobUser.getUsername());
+
+            //// TODO: 16/12/8
+            //获取bmob头像
+            BmobQuery<MyUser> bmobQuery = new BmobQuery<MyUser>();
+            bmobQuery.addWhereEqualTo("objectId", a);
+            bmobQuery.findObjects(new FindListener<MyUser>() {
+                @Override
+                public void done(List<MyUser> list, BmobException e) {
+                    if (e == null) {
+                        b = list.get(0).getIcon();
+                        Log.d("MainActivity", b);
+                        Picasso.with(getBaseContext()).load(b).into(userIcon);
+
+                    }
+                }
+            });
+
+        }else{
+
+           return;
+        }
+
     }
 }

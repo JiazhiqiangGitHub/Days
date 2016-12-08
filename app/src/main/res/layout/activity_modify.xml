@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@mipmap/maomao2">
     <RelativeLayout
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -16,6 +17,7 @@
             android:layout_height="wrap_content"
             android:text="请输入你的生日"
             android:textSize="20dp"
+            android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
             />
         <EditText
@@ -38,12 +40,18 @@
                 android:id="@+id/btn_modify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/colorOpeningBG"
+                android:textColor="@color/colorOpeningTV"
+                android:layout_margin="10dp"
                 android:text="选择"
                 />
             <Button
                 android:id="@+id/btn_choose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/colorOpeningBG"
+                android:textColor="@color/colorOpeningTV"
+                android:layout_margin="10dp"
                 android:text="确定"
                 />
         </LinearLayout>
