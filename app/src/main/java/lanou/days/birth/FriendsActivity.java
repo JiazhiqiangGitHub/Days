@@ -1,16 +1,12 @@
 package lanou.days.birth;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -23,9 +19,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.zip.Inflater;
 
-import cn.bmob.v3.b.I;
 import lanou.days.R;
 import lanou.days.birth.tool.DBTool;
 import lanou.days.birth.tool.OnRecyclerItemClickListener;
@@ -57,10 +51,8 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
     private MyMonthAdapter monAdapter;
     private int birKind;
     private BirCountDownAdapter birAdapter;
-    public static final int RESULT = 2;
     private int num;
     private int type = 2;
-
 
 
     @Override
@@ -106,25 +98,38 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
                 stickyListHeadersListView.setAdapter(monAdapter);
             }
         });
+
         stickyListHeadersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (1 == type) {
+                    Intent intent = new Intent(FriendsActivity.this, DetailsActivity.class);
+                    intent.putExtra("name", birAdapter.arrayList.get(i).getName());
+                    intent.putExtra("constellation", birAdapter.arrayList.get(i).getConstellation());
+                    intent.putExtra("date", birAdapter.arrayList.get(i).getDate());
+                    intent.putExtra("id", birAdapter.arrayList.get(i).getId());
+                    startActivity(intent);
 
-                dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
-                    @Override
-                    public void onQuery(ArrayList<UserBean> userBeen) {
-                        Intent intent = new Intent(FriendsActivity.this, DetailsActivity.class);
-                        intent.putExtra("name", userBeen.get(i).getName());
-                        intent.putExtra("constellation", userBeen.get(i).getConstellation());
-                        intent.putExtra("date", userBeen.get(i).getDate());
-                        intent.putExtra("id", userBeen.get(i).getId());
-                        startActivity(intent);
-                    }
-                });
+                } else if (2 == type) {
+                    Intent intent = new Intent(FriendsActivity.this, DetailsActivity.class);
+                    intent.putExtra("name", monAdapter.arrayList.get(i).getName());
+                    intent.putExtra("constellation", monAdapter.arrayList.get(i).getConstellation());
+                    intent.putExtra("date", monAdapter.arrayList.get(i).getDate());
+                    intent.putExtra("id", monAdapter.arrayList.get(i).getId());
+                    startActivity(intent);
+
+                } else if (3 == type) {
+                    Intent intent = new Intent(FriendsActivity.this, DetailsActivity.class);
+                    intent.putExtra("name", conAdapter.arrayList.get(i).getName());
+                    intent.putExtra("constellation", conAdapter.arrayList.get(i).getConstellation());
+                    intent.putExtra("date", conAdapter.arrayList.get(i).getDate());
+                    intent.putExtra("id", conAdapter.arrayList.get(i).getId());
+                    startActivity(intent);
+                }
+
 
             }
         });
-
 
     }
 
@@ -151,6 +156,7 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
         bean.setConstellation(constellation);
         bean.setDate(date);
         bean.setMonKind(monthKind);
+        bean.setBirKind(getBirthdayCountDown(date));
         bean.setMonth(String.valueOf(monthKind));
         dbTool.insert(bean);
         reFresh();
@@ -169,15 +175,15 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
                 break;
             case R.id.tv_back:
                 Calendar calendar = Calendar.getInstance();
-                final String day = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH)+1) + "-" +
+                final String day = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" +
                         calendar.get(Calendar.DAY_OF_MONTH);
                 final ArrayList<String> arrayList = new ArrayList<>();
                 dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
                     @Override
                     public void onQuery(ArrayList<UserBean> userBeen) {
-                        for (UserBean bean:userBeen
+                        for (UserBean bean : userBeen
                                 ) {
-                            if (day.equals(bean.getDate())){
+                            if (day.equals(bean.getDate())) {
                                 arrayList.add(bean.getName());
 
                             }
@@ -189,7 +195,7 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
                         String str = String.valueOf(count);
                         Log.d("FriendsActivity", str);
                         intent.putExtra("count", str);
-                        intent.putStringArrayListExtra("briname",arrayList);
+                        intent.putStringArrayListExtra("briname", arrayList);
                         sendBroadcast(intent);
                         finish();
                     }
@@ -292,65 +298,67 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
 
         }
     }
-public void reFresh(){
-    if (1 == type){
-        dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
-            @Override
-            public void onQuery(ArrayList<UserBean> userBeen) {
-                for (UserBean str : userBeen) {
-                    num = getBirthdayCountDown(str.getDate());
-                    str.setBirKind(num);
-                    dbTool.upData(str);
+
+    public void reFresh() {
+        if (1 == type) {
+            dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
+                @Override
+                public void onQuery(ArrayList<UserBean> userBeen) {
+                    for (UserBean str : userBeen) {
+                        num = getBirthdayCountDown(str.getDate());
+                        str.setBirKind(num);
+                        dbTool.upData(str);
+                    }
+                    dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
+                        @Override
+                        public void onQuery(ArrayList<UserBean> userBeen) {
+                            //TODO 根据日期 确定kind值
+                            Collections.sort(userBeen, new Comparator<UserBean>() {
+                                @Override
+                                public int compare(UserBean userBean, UserBean t1) {
+                                    return userBean.getBirKind() - t1.getBirKind();
+                                }
+                            });
+                            birAdapter.setArrayList(userBeen);
+                            stickyListHeadersListView.setAdapter(birAdapter);
+                        }
+                    });
+
                 }
-                dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
-                    @Override
-                    public void onQuery(ArrayList<UserBean> userBeen) {
-                        //TODO 根据日期 确定kind值
-                        Collections.sort(userBeen, new Comparator<UserBean>() {
-                            @Override
-                            public int compare(UserBean userBean, UserBean t1) {
-                                return userBean.getBirKind() - t1.getBirKind();
-                            }
-                        });
-                        birAdapter.setArrayList(userBeen);
-                        stickyListHeadersListView.setAdapter(birAdapter);
-                    }
-                });
+            });
+        } else if (2 == type) {
+            dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
+                @Override
+                public void onQuery(ArrayList<UserBean> userBeen) {
+                    Collections.sort(userBeen, new Comparator<UserBean>() {
+                        @Override
+                        public int compare(UserBean userBean, UserBean t1) {
+                            return userBean.getMonKind() - t1.getMonKind();
+                        }
+                    });
+                    Log.d("FriendsActivity", "userBeen:" + userBeen);
+                    monAdapter.setArrayList(userBeen);
+                    stickyListHeadersListView.setAdapter(monAdapter);
+                }
+            });
+        } else {
+            dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
+                @Override
+                public void onQuery(ArrayList<UserBean> constellationBeen) {
+                    Collections.sort(constellationBeen, new Comparator<UserBean>() {
+                        @Override
+                        public int compare(UserBean constellationBean, UserBean t1) {
+                            return constellationBean.getKind() - t1.getKind();
+                        }
+                    });//分组
+                    conAdapter.setArrayList(constellationBeen);
+                    stickyListHeadersListView.setAdapter(conAdapter);
+                }
+            });
 
-            }
-        });
-    }else if (2 == type){
-        dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
-            @Override
-            public void onQuery(ArrayList<UserBean> userBeen) {
-                Collections.sort(userBeen, new Comparator<UserBean>() {
-                    @Override
-                    public int compare(UserBean userBean, UserBean t1) {
-                        return userBean.getMonKind() - t1.getMonKind();
-                    }
-                });
-                Log.d("FriendsActivity", "userBeen:" + userBeen);
-                monAdapter.setArrayList(userBeen);
-                stickyListHeadersListView.setAdapter(monAdapter);
-            }
-        });
-    }else {
-        dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
-            @Override
-            public void onQuery(ArrayList<UserBean> constellationBeen) {
-                Collections.sort(constellationBeen, new Comparator<UserBean>() {
-                    @Override
-                    public int compare(UserBean constellationBean, UserBean t1) {
-                        return constellationBean.getKind() - t1.getKind();
-                    }
-                });//分组
-                conAdapter.setArrayList(constellationBeen);
-                stickyListHeadersListView.setAdapter(conAdapter);
-            }
-        });
-
+        }
     }
-}
+
     public int getBirthdayCountDown(String date) {
         int birKind;
         long days;
@@ -390,24 +398,5 @@ public void reFresh(){
         }
         return birKind;
     }
-//    public void getRecentBir(){
-//        Calendar calendar = Calendar.getInstance();
-//        String day = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH)+1) + "-" +
-//                calendar.get(Calendar.DAY_OF_MONTH);
-//        ArrayList<String> arrayList = new ArrayList<>();
-//        dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
-//            @Override
-//            public void onQuery(ArrayList<UserBean> userBeen) {
-//                for (UserBean bean:userBeen
-//                     ) {
-//                    if (day.equals(bean.getDate())){
-//                       arrayList.add(bean.getName());
-//
-//                    }
-//                }
-//            }
-//        });
-//
-//    }
 
 }

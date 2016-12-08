@@ -115,7 +115,7 @@ public class BirthFragment extends BaseFragment implements View.OnClickListener 
                 }
             case R.id.rl_friends:
                 Intent intent1 = new Intent(MyApp.getContext(), FriendsActivity.class);
-//                startActivityForResult(intent1,FRI_REQUEST);
+
                 startActivity(intent1);
                 break;
             case R.id.tv_recent_name:
@@ -147,10 +147,7 @@ public class BirthFragment extends BaseFragment implements View.OnClickListener 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (REQUEST == requestCode && ModifyBirthDayActivity.RESULT == resultCode) {
-//            birthdayTv.setText(data.getStringExtra("birthday"));
-//            getBirthday();
-//            birthdayTime.setText((int) days + "天");
-//            getHaveBorn();
+
             dbTool.queryAllData(MyBean.class, new DBTool.OnQueryListener<MyBean>() {
                 @Override
                 public void onQuery(ArrayList<MyBean> myBeen) {
@@ -167,12 +164,6 @@ public class BirthFragment extends BaseFragment implements View.OnClickListener 
             });
         }
 
-//        }else if (FRI_REQUEST == requestCode && FriendsActivity.RESULT == resultCode){
-//            data.getStringExtra("count");
-//            friendsCount.setText(data.getStringExtra("count"));
-////            Log.d("BirthFragment", data.getStringExtra("1"));
-////            friendsCount.setText(data.getStringExtra("1"));
-//        }
 
     }
 
@@ -212,7 +203,7 @@ public class BirthFragment extends BaseFragment implements View.OnClickListener 
         try {
             Date dateBorn = format.parse(birthdayTv.getText().toString());
             Date dateNow = new Date(System.currentTimeMillis());
-//            long days = (int) (dateNow.getTime() - dateBorn.getTime());
+
             int haveBorn = (int) ((dateNow.getTime() - dateBorn.getTime()) / (1000 * 3600 * 24));
             Log.d("BirthFragment", "haveBorn:" + haveBorn);
             haveBornTv.setText(haveBorn + "");
@@ -226,13 +217,7 @@ public class BirthFragment extends BaseFragment implements View.OnClickListener 
         @Override
         public void onReceive(Context context, Intent intent) {
             friendsCount.setText(intent.getStringExtra("count"));
-//            Log.d("MyBroadCast", "intent.getStringArrayListExtra:" + intent.getStringArrayListExtra("briname"));
-//            String name = "";
-//            for (String str:intent.getStringArrayListExtra("briname")
-//                 ) {
-//                name = name + str + ",";
-//            }
-//            recentBir.setText(name + "过生日啦!");
+
         }
     }
 

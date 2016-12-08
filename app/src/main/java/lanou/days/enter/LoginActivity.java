@@ -103,6 +103,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                 final String number = etTelephone.getText().toString();
                 String world = etPassword.getText().toString();
+
                 BmobUser myUser = new BmobUser();
                 myUser.setUsername(number);
                 myUser.setPassword(world);

@@ -15,15 +15,18 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
+import java.util.List;
 
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.PlatformDb;
@@ -42,11 +45,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private FragmentManager manager;
     private TextView tvName;
     private PlatformActionListener platformActionListener;
-    private String qqName, icon, name;
-    private ImageView userIcon;
-    private String qqName, icon,name;
+    private String qqName, icon, name, usericon;
     private CircleImageView userIcon;
     private BottomNavigationView btnNV;
+    private String b;
+    private String a;
 
 
     @Override
@@ -148,12 +151,31 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         };
 
         BmobUser bmobUser = BmobUser.getCurrentUser();
-        Log.d("aaMainActivity", "bmobUser:" + bmobUser);
-        Log.d("aaMainActivity", "tvName:" + tvName);
+
         if (bmobUser != null) {
+            a = bmobUser.getObjectId();
             Log.d("Sysout", bmobUser.getUsername());
-            tvName.setText(bmobUser.getUsername());
+            tvName.setText("我的名字是:" + bmobUser.getUsername());
+
+            //// TODO: 16/12/8
+            //获取bmob头像
+            BmobQuery<MyUser> bmobQuery = new BmobQuery<MyUser>();
+            bmobQuery.addWhereEqualTo("objectId", a);
+            bmobQuery.findObjects(new FindListener<MyUser>() {
+                @Override
+                public void done(List<MyUser> list, BmobException e) {
+                    if (e == null) {
+                        b = list.get(0).getIcon();
+                        Log.d("MainActivity", b);
+                        Picasso.with(getBaseContext()).load(b).into(userIcon);
+
+                    }
+                }
+            });
+
         }
+
+
     }
 
     //创建侧滑
@@ -226,8 +248,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if (requestCode == 1 && LoginActivity.RESULTOne == resultCode && data != null) {
             name = data.getStringExtra("number");
             tvName.setText("我的名字叫:" + name);
-
-
         }
 
     }
@@ -235,7 +255,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     //头像点击事件
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(this,UserIconActivity.class);
+        Intent intent = new Intent(this, UserIconActivity.class);
         startActivity(intent);
     }
 }

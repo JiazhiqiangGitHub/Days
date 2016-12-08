@@ -13,7 +13,8 @@
         android:background="@color/colorOpeningBG"
         app:tabSelectedTextColor="@color/colorOpeningTV"
         app:tabIndicatorColor="@color/colorOpeningBG"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:layoutAnimation="@anim/list_anim_layout">
 
     </android.support.design.widget.TabLayout>
 

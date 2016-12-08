@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorOpeningBG">
+    android:background="@color/colorOpeningBG"
+    >
 <ImageView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -26,13 +27,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="30dp"
+            android:background="@color/colorOpeningTV"
+            android:text="选择照片"
+            android:textColor="@color/colorOpeningBG"
+            android:textSize="15dp"
+            android:layout_marginLeft="50dp"
+            android:id="@+id/btn_usericon"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/btn_usericon"
+            android:layout_alignParentRight="true"
             android:background="@color/colorOpeningTV"
             android:text="更换头像"
             android:textColor="@color/colorOpeningBG"
             android:textSize="15dp"
-            android:id="@+id/btn_usericon"
+            android:id="@+id/btn_usericon_ok"
+            android:layout_marginRight="50dp"
             />
 </RelativeLayout>
     <RelativeLayout

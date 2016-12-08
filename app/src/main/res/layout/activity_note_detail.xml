@@ -8,6 +8,10 @@
         android:layout_height="50dp"
         android:background="@color/colorOpeningBG"
         android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="8"
+            android:layout_height="50dp">
       <ImageView
           android:id="@+id/iv_note_detail_back"
           android:layout_width="wrap_content"
@@ -18,21 +22,23 @@
         <TextView
             android:textColor="@color/colorOpeningTV"
             android:text="详情"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:layout_marginStart="140dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             />
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/ll_note_detail_save"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_marginLeft="30dp"
             android:orientation="vertical"
             android:visibility="invisible">
             <ImageView
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="7dp"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:src="@mipmap/rewritewhite"
@@ -42,17 +48,18 @@
                 android:layout_height="wrap_content"
                 android:text="保存"
                 android:textColor="@color/colorOpeningTV"
-                android:textSize="15dp"
+                android:textSize="12dp"
                 android:layout_gravity="center"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/ll_note_detail_rewrite"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:orientation="vertical">
             <ImageView
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="7dp"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:src="@mipmap/rewritewhite"
@@ -62,17 +69,18 @@
                 android:layout_height="wrap_content"
                 android:text="修改"
                 android:textColor="@color/colorOpeningTV"
-                android:textSize="15dp"
+                android:textSize="12dp"
                 android:layout_gravity="center"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/ll_note_detail_delete"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_marginLeft="20dp">
             <ImageView
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="7dp"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:src="@mipmap/deletewhite"
@@ -81,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="删除"
-                android:textSize="15dp"
+                android:textSize="12dp"
                 android:textColor="@color/colorOpeningTV"
                 android:layout_gravity="center"/>
         </LinearLayout>

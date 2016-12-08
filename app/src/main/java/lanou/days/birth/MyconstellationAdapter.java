@@ -17,7 +17,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
  */
 
 public class MyConstellationAdapter extends BaseAdapter implements StickyListHeadersAdapter {
-    private ArrayList<UserBean> arrayList;
+     ArrayList<UserBean> arrayList;
     private Context context;
 
     public MyConstellationAdapter(Context context) {

@@ -7,12 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 import lanou.days.R;
-import lanou.days.base.BaseActivity;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
 /**
@@ -21,7 +18,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
 public class MyMonthAdapter extends BaseAdapter implements StickyListHeadersAdapter {
     private Context context;
-    private ArrayList<UserBean> arrayList;
+   ArrayList<UserBean> arrayList;
 
     public MyMonthAdapter(Context context) {
         this.context = context;

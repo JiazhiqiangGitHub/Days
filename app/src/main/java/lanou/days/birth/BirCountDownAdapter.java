@@ -1,18 +1,15 @@
 package lanou.days.birth;
 
 import android.content.Context;
-import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import lanou.days.R;
-import lanou.days.birth.tool.OnRecyclerItemClickListener;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
 /**
@@ -20,7 +17,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
  */
 
 public class BirCountDownAdapter extends BaseAdapter implements StickyListHeadersAdapter{
-    private ArrayList<UserBean> arrayList;
+     ArrayList<UserBean> arrayList;
     private Context context;
     public BirCountDownAdapter(Context context) {
         this.context = context;
