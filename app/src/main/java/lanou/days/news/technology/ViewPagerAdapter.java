@@ -33,7 +33,7 @@ public class ViewPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView imageView = new ImageView(context);
-        imageView.setImageResource(R.mipmap.head);
+        imageView.setImageResource(R.mipmap.maomao2);
         ((ViewPager)container).addView(imageView);
         return imageView;
     }

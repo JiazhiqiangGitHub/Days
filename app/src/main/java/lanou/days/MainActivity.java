@@ -214,13 +214,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if (requestCode == 1 && LoginActivity.RESULT == resultCode && data != null) {
             qqName = data.getStringExtra("name");
             icon = data.getStringExtra("icon");
-            tvName.setText(qqName);
+            tvName.setText("我的名字叫:"+ qqName);
             Picasso.with(this).load(icon).into(userIcon);
 
         }
         if (requestCode == 1 && LoginActivity.RESULTOne == resultCode && data!=null){
             name = data.getStringExtra("number");
-            tvName.setText(name);
+            tvName.setText("我的名字叫:"+ name);
 
 
         }

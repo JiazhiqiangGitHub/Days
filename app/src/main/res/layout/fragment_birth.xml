@@ -7,8 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/colorOpeningTV"
-    >
+        android:background="@color/colorOpeningTV">
 
         <ImageView
             android:id="@+id/iv_birth_modify"
@@ -73,6 +72,7 @@
             android:textColor="#ffffff"
             android:textSize="17sp"/>
     </RelativeLayout>
+
     <LinearLayout
         android:layout_marginTop="1dp"
         android:layout_width="match_parent"
@@ -99,7 +99,6 @@
                 android:textColor="@color/colorOpeningBG"/>
         </RelativeLayout>
     </LinearLayout>
-
 
     <RelativeLayout
         android:layout_width="match_parent"

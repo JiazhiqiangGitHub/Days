@@ -4,15 +4,28 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_mine"
-            android:icon="@mipmap/meblack"
-            android:title="切换用户" />
+            android:icon="@mipmap/user"
+            android:title="用户登录" />
         <item
             android:id="@+id/nav_close"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@mipmap/go"
             android:title= "退出登录" />
 
     </group>
-
-
-
+    <item android:title="设置">
+       <menu>
+           <item
+               android:icon="@mipmap/write"
+               android:title= "意见反馈" />
+           <item
+               android:icon="@mipmap/updata"
+               android:title= "检查更新" />
+           <item
+               android:icon="@mipmap/clean"
+               android:title= "清除缓存" />
+           <item
+               android:icon="@mipmap/star"
+               android:title= "给我们评分吧吧" />
+       </menu>
+    </item>
 </menu>
