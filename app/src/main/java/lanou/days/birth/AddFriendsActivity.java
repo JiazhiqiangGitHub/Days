@@ -9,6 +9,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -76,25 +77,30 @@ public class AddFriendsActivity extends BaseSwipeActivity implements View.OnClic
                 break;
             case R.id.iv_add:
                 Intent intent = new Intent(AddFriendsActivity.this, FriendsActivity.class);
-                if (mMonth != 0){
-                    intent.putExtra("name", userName.getText().toString());
-                    intent.putExtra("constellation", getConstellation(mMonth, mDay).toString());
-                    intent.putExtra("kind", getKind(getConstellation(mMonth, mDay)));
-                    intent.putExtra("date", contactBirthday.getText());
-                    intent.putExtra("monthKind", getMonthKind(mMonth));
+                if (userName.getText().toString().trim().equals("")){
+                    Toast.makeText(this, "用户名不能为空", Toast.LENGTH_SHORT).show();
+                }else {
+                    if (mMonth != 0) {
+                        intent.putExtra("name", userName.getText().toString());
+                        intent.putExtra("constellation", getConstellation(mMonth, mDay).toString());
+                        intent.putExtra("kind", getKind(getConstellation(mMonth, mDay)));
+                        intent.putExtra("date", contactBirthday.getText());
+                        intent.putExtra("monthKind", getMonthKind(mMonth));
 
 //                    intent.putExtra("countDown",getBirthdayCountDown());
-                }else {
-                    intent.putExtra("name", userName.getText().toString());
-                    intent.putExtra("constellation", getConstellation(nMonth+1, nDay).toString());
-                    intent.putExtra("kind", getKind(getConstellation(nMonth+1, nDay)));
-                    intent.putExtra("date", contactBirthday.getText());
-                    intent.putExtra("monthKind", getMonthKind(nMonth+1));
+                    } else {
+                        intent.putExtra("name", userName.getText().toString());
+                        intent.putExtra("constellation", getConstellation(nMonth + 1, nDay).toString());
+                        intent.putExtra("kind", getKind(getConstellation(nMonth + 1, nDay)));
+                        intent.putExtra("date", contactBirthday.getText());
+                        intent.putExtra("monthKind", getMonthKind(nMonth + 1));
 //                    intent.putExtra("countDown",getBirthdayCountDown());
+                    }
+
+                    startActivity(intent);
+                    finish();
+                    break;
                 }
-                startActivity(intent);
-                finish();
-                break;
         }
     }
 

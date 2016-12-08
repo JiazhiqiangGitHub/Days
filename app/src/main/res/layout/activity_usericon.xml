@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorOpeningBG">
+<ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@mipmap/backicon"
+    android:id="@+id/btn_user_back"
+    android:layout_margin="10dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5">
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:id="@+id/iv_usericon"
+        android:src="@mipmap/maomao2"
+        app:civ_border_width="2dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="70dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+            android:background="@color/colorOpeningTV"
+            android:text="更换头像"
+            android:textColor="@color/colorOpeningBG"
+            android:textSize="15dp"
+            android:id="@+id/btn_usericon"
+            />
+</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DAYS"
+        android:textColor="@color/colorOpeningTV"
+        android:textSize="80dp"
+        android:layout_centerInParent="true"
+
+        />
+</RelativeLayout>
+
+
+</LinearLayout>

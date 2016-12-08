@@ -29,6 +29,7 @@ import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.PlatformDb;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.tencent.qq.QQ;
+import de.hdodenhof.circleimageview.CircleImageView;
 import lanou.days.base.BaseActivity;
 import lanou.days.birth.BirthFragment;
 import lanou.days.enter.LoginActivity;
@@ -37,13 +38,16 @@ import lanou.days.note.NoteFragment;
 import lanou.days.setting.SettingFragment;
 import lanou.days.write.WriteFragment;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     private FragmentManager manager;
     private TextView tvName;
     private PlatformActionListener platformActionListener;
     private String qqName, icon, name;
     private ImageView userIcon;
+    private String qqName, icon,name;
+    private CircleImageView userIcon;
     private BottomNavigationView btnNV;
+
 
     @Override
     protected int getLayout() {
@@ -59,6 +63,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         View headerView = v.getHeaderView(0);
         tvName = bindView(headerView, R.id.tv_main_user_name);
         userIcon = bindView(headerView, R.id.iv_main_user_picture);
+        userIcon.setOnClickListener(this);
     }
 
     @Override
@@ -227,5 +232,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     }
 
-
+    //头像点击事件
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(this,UserIconActivity.class);
+        startActivity(intent);
+    }
 }

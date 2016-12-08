@@ -124,26 +124,14 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
 
             }
         });
-//        Calendar calendar = Calendar.getInstance();
-//        final String day = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH)+1) + "-" +
-//                calendar.get(Calendar.DAY_OF_MONTH);
-//        final ArrayList<String> arrayList = new ArrayList<>();
-//        dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
-//            @Override
-//            public void onQuery(ArrayList<UserBean> userBeen) {
-//                for (UserBean bean:userBeen
-//                        ) {
-//                    if (day.equals(bean.getDate())){
-//                        arrayList.add(bean.getName());
-//                    }
-//                }
-//                Intent intent = new Intent();
-//                intent.setAction("hehe");
-//                intent.putStringArrayListExtra("briName",arrayList);
-//                sendBroadcast(intent);
-//
-//            }
-//        });
+
+
+    }
+
+    @Override
+    protected void onRestart() {
+        reFresh();
+        super.onRestart();
 
     }
 
@@ -165,84 +153,7 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
         bean.setMonKind(monthKind);
         bean.setMonth(String.valueOf(monthKind));
         dbTool.insert(bean);
-//        Calendar calendar = Calendar.getInstance();
-//        final String day = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH)+1) + "-" +
-//                calendar.get(Calendar.DAY_OF_MONTH);
-//        final ArrayList<String> arrayList = new ArrayList<>();
-//        dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
-//            @Override
-//            public void onQuery(ArrayList<UserBean> userBeen) {
-//                for (UserBean bean:userBeen
-//                        ) {
-//                    if (day.equals(bean.getDate())){
-//                        arrayList.add(bean.getName());
-//                    }
-//                }
-//                Intent intent = new Intent();
-//                intent.setAction("hehe");
-//                intent.putStringArrayListExtra("briName",arrayList);
-//                sendBroadcast(intent);
-//
-//            }
-//        });
-
-        if (1 == type){
-            dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
-                @Override
-                public void onQuery(ArrayList<UserBean> userBeen) {
-                    for (UserBean str : userBeen) {
-                        num = getBirthdayCountDown(str.getDate());
-                        str.setBirKind(num);
-                        dbTool.upData(str);
-                    }
-                    dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
-                        @Override
-                        public void onQuery(ArrayList<UserBean> userBeen) {
-                            //TODO 根据日期 确定kind值
-                            Collections.sort(userBeen, new Comparator<UserBean>() {
-                                @Override
-                                public int compare(UserBean userBean, UserBean t1) {
-                                    return userBean.getBirKind() - t1.getBirKind();
-                                }
-                            });
-                            birAdapter.setArrayList(userBeen);
-                            stickyListHeadersListView.setAdapter(birAdapter);
-                        }
-                    });
-
-                }
-            });
-        }else if (2 == type){
-            dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
-                @Override
-                public void onQuery(ArrayList<UserBean> userBeen) {
-                    Collections.sort(userBeen, new Comparator<UserBean>() {
-                        @Override
-                        public int compare(UserBean userBean, UserBean t1) {
-                            return userBean.getMonKind() - t1.getMonKind();
-                        }
-                    });
-                    Log.d("FriendsActivity", "userBeen:" + userBeen);
-                    monAdapter.setArrayList(userBeen);
-                    stickyListHeadersListView.setAdapter(monAdapter);
-                }
-            });
-        }else {
-            dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
-                @Override
-                public void onQuery(ArrayList<UserBean> constellationBeen) {
-                    Collections.sort(constellationBeen, new Comparator<UserBean>() {
-                        @Override
-                        public int compare(UserBean constellationBean, UserBean t1) {
-                            return constellationBean.getKind() - t1.getKind();
-                        }
-                    });//分组
-                    conAdapter.setArrayList(constellationBeen);
-                    stickyListHeadersListView.setAdapter(conAdapter);
-                }
-            });
-
-        }
+        reFresh();
     }
 
     @Override
@@ -283,10 +194,6 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
                         finish();
                     }
                 });
-//                Intent intent = new Intent("haha");
-//
-//                sendBroadcast(intent);
-//                finish();
                 break;
             case R.id.iv_more:
                 if (!popupWindow.isShowing()) {
@@ -345,18 +252,6 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
                     }
                 });
 
-
-//                stickyListHeadersListView.setOnScrollListener(new AbsListView.OnScrollListener() {
-//                    @Override
-//                    public void onScrollStateChanged(AbsListView absListView, int i) {
-//                       // birAdapter.notifyDataSetChanged();
-//                    }
-//
-//                    @Override
-//                    public void onScroll(AbsListView absListView, int i, int i1, int i2) {
-//
-//                    }
-//                });
                 break;
             case "月份":
                 type = 2;
@@ -374,21 +269,10 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
                         stickyListHeadersListView.setAdapter(monAdapter);
                     }
                 });
-//                stickyListHeadersListView.setOnScrollListener(new AbsListView.OnScrollListener() {
-//                    @Override
-//                    public void onScrollStateChanged(AbsListView absListView, int i) {
-//                        monAdapter.notifyDataSetChanged();
-//                    }
-//
-//                    @Override
-//                    public void onScroll(AbsListView absListView, int i, int i1, int i2) {
-//
-//                    }
-//                });
+
                 break;
             case "星座":
                 type = 3;
-//                dbTool.deleteAllData(UserBean.class);
                 dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
                     @Override
                     public void onQuery(ArrayList<UserBean> constellationBeen) {
@@ -402,24 +286,71 @@ public class FriendsActivity extends BaseSwipeActivity implements View.OnClickLi
                         stickyListHeadersListView.setAdapter(conAdapter);
                     }
                 });
-//                stickyListHeadersListView.setOnScrollListener(new AbsListView.OnScrollListener() {
-//                    @Override
-//                    public void onScrollStateChanged(AbsListView absListView, int i) {
-////                        stickyListHeadersListView.setSelection(i);
-//                        conAdapter.notifyDataSetChanged();
-//                    }
-//
-//                    @Override
-//                    public void onScroll(AbsListView absListView, int i, int i1, int i2) {
-//
-//                    }
-//                });
+
                 break;
 
 
         }
     }
+public void reFresh(){
+    if (1 == type){
+        dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
+            @Override
+            public void onQuery(ArrayList<UserBean> userBeen) {
+                for (UserBean str : userBeen) {
+                    num = getBirthdayCountDown(str.getDate());
+                    str.setBirKind(num);
+                    dbTool.upData(str);
+                }
+                dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
+                    @Override
+                    public void onQuery(ArrayList<UserBean> userBeen) {
+                        //TODO 根据日期 确定kind值
+                        Collections.sort(userBeen, new Comparator<UserBean>() {
+                            @Override
+                            public int compare(UserBean userBean, UserBean t1) {
+                                return userBean.getBirKind() - t1.getBirKind();
+                            }
+                        });
+                        birAdapter.setArrayList(userBeen);
+                        stickyListHeadersListView.setAdapter(birAdapter);
+                    }
+                });
 
+            }
+        });
+    }else if (2 == type){
+        dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
+            @Override
+            public void onQuery(ArrayList<UserBean> userBeen) {
+                Collections.sort(userBeen, new Comparator<UserBean>() {
+                    @Override
+                    public int compare(UserBean userBean, UserBean t1) {
+                        return userBean.getMonKind() - t1.getMonKind();
+                    }
+                });
+                Log.d("FriendsActivity", "userBeen:" + userBeen);
+                monAdapter.setArrayList(userBeen);
+                stickyListHeadersListView.setAdapter(monAdapter);
+            }
+        });
+    }else {
+        dbTool.queryAllData(UserBean.class, new DBTool.OnQueryListener<UserBean>() {
+            @Override
+            public void onQuery(ArrayList<UserBean> constellationBeen) {
+                Collections.sort(constellationBeen, new Comparator<UserBean>() {
+                    @Override
+                    public int compare(UserBean constellationBean, UserBean t1) {
+                        return constellationBean.getKind() - t1.getKind();
+                    }
+                });//分组
+                conAdapter.setArrayList(constellationBeen);
+                stickyListHeadersListView.setAdapter(conAdapter);
+            }
+        });
+
+    }
+}
     public int getBirthdayCountDown(String date) {
         int birKind;
         long days;

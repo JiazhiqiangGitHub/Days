@@ -5,19 +5,19 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="40dp"
-    android:background="#ffd645">
+    android:background="@color/colorOpeningBG">
 <ImageView
     android:id="@+id/iv_more"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:src="@mipmap/more"
+    android:src="@mipmap/morechoose"
     android:layout_centerVertical="true"
     android:layout_marginLeft="10dp"/>
     <ImageView
         android:id="@+id/iv_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/add"
+        android:src="@mipmap/addfriends"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="10dp"
@@ -28,6 +28,7 @@
         android:text="生日通讯录"
         android:layout_centerInParent="true"
         android:id="@+id/tv_back"
+        android:textColor="@color/colorOpeningTV"
         />
 </RelativeLayout>
     <RelativeLayout

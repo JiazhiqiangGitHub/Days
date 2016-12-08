@@ -97,6 +97,7 @@ public class NoteFragment extends BaseFragment implements AdapterView.OnItemClic
 
     }
 
+
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         switch (adapterView.getId()){
@@ -118,10 +119,15 @@ public class NoteFragment extends BaseFragment implements AdapterView.OnItemClic
                 getBeanData(); // 去拿对应账号的内容
                 lv.setVisibility(View.VISIBLE);
                 mMainListView.setVisibility(View.INVISIBLE);
-
                 break;
         } 
 
     }
 
+    @Override
+    public void onResume() {
+        lv.setVisibility(View.INVISIBLE);
+        mMainListView.setVisibility(View.VISIBLE);
+        super.onResume();
+    }
 }

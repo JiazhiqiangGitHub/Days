@@ -125,4 +125,11 @@ public class ColorEgg extends BaseActivity implements View.OnClickListener, Anim
     public void onAnimationRepeat(Animation animation) {
 
     }
+
+    @Override
+    protected void onDestroy() {
+        text = 0;
+        angry = 0;
+        super.onDestroy();
+    }
 }

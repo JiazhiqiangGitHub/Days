@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/colorOpeningTV"
-        >
+        android:background="@color/colorOpeningTV">
 
         <ImageView
             android:id="@+id/iv_birth_modify"
@@ -73,33 +72,33 @@
             android:textColor="#ffffff"
             android:textSize="17sp"/>
     </RelativeLayout>
-   <LinearLayout
-       android:layout_marginTop="1dp"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:orientation="vertical"
-       android:background="@color/colorOpeningTV">
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_marginLeft="10dp"
-           android:text="距我的生日还有:"
-           android:textColor="@color/colorOpeningBG"/>
 
-       <RelativeLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content">
-           <TextView
-               android:id="@+id/tv_birthday_time"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_centerInParent="true"
-               android:text="0天"
-               android:textSize="20dp"
-               android:textColor="@color/colorOpeningBG"/>
-       </RelativeLayout>
-   </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/colorOpeningTV">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="距我的生日还有:"
+            android:textColor="@color/colorOpeningBG"/>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_birthday_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="0天"
+                android:textSize="20dp"
+                android:textColor="@color/colorOpeningBG"/>
+        </RelativeLayout>
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -130,7 +129,7 @@
                 android:layout_above="@id/tv_friends"
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/colorOpeningTV"
-                />
+            />
         </RelativeLayout>
 
     </RelativeLayout>
@@ -146,7 +145,7 @@
             android:layout_height="150dp"
             android:layout_centerVertical="true"
             android:src="@mipmap/ic_launcher"
-            />
+        />
         <TextView
             android:id="@+id/tv_recent_name"
             android:paddingLeft="15dp"
