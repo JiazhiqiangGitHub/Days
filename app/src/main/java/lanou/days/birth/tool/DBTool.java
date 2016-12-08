@@ -73,6 +73,11 @@ public class DBTool {
 //            }
 //        });
 //    }
+
+    /**
+     * 根据id删除
+     * @param id
+     */
     public void deleteById(final int id){
         threadPoolExecutor.execute(new Runnable() {
             @Override
