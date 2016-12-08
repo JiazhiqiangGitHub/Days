@@ -28,7 +28,11 @@ public class NewsFragment extends BaseFragment {
         adapter.setFragments(fragment);
         vp.setAdapter(adapter);
         tb.setupWithViewPager(vp);
+
     }
+
+
+
 
     @Override
     protected void initView() {

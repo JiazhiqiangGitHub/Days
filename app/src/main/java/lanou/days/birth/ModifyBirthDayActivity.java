@@ -7,12 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import java.util.Calendar;
 
+import cn.bmob.v3.BmobUser;
 import lanou.days.R;
-import lanou.days.base.BaseActivity;
+import lanou.days.birth.tool.DBTool;
 
 /**
  * Created by dllo on 16/11/22.
@@ -26,8 +26,13 @@ public class ModifyBirthDayActivity extends BaseSwipeActivity implements View.On
     private int day;
     private EditText show;
     public static final int RESULT = 4;
+    private MyBean myBean;
+    private BmobUser bmobUser;
+
     @Override
     protected void initData() {
+        myBean = new MyBean();
+        bmobUser = BmobUser.getCurrentUser();
        setClick(this,modifyBtn,chooseBtn);
     }
 
@@ -48,7 +53,12 @@ public class ModifyBirthDayActivity extends BaseSwipeActivity implements View.On
         switch (view.getId()){
             case R.id.btn_choose:
                 Intent intent = new Intent();
+                myBean.setName(bmobUser.getUsername().toString());
+                myBean.setBir(show.getText().toString());
                 Log.d("ModifyBirthDayActivity", "show.getText():" + show.getText());
+                DBTool dbTool = new DBTool();
+                dbTool.insert(myBean);
+                dbTool.upData(myBean);
                 String str = String.valueOf(show.getText());
                 intent.putExtra("birthday",str);
                 setResult(RESULT,intent);
@@ -67,6 +77,7 @@ public class ModifyBirthDayActivity extends BaseSwipeActivity implements View.On
 
                     }
                 }, year, month, day).show();
+
                 break;
         }
     }

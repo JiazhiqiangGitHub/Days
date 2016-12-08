@@ -41,7 +41,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private FragmentManager manager;
     private TextView tvName;
     private PlatformActionListener platformActionListener;
-    private String qqName, icon,name;
+    private String qqName, icon, name;
     private ImageView userIcon;
     private BottomNavigationView btnNV;
 
@@ -174,28 +174,28 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             startActivityForResult(intent, 1);
         } else if (id == R.id.nav_close) {
 
+            BmobUser user = BmobUser.getCurrentUser();
+            if (user != null) {
+                BmobUser.logOut();
+                Toast.makeText(this, "已退出", Toast.LENGTH_SHORT).show();
+            }
+            Intent intent = new Intent(MainActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        } else if (id == R.id.nav_qqclose) {
             //退出登录
             Platform qq = ShareSDK.getPlatform(QQ.NAME);
             if (qq.isAuthValid()) {
                 qq.removeAccount(true);
-            }else{
-            qq.setPlatformActionListener(platformActionListener);
-//            //authorize与showUser单独调用一个即可
-            qq.authorize();//单独授权，OnComplete返回的hashmap是空的
-            qq.showUser(null);//授权并获取用户信息
-//            //isValid和removeAccount不开启线程，会直接返回。
-            qq.removeAccount(true);
-            setResult(-1);
-            Intent intent = new Intent(MainActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-            }
-
-            BmobUser user = BmobUser.getCurrentUser();
-            if (user != null) {
-                BmobUser.logOut();
-
-                Toast.makeText(this, "已退出", Toast.LENGTH_SHORT).show();
+            } else {
+                qq.setPlatformActionListener(platformActionListener);
+                qq.authorize();//单独授权，OnComplete返回的hashmap是空的
+                qq.showUser(null);//授权并获取用户信息
+                qq.removeAccount(true);
+                setResult(-1);
+                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         }
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.dl);
@@ -214,13 +214,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if (requestCode == 1 && LoginActivity.RESULT == resultCode && data != null) {
             qqName = data.getStringExtra("name");
             icon = data.getStringExtra("icon");
-            tvName.setText("我的名字叫:"+ qqName);
+            tvName.setText("我的名字叫:" + qqName);
             Picasso.with(this).load(icon).into(userIcon);
 
         }
-        if (requestCode == 1 && LoginActivity.RESULTOne == resultCode && data!=null){
+        if (requestCode == 1 && LoginActivity.RESULTOne == resultCode && data != null) {
             name = data.getStringExtra("number");
-            tvName.setText("我的名字叫:"+ name);
+            tvName.setText("我的名字叫:" + name);
 
 
         }

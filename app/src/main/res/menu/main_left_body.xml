@@ -9,7 +9,11 @@
         <item
             android:id="@+id/nav_close"
             android:icon="@mipmap/go"
-            android:title= "退出登录" />
+            android:title= "离开" />
+        <item
+            android:id="@+id/nav_qqclose"
+            android:icon="@mipmap/qqqq"
+            android:title= "QQ登出" />
 
     </group>
     <item android:title="设置">

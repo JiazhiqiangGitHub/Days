@@ -121,6 +121,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         }
                     }
                 });
+
                 break;
             case R.id.btn_enter_new:
                 Intent intent = new Intent(LoginActivity.this,NewLoginActivity.class);

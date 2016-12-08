@@ -1,14 +1,12 @@
 package lanou.days.birth.tool;
 
 import android.os.Handler;
-import android.util.Log;
 
 import com.litesuits.orm.LiteOrm;
 import com.litesuits.orm.db.assit.WhereBuilder;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ThreadPoolExecutor;
 
 import lanou.days.birth.UserBean;
 
@@ -37,6 +35,11 @@ public class DBTool {
         threadPoolExecutor.execute(new InsertRunnable(t));
     }
 
+    /**
+     * 更新数据库
+     * @param t
+     * @param <T>
+     */
     public <T> void upData(final T t) {
         threadPoolExecutor.execute(new Runnable() {
             @Override
@@ -73,6 +76,11 @@ public class DBTool {
 //            }
 //        });
 //    }
+
+    /**
+     * 根据id删除
+     * @param id
+     */
     public void deleteById(final int id){
         threadPoolExecutor.execute(new Runnable() {
             @Override
@@ -81,6 +89,7 @@ public class DBTool {
             }
         });
     }
+
 
     /**
      * 删除 数据库所有数据 泛型方法实现
