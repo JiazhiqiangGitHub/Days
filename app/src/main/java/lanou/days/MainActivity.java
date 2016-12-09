@@ -151,33 +151,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
             }
         };
-
-//        BmobUser bmobUser = BmobUser.getCurrentUser();
-//
-//        if (bmobUser != null) {
-//            a = bmobUser.getObjectId();
-//            Log.d("Sysout", bmobUser.getUsername());
-//            tvName.setText("我的名字是:" + bmobUser.getUsername());
-//
-//            //// TODO: 16/12/8
-//            //获取bmob头像
-//            BmobQuery<MyUser> bmobQuery = new BmobQuery<MyUser>();
-//            bmobQuery.addWhereEqualTo("objectId", a);
-//            bmobQuery.findObjects(new FindListener<MyUser>() {
-//                @Override
-//                public void done(List<MyUser> list, BmobException e) {
-//                    if (e == null) {
-//                        b = list.get(0).getIcon();
-//                        Log.d("MainActivity", b);
-//                        Picasso.with(getBaseContext()).load(b).into(userIcon);
-//
-//                    }
-//                }
-//            });
-//
-//        }
-
-
     }
 
     //创建侧滑
@@ -257,8 +230,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     //头像点击事件
     @Override
     public void onClick(View view) {
+        BmobUser bmobUser = BmobUser.getCurrentUser();
+        if (bmobUser != null){
         Intent intent = new Intent(this, UserIconActivity.class);
         startActivity(intent);
+        }
     }
 
     @Override
